@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:registration/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -193,5 +194,20 @@ class _MyHomePageState extends State<MyHomePage> {
     String responses = responseJson['message'].toString();
 
     print(responses);
+    if (responses == 'true') {
+      final snackBar = SnackBar(
+        content: Text(responses),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {},
+        ),
+      );
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Login(responses)));
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Login(responses)));
+    }
   }
 }
