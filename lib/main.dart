@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:registration/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,6 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (formKeySignUp.currentState.validate()) {
         formKeySignUp.currentState.save();
+        _loadCounter();
+        addStringToSF();
         print(emailController);
         print(passwordController);
         _validation(
@@ -58,6 +61,37 @@ class _MyHomePageState extends State<MyHomePage> {
           passwordController.text,
         );
       }
+    });
+  }
+
+  addStringToSF() async {
+    String names = nameController.text;
+    String lastName = lastNameController.text;
+    String email = emailController.text;
+    String password = passwordController.text;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', names);
+    prefs.setString('lastName', lastName);
+    prefs.setString('email', email);
+    prefs.setString('password', password);
+
+    print(names);
+    print(lastName);
+    print(email);
+    print(password);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounter();
+  }
+
+  _loadCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _email = (prefs.getString('email') ?? '');
+      _pass = (prefs.getString('password') ?? '');
     });
   }
 
