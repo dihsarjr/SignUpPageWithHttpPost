@@ -236,11 +236,9 @@ class _MyHomePageState extends State<MyHomePage> {
     if (responses == 'true') {
       _showSnackBar(responses);
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Login(responses)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     } else {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Login(responses)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     }
   }
 

@@ -5,9 +5,6 @@ import 'home_pages_one.dart';
 import 'main.dart';
 
 class Login extends StatefulWidget {
-  String response;
-  Login(this.response);
-
   @override
   _LoginState createState() => _LoginState();
 }
