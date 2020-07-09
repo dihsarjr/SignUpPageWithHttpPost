@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart';
 
 import 'home_pages_one.dart';
 import 'main.dart';
@@ -32,44 +34,44 @@ class _LoginState extends State<Login> {
 
   String _password;
 
-  void _submit() {
-    setState(() {
-      if (formKey.currentState.validate()) {
-        formKey.currentState.save();
-        emailCont = emailController.text;
-        passCont = passwordController.text;
-
-        _loadCounter();
-
-        print(emailCont);
-        print(passCont);
-        print(_mail);
-        print(_pass);
-        if (emailCont == _mail && passCont == _pass) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePageOne()));
-        } else {
-          passError = 'invalid email and password';
-        }
-      } else {
-        passError = 'invalid email and password';
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadCounter();
-  }
-
-  _loadCounter() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _mail = (prefs.getString('email') ?? '');
-      _pass = (prefs.getString('password') ?? '');
-    });
-  }
+//  void _submit() {
+//    setState(() {
+//      if (formKey.currentState.validate()) {
+//        formKey.currentState.save();
+//        emailCont = emailController.text;
+//        passCont = passwordController.text;
+//
+//        _loadCounter();
+//
+//        print(emailCont);
+//        print(passCont);
+//        print(_mail);
+//        print(_pass);
+//        if (emailCont == _mail && passCont == _pass) {
+//          Navigator.push(
+//              context, MaterialPageRoute(builder: (context) => HomePageOne()));
+//        } else {
+//          passError = 'invalid email and password';
+//        }
+//      } else {
+//        passError = 'invalid email and password';
+//      }
+//    });
+//  }
+//
+//  @override
+//  void initState() {
+//    super.initState();
+//    _loadCounter();
+//  }
+//
+//  _loadCounter() async {
+//    SharedPreferences prefs = await SharedPreferences.getInstance();
+//    setState(() {
+//      _mail = (prefs.getString('email') ?? '');
+//      _pass = (prefs.getString('password') ?? '');
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +126,10 @@ class _LoginState extends State<Login> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40.0),
                     ),
-                    onPressed: _submit,
+                    onPressed: () {
+                      _validation(
+                          emailController.text, passwordController.text);
+                    },
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40.0),
@@ -182,5 +187,31 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  _validation(
+    String email,
+    String password,
+  ) async {
+    Map<String, String> headers = {};
+    Response response = await post('http://multi.capcee.com/api/login',
+        headers: headers,
+        body: {
+          'email': email,
+          'password': password,
+        });
+    print('Response status: ${response.statusCode}');
+    print(response.body);
+    Map<String, dynamic> responseJson = jsonDecode(response.body);
+    String responses = responseJson['message'].toString();
+
+    print(responses);
+
+    if (responses != '') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePageOne()));
+    } else {
+      print(responses);
+    }
   }
 }
