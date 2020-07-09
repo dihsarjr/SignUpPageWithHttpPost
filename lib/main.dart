@@ -44,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _password;
 
   final formKeySignUp = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
   void _submit() {
     setState(() {
@@ -66,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       key: formKeySignUp,
       child: SafeArea(
         child: Scaffold(
+          key: _globalKey,
           body: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -127,7 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40.0),
                     ),
-                    onPressed: _submit,
+                    onPressed: () {
+                      _showSnackBar('Register Successfully');
+                      _submit();
+                    },
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40.0),
@@ -195,13 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     print(responses);
     if (responses == 'true') {
-      final snackBar = SnackBar(
-        content: Text(responses),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {},
-        ),
-      );
+      _showSnackBar(responses);
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Login(responses)));
@@ -209,5 +208,12 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Login(responses)));
     }
+  }
+
+  _showSnackBar(String text) {
+    return _globalKey.currentState.showSnackBar(SnackBar(
+      content: Text(text),
+      duration: Duration(seconds: 3),
+    ));
   }
 }
