@@ -14,15 +14,31 @@ class Drawers extends StatefulWidget {
 }
 
 class _DrawersState extends State<Drawers> {
+  List listViewData;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getCategoryList();
+    getData();
+  }
+
+//GET DATA FROM FUTURE FUNCTION
+  getData() async {
+    await getCategoryList().then((v) {
+      v != null
+          ? setState(() {
+              listViewData = v;
+            })
+          : setState(() {
+              listViewData = null;
+            });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print(listViewData);
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -60,62 +76,43 @@ class _DrawersState extends State<Drawers> {
             height: 20,
           ),
           ListTile(
-//            leading: Icon(
-//              Icons.home,
-//              size: 30,
-//            ),
+            leading: Icon(
+              Icons.home,
+              size: 30,
+            ),
             title: Text('Home'),
           ),
-          ExpansionTile(
-//            leading: Icon(
-//              Icons.category,
-//              size: 30,
-//            ),
-            title: Text('Category'),
-            children: <Widget>[
-              ExpansionTile(
-//                leading: Icon(
-//                  Icons.person,
-//                  size: 30,
-//                ),
-                title: Text('Men'),
-                children: <Widget>[
-                  ExpansionTile(
-//                    leading: Icon(
-//                      Icons.add,
-//                      size: 30,
-//                    ),
-                    title: Text('category 2'),
-                    children: <Widget>[],
+          listViewData == null
+              ? Text('loading')
+              : Container(
+                  height: 500,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return ExpansionTile(
+                        leading: Icon(Icons.shop),
+                        title:
+                            Text(listViewData[index]["categorygroup"]["name"]),
+                        children: <Widget>[
+                          Container(
+                            height: 100,
+                            child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                return ExpansionTile(
+                                  leading: Icon(Icons.shop),
+                                  title: Text(listViewData[index]
+                                          ["categorygroup"]
+                                      ["category_sub_group"][0]["name"]),
+                                );
+                              },
+                              itemCount: listViewData.length,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    itemCount: listViewData.length,
                   ),
-                  ExpansionTile(
-//                    leading: Icon(
-//                      Icons.list,
-//                      size: 30,
-//                    ),
-                    title: Text('category 3'),
-                    children: <Widget>[],
-                  ),
-                  ExpansionTile(
-//                    leading: Icon(
-//                      Icons.insert_emoticon,
-//                      size: 30,
-//                    ),
-                    title: Text('category 4'),
-                    children: <Widget>[],
-                  ),
-                ],
-              ),
-              ExpansionTile(
-//                leading: Icon(
-//                  Icons.pregnant_woman,
-//                  size: 30,
-//                ),
-                title: Text('Woman'),
-                children: <Widget>[],
-              ),
-            ],
-          ),
+                ),
         ],
       ),
     );
@@ -123,16 +120,19 @@ class _DrawersState extends State<Drawers> {
 
   Future getCategoryList() async {
     List<dynamic> categoryList;
+    var v = categoryList;
     String url = "${GlobalConfiguration().getString("base_uri")}/categories";
     print(url);
     var res = await http
         .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
-    print(res.body);
+//    print(res.body);
     print(res.statusCode.toString());
     if (res.statusCode == 200) {
       var data = json.decode(res.body);
       categoryList = data["data"] as List;
-      print(categoryList);
+
+      print(categoryList[0]["categorygroup"]["category_sub_group"][0]["name"]);
+
 //      print(res.body);
       //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
     }
