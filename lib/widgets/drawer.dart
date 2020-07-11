@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
+import 'package:registration/category_det.dart';
 
 class Drawers extends StatefulWidget {
   String emailUser;
@@ -15,6 +16,9 @@ class Drawers extends StatefulWidget {
 
 class _DrawersState extends State<Drawers> {
   List listViewData;
+
+  List data;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -38,6 +42,7 @@ class _DrawersState extends State<Drawers> {
 
   @override
   Widget build(BuildContext context) {
+    print(data);
     print(listViewData);
     return Drawer(
       child: Column(
@@ -92,7 +97,13 @@ class _DrawersState extends State<Drawers> {
                         leading: Icon(Icons.shop),
                         title:
                             Text(listViewData[index]["categorygroup"]["name"]),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CategoryDet(listViewData)));
+                        },
                       );
                     },
                     itemCount: listViewData.length,
