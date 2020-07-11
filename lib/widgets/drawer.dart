@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class Drawers extends StatelessWidget {
+class Drawers extends StatefulWidget {
   String emailUser;
   String nameUser;
   Drawers(this.emailUser, this.nameUser);
+
+  @override
+  _DrawersState createState() => _DrawersState();
+}
+
+class _DrawersState extends State<Drawers> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -24,7 +38,7 @@ class Drawers extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      nameUser,
+                      widget.nameUser,
                       style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -33,7 +47,7 @@ class Drawers extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  emailUser,
+                  widget.emailUser,
                   style: TextStyle(fontSize: 20),
                 )
               ],
@@ -102,5 +116,17 @@ class Drawers extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void FetchData() async {
+    var response = await http.get('http://multi.capcee.com/api/categories');
+    if (response.statusCode == 200) {
+      print(response.body);
+
+//      var Data = Country.fromJson(json.decode(response.body));
+//      setState(() {
+//        _listofvalues.add(Data);
+//      });
+    }
   }
 }
