@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Drawers extends StatelessWidget {
   String emailUser;
   String nameUser;
-  Drawers(this.emailUser,this.nameUser);
+  Drawers(this.emailUser, this.nameUser);
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -49,12 +49,55 @@ class Drawers extends StatelessWidget {
             ),
             title: Text('Home'),
           ),
-          ListTile(
+          ExpansionTile(
             leading: Icon(
               Icons.category,
               size: 30,
             ),
             title: Text('Category'),
+            children: <Widget>[
+              ExpansionTile(
+                leading: Icon(
+                  Icons.person,
+                  size: 30,
+                ),
+                title: Text('Men'),
+                children: <Widget>[
+                  ExpansionTile(
+                    leading: Icon(
+                      Icons.add,
+                      size: 30,
+                    ),
+                    title: Text('category 2'),
+                    children: <Widget>[],
+                  ),
+                  ExpansionTile(
+                    leading: Icon(
+                      Icons.list,
+                      size: 30,
+                    ),
+                    title: Text('category 3'),
+                    children: <Widget>[],
+                  ),
+                  ExpansionTile(
+                    leading: Icon(
+                      Icons.insert_emoticon,
+                      size: 30,
+                    ),
+                    title: Text('category 4'),
+                    children: <Widget>[],
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                leading: Icon(
+                  Icons.pregnant_woman,
+                  size: 30,
+                ),
+                title: Text('Woman'),
+                children: <Widget>[],
+              ),
+            ],
           ),
         ],
       ),
