@@ -101,8 +101,9 @@ class _DrawersState extends State<Drawers> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      CategoryDet(listViewData)));
+                                  builder: (context) => CategoryDet(
+                                      listViewData[index]["categorygroup"]
+                                          ["category_sub_group"])));
                         },
                       );
                     },
