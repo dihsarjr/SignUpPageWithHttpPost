@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:registration/widgets/drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login.dart';
@@ -40,59 +41,7 @@ class _HomePageOneState extends State<HomePageOne> {
             appBar: AppBar(
               title: Text('welcome'),
             ),
-            drawer: Drawer(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    color: Colors.pink,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 50,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              _passs,
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          _emails,
-                          style: TextStyle(fontSize: 20),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.home,
-                      size: 30,
-                    ),
-                    title: Text('Home'),
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.category,
-                      size: 30,
-                    ),
-                    title: Text('Category'),
-                  ),
-                ],
-              ),
-            ),
+            drawer: Drawers(_emails,_passs),
             body: Center(
                 child: Container(
               child: Column(
