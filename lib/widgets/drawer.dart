@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
 class Drawers extends StatefulWidget {
@@ -15,7 +18,7 @@ class _DrawersState extends State<Drawers> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FetchData();
+    getCategoryList();
   }
 
   @override
@@ -57,57 +60,57 @@ class _DrawersState extends State<Drawers> {
             height: 20,
           ),
           ListTile(
-            leading: Icon(
-              Icons.home,
-              size: 30,
-            ),
+//            leading: Icon(
+//              Icons.home,
+//              size: 30,
+//            ),
             title: Text('Home'),
           ),
           ExpansionTile(
-            leading: Icon(
-              Icons.category,
-              size: 30,
-            ),
+//            leading: Icon(
+//              Icons.category,
+//              size: 30,
+//            ),
             title: Text('Category'),
             children: <Widget>[
               ExpansionTile(
-                leading: Icon(
-                  Icons.person,
-                  size: 30,
-                ),
+//                leading: Icon(
+//                  Icons.person,
+//                  size: 30,
+//                ),
                 title: Text('Men'),
                 children: <Widget>[
                   ExpansionTile(
-                    leading: Icon(
-                      Icons.add,
-                      size: 30,
-                    ),
+//                    leading: Icon(
+//                      Icons.add,
+//                      size: 30,
+//                    ),
                     title: Text('category 2'),
                     children: <Widget>[],
                   ),
                   ExpansionTile(
-                    leading: Icon(
-                      Icons.list,
-                      size: 30,
-                    ),
+//                    leading: Icon(
+//                      Icons.list,
+//                      size: 30,
+//                    ),
                     title: Text('category 3'),
                     children: <Widget>[],
                   ),
                   ExpansionTile(
-                    leading: Icon(
-                      Icons.insert_emoticon,
-                      size: 30,
-                    ),
+//                    leading: Icon(
+//                      Icons.insert_emoticon,
+//                      size: 30,
+//                    ),
                     title: Text('category 4'),
                     children: <Widget>[],
                   ),
                 ],
               ),
               ExpansionTile(
-                leading: Icon(
-                  Icons.pregnant_woman,
-                  size: 30,
-                ),
+//                leading: Icon(
+//                  Icons.pregnant_woman,
+//                  size: 30,
+//                ),
                 title: Text('Woman'),
                 children: <Widget>[],
               ),
@@ -118,15 +121,21 @@ class _DrawersState extends State<Drawers> {
     );
   }
 
-  void FetchData() async {
-    var response = await http.get('http://multi.capcee.com/api/categories');
-    if (response.statusCode == 200) {
-      print(response.body);
-
-//      var Data = Country.fromJson(json.decode(response.body));
-//      setState(() {
-//        _listofvalues.add(Data);
-//      });
+  Future getCategoryList() async {
+    List<dynamic> categoryList;
+    String url = "${GlobalConfiguration().getString("base_uri")}/categories";
+    print(url);
+    var res = await http
+        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+    print(res.body);
+    print(res.statusCode.toString());
+    if (res.statusCode == 200) {
+      var data = json.decode(res.body);
+      categoryList = data["data"] as List;
+      print(categoryList);
+//      print(res.body);
+      //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
     }
+    return categoryList;
   }
 }
