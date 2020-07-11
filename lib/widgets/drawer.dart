@@ -85,29 +85,14 @@ class _DrawersState extends State<Drawers> {
           listViewData == null
               ? Text('loading')
               : Container(
-                  height: 500,
+                  height: 600,
                   child: ListView.builder(
                     itemBuilder: (context, index) {
-                      return ExpansionTile(
+                      return ListTile(
                         leading: Icon(Icons.shop),
                         title:
                             Text(listViewData[index]["categorygroup"]["name"]),
-                        children: <Widget>[
-                          Container(
-                            height: 100,
-                            child: ListView.builder(
-                              itemBuilder: (context, index) {
-                                return ExpansionTile(
-                                  leading: Icon(Icons.shop),
-                                  title: Text(listViewData[index]
-                                          ["categorygroup"]
-                                      ["category_sub_group"][0]["name"]),
-                                );
-                              },
-                              itemCount: listViewData.length,
-                            ),
-                          ),
-                        ],
+                        onTap: () {},
                       );
                     },
                     itemCount: listViewData.length,
