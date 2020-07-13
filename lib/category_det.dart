@@ -8,6 +8,7 @@ class CategoryDet extends StatelessWidget {
   CategoryDet(this.listViews);
   @override
   Widget build(BuildContext context) {
+    print(listViews[0]['id']);
     return Scaffold(
         appBar: AppBar(),
         body: GridView.builder(
@@ -16,7 +17,9 @@ class CategoryDet extends StatelessWidget {
             childAspectRatio: (1 / 1),
           ),
           itemBuilder: (ctx, index) {
+            String id = listViews[index]['id'].toString();
             return FlatButton(
+              padding: EdgeInsets.all(0),
               child: Card(
                 color: Colors.yellow,
                 child: Column(
@@ -53,13 +56,10 @@ class CategoryDet extends StatelessWidget {
                     ),
                   ],
                 ),
-
               ),
-              onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProductsPage() ));
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProductsPage(id)));
               },
             );
           },
