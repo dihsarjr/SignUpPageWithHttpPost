@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:registration/full_detailed_view.dart';
 
 class ProductsPage extends StatefulWidget {
   String idProduct;
@@ -40,6 +41,7 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
 //    print(productsList);
+
     return Scaffold(
         appBar: AppBar(
           title: Text('data'),
@@ -57,6 +59,16 @@ class _ProductsPageState extends State<ProductsPage> {
                   childAspectRatio: (1 / 1),
                 ),
                 itemBuilder: (ctx, index) {
+                  String title = productsList['data'][index]['title'];
+                  String image = productsList['data'][index]['image'];
+                  String brand = productsList['data'][index]['brand'];
+                  String condition = productsList['data'][index]['condition'];
+                  String conditionNote;
+                  String description =
+                      productsList['data'][index]['description'];
+                  String price =
+                      'price :${productsList['data'][index]['sale_price']}';
+                  String stockQuantity;
                   return FlatButton(
                     padding: EdgeInsets.all(0),
                     child: Card(
@@ -69,8 +81,7 @@ class _ProductsPageState extends State<ProductsPage> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.fill,
-                                image: NetworkImage(
-                                    productsList['data'][index]['image']),
+                                image: NetworkImage(image),
                               ),
                             ),
                           ),
@@ -78,7 +89,7 @@ class _ProductsPageState extends State<ProductsPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: FittedBox(
                               child: Text(
-                                productsList['data'][index]['title'],
+                                title,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
@@ -88,7 +99,7 @@ class _ProductsPageState extends State<ProductsPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: FittedBox(
                               child: Text(
-                                'price :${productsList['data'][index]['sale_price']}',
+                                price,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 10),
                               ),
@@ -98,8 +109,11 @@ class _ProductsPageState extends State<ProductsPage> {
                       ),
                     ),
                     onPressed: () {
-//                Navigator.push(context,
-//                    MaterialPageRoute(builder: (context) => ProductsPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailsPage(title, image,
+                                  price, brand, description, condition)));
                     },
                   );
                 },
