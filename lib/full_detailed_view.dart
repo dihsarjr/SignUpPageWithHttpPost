@@ -22,6 +22,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(widget.brand),
         backgroundColor: Color(0xFFEDA89D),
         elevation: 0,
         actions: <Widget>[
@@ -43,12 +44,20 @@ class _DetailsPageState extends State<DetailsPage> {
           children: <Widget>[
             Container(
               margin: EdgeInsets.all(20),
-              child: Text(
-                widget.brand,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40),
+              child: Center(
+                child: ClipRRect(
+                  child: Image.network(
+                    widget.image,
+                    height: 400,
+                    width: 400,
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15)),
+                ),
               ),
             ),
             Expanded(
@@ -68,26 +77,57 @@ class _DetailsPageState extends State<DetailsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Center(
-                          child: ClipRRect(
-                            child: Image.network(
-                              widget.image,
-                              height: 250,
-                              width: 250,
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
-                                bottomLeft: Radius.circular(15)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              right: 30, left: 30, top: 10),
-                          child: Divider(
-                            color: Color(0xFFEDA89D),
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.remove_circle,
+                                    color: Color(0xFFEDA89D),
+                                  ),
+                                  //todo on press for the remove item
+                                  onPressed: () {
+                                    setState(() {
+                                      numberOfItem--;
+                                      print(numberOfItem);
+                                    });
+                                  }),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEDA89D),
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(10),
+                                    topLeft: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
+                                ),
+                                width: 30,
+                                height: 30,
+                                child: Center(
+                                  child: Text(
+                                    numberOfItem.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30),
+                                  ),
+                                ),
+                              ),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.add_circle,
+                                    color: Color(0xFFEDA89D),
+                                  ),
+                                  //todo on press for the add item
+                                  onPressed: () {
+                                    setState(() {
+                                      numberOfItem++;
+                                    });
+                                  }),
+                            ],
                           ),
                         ),
                         Container(
@@ -117,67 +157,24 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                         Center(
                           child: SizedBox(
-                            width: 350,
+                            width: 400,
                             child: Divider(
                               color: Color(0xFFEDA89D),
                             ),
                           ),
                         ),
                         Container(
-                          alignment: Alignment.topLeft,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.remove_circle,
-                                    color: Color(0xFFEDA89D),
-                                  ),
-                                  //todo on press for the remove item
-                                  onPressed: () {}),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEDA89D),
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(10),
-                                    topLeft: Radius.circular(10),
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
-                                  ),
-                                ),
-                                width: 30,
-                                height: 30,
-                                child: Center(
-                                  child: Text(
-                                    '1',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 30),
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.add_circle,
-                                    color: Color(0xFFEDA89D),
-                                  ),
-                                  //todo on press for the add item
-                                  onPressed: () {}),
-                            ],
-                          ),
-                        ),
-                        Container(
                             margin: EdgeInsets.only(top: 10, bottom: 10),
                             child: Text(
-                              widget.condition,
-                              style:
-                                  TextStyle(fontFamily: 'Muli', fontSize: 20),
+                              'Condition: ${widget.condition}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
                             )),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 45),
                           child: Text(
-                            widget.description,
+                            'Description:\n'
+                            '\n${widget.description}',
                           ),
                         ),
                       ],

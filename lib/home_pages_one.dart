@@ -39,6 +39,7 @@ class _HomePageOneState extends State<HomePageOne> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
+              backgroundColor: Color(0xFFEDA89D),
               title: Text('welcome'),
             ),
             drawer: Drawers(_emails, _passs),

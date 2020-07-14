@@ -45,6 +45,7 @@ class _ProductsPageState extends State<ProductsPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Color(0xFFEDA89D),
           title: Text('Products'),
         ),
         body: productsList['data'] == null
@@ -81,7 +82,7 @@ class _ProductsPageState extends State<ProductsPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        color: Colors.purple,
+                        color: Color(0xFFEDA89D),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[

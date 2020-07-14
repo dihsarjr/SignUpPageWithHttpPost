@@ -50,12 +50,18 @@ class _DrawersState extends State<Drawers> {
           Container(
             height: 200,
             width: double.infinity,
-            color: Colors.pink,
+            color: Color(0xFFEDA89D),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircleAvatar(
-                  radius: 50,
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

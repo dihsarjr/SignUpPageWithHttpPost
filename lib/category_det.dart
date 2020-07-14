@@ -10,7 +10,9 @@ class CategoryDet extends StatelessWidget {
   Widget build(BuildContext context) {
     print(listViews[0]['id']);
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Color(0xFFEDA89D),
+        ),
         body: Padding(
           padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
           child: GridView.builder(
@@ -29,7 +31,7 @@ class CategoryDet extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
-                  color: Colors.purple,
+                  color: Color(0xFFEDA89D),
                   child: Column(
                     children: <Widget>[
                       ClipRRect(
