@@ -54,80 +54,86 @@ class _ProductsPageState extends State<ProductsPage> {
                   style: TextStyle(fontSize: 30),
                 ),
               )
-            : GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: (1 / 1),
+            : Padding(
+                padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: (1 / 1.04),
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemBuilder: (ctx, index) {
+                    String title = productsList['data'][index]['title'];
+                    String image = productsList['data'][index]['image'];
+                    String brand = productsList['data'][index]['brand'];
+                    String condition = productsList['data'][index]['condition'];
+                    String conditionNote;
+                    String description =
+                        productsList['data'][index]['description'];
+                    String price =
+                        'price :${productsList['data'][index]['sale_price']}';
+                    String stockQuantity;
+                    return FlatButton(
+                      padding: EdgeInsets.all(0),
+                      child: Card(
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        color: Colors.purple,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            ClipRRect(
+                              child: Image.network(
+                                image,
+                                height: 150,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FittedBox(
+                                child: Text(
+                                  title,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FittedBox(
+                                child: Text(
+                                  brand,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailsPage(title, image,
+                                    price, brand, description, condition)));
+                      },
+                    );
+                  },
+                  itemCount: productsList['data'].length,
                 ),
-                itemBuilder: (ctx, index) {
-                  String title = productsList['data'][index]['title'];
-                  String image = productsList['data'][index]['image'];
-                  String brand = productsList['data'][index]['brand'];
-                  String condition = productsList['data'][index]['condition'];
-                  String conditionNote;
-                  String description =
-                      productsList['data'][index]['description'];
-                  String price =
-                      'price :${productsList['data'][index]['sale_price']}';
-                  String stockQuantity;
-                  return FlatButton(
-                    padding: EdgeInsets.all(0),
-                    child: Card(
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      color: Colors.purple,
-                      child: Column(
-                        children: <Widget>[
-                          ClipRRect(
-                            child: Image.network(
-                              image,
-                              height: 150,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: FittedBox(
-                              child: Text(
-                                title,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: FittedBox(
-                              child: Text(
-                                price,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DetailsPage(title, image,
-                                  price, brand, description, condition)));
-                    },
-                  );
-                },
-                itemCount: productsList['data'].length,
               ));
   }
 

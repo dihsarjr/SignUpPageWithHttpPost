@@ -23,26 +23,19 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text(widget.brand),
+        actions: <Widget>[
+          Container(
+              margin: EdgeInsets.only(right: 10),
+              child:
+                  IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}))
+        ],
       ),
-      drawer: Drawer(),
       body: Container(
         color: Colors.purple,
         padding: EdgeInsets.all(0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                  //TODO back arrow button
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  }),
-            ),
             Container(
               margin: EdgeInsets.all(20),
               child: Text(
@@ -53,8 +46,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     fontSize: 40),
               ),
             ),
-            Flexible(
-              fit: FlexFit.tight,
+            Expanded(
               child: SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.all(0),
@@ -143,7 +135,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               size: Size(56, 56), // button width and height
                               child: ClipOval(
                                 child: Material(
-                                  color: Color(0xFFEDA89D), // button color
+                                  color: Colors.purple, // button color
                                   child: InkWell(
                                     splashColor: Colors.black12,
                                     //TODO on press for the cart button in Detailed view
@@ -174,8 +166,11 @@ class _DetailsPageState extends State<DetailsPage> {
                               style:
                                   TextStyle(fontFamily: 'Muli', fontSize: 20),
                             )),
-                        Text(
-                          widget.description,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 45),
+                          child: Text(
+                            widget.description,
+                          ),
                         ),
                       ],
                     ),
@@ -183,6 +178,33 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
             ),
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+              ),
+              elevation: 20,
+              margin: EdgeInsets.all(0),
+              child: Center(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  margin: EdgeInsets.only(top: 10, bottom: 5),
+                  color: Colors.purple,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 15, bottom: 15, right: 25, left: 25),
+                    child: Text(
+                      'Add to Cart',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

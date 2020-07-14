@@ -12,11 +12,13 @@ class CategoryDet extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(),
         body: Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: (1 / 1),
+              crossAxisSpacing: 6,
+              mainAxisSpacing: 6,
             ),
             itemBuilder: (ctx, index) {
               String id = listViews[index]['id'].toString();
@@ -53,16 +55,13 @@ class CategoryDet extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FittedBox(
-                          child: Text(
-                            listViews[index]['description'],
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10),
-                          ),
+                      FittedBox(
+                        child: Text(
+                          listViews[index]['description'],
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10),
                         ),
                       ),
                     ],
