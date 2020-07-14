@@ -22,108 +22,169 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        elevation: 0,
+        title: Text(widget.brand),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: Container(
-                width: 250,
-                height: 250,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(widget.image),
+      drawer: Drawer(),
+      body: Container(
+        color: Colors.purple,
+        padding: EdgeInsets.all(0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                  //TODO back arrow button
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+            ),
+            Container(
+              margin: EdgeInsets.all(20),
+              child: Text(
+                widget.brand,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40),
+              ),
+            ),
+            Flexible(
+              fit: FlexFit.tight,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(0),
+                  margin: EdgeInsets.all(0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
+                  child: Container(
+                    margin: EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Center(
+                          child: Container(
+                            width: 200,
+                            height: 200,
+                            child: Image.network(widget.image),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(5),
+                          child: Text(
+                            widget.title,
+                            style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(5),
+                          child: Text(
+                            widget.brand,
+                            style: TextStyle(fontFamily: 'Muli'),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(5),
+                          child: Text(
+                            '${widget.price}',
+                            style: TextStyle(fontFamily: 'Muli'),
+                          ),
+                        ),
+                        Center(
+                          child: SizedBox(
+                            width: 350,
+                            child: Divider(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.remove_circle,
+                                    color: Colors.grey,
+                                  ),
+                                  //todo on press for the remove item
+                                  onPressed: () {}),
+                              Text(
+                                '1',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey,
+                                  ),
+                                  //todo on press for the add item
+                                  onPressed: () {}),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox.fromSize(
+                              size: Size(56, 56), // button width and height
+                              child: ClipOval(
+                                child: Material(
+                                  color: Color(0xFFEDA89D), // button color
+                                  child: InkWell(
+                                    splashColor: Colors.black12,
+                                    //TODO on press for the cart button in Detailed view
+                                    onTap: () {
+                                      print('cart icon pressed');
+                                    }, // button pressed
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.shopping_cart,
+                                          color: Colors.white,
+                                        ), // icon
+                                        // text
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(top: 10, bottom: 10),
+                            child: Text(
+                              widget.condition,
+                              style:
+                                  TextStyle(fontFamily: 'Muli', fontSize: 20),
+                            )),
+                        Text(
+                          widget.description,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 20,
-              top: 10,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.add,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        numberOfItem++;
-                      });
-                    }),
-                Text(
-                  numberOfItem.toString(),
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                IconButton(
-                    icon: Icon(Icons.remove),
-                    onPressed: () {
-                      setState(() {
-                        numberOfItem--;
-                      });
-                    }),
-              ],
-            ),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Color(0xFFe0f2f1)),
-                  child: IconButton(
-                      icon: Icon(Icons.add_shopping_cart), onPressed: () {})),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: FittedBox(
-                child: Text(
-              widget.title,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            )),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              'Brand : ${widget.brand}',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              widget.price,
-              style: TextStyle(fontSize: 30, color: Colors.lightBlue),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              'condition : ${widget.condition}',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, top: 10),
-            child: Text(
-              'Description',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(widget.description),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

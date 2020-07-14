@@ -43,8 +43,9 @@ class _ProductsPageState extends State<ProductsPage> {
 //    print(productsList);
 
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('data'),
+          title: Text('Products'),
         ),
         body: productsList['data'] == null
             ? Center(
@@ -72,18 +73,23 @@ class _ProductsPageState extends State<ProductsPage> {
                   return FlatButton(
                     padding: EdgeInsets.all(0),
                     child: Card(
-                      color: Colors.yellow,
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Colors.purple,
                       child: Column(
                         children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: NetworkImage(image),
-                              ),
+                          ClipRRect(
+                            child: Image.network(
+                              image,
+                              height: 150,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
                             ),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15)),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -91,7 +97,9 @@ class _ProductsPageState extends State<ProductsPage> {
                               child: Text(
                                 title,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
                               ),
                             ),
                           ),
@@ -101,7 +109,9 @@ class _ProductsPageState extends State<ProductsPage> {
                               child: Text(
                                 price,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 10),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10),
                               ),
                             ),
                           ),
