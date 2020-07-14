@@ -22,6 +22,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFFEDA89D),
         elevation: 0,
         actions: <Widget>[
           Container(
@@ -35,7 +36,7 @@ class _DetailsPageState extends State<DetailsPage> {
         ],
       ),
       body: Container(
-        color: Colors.purple,
+        color: Color(0xFFEDA89D),
         padding: EdgeInsets.all(0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -68,10 +69,25 @@ class _DetailsPageState extends State<DetailsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Center(
-                          child: Container(
-                            width: 200,
-                            height: 200,
-                            child: Image.network(widget.image),
+                          child: ClipRRect(
+                            child: Image.network(
+                              widget.image,
+                              height: 250,
+                              width: 250,
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                                bottomRight: Radius.circular(15),
+                                bottomLeft: Radius.circular(15)),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              right: 30, left: 30, top: 10),
+                          child: Divider(
+                            color: Color(0xFFEDA89D),
                           ),
                         ),
                         Container(
@@ -95,14 +111,15 @@ class _DetailsPageState extends State<DetailsPage> {
                           margin: EdgeInsets.all(5),
                           child: Text(
                             '${widget.price}',
-                            style: TextStyle(fontFamily: 'Muli'),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                         ),
                         Center(
                           child: SizedBox(
                             width: 350,
                             child: Divider(
-                              color: Colors.black,
+                              color: Color(0xFFEDA89D),
                             ),
                           ),
                         ),
@@ -114,54 +131,41 @@ class _DetailsPageState extends State<DetailsPage> {
                               IconButton(
                                   icon: Icon(
                                     Icons.remove_circle,
-                                    color: Colors.grey,
+                                    color: Color(0xFFEDA89D),
                                   ),
                                   //todo on press for the remove item
                                   onPressed: () {}),
-                              Text(
-                                '1',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEDA89D),
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(10),
+                                    topLeft: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
+                                ),
+                                width: 30,
+                                height: 30,
+                                child: Center(
+                                  child: Text(
+                                    '1',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30),
+                                  ),
+                                ),
                               ),
                               IconButton(
                                   icon: Icon(
                                     Icons.add_circle,
-                                    color: Colors.grey,
+                                    color: Color(0xFFEDA89D),
                                   ),
                                   //todo on press for the add item
                                   onPressed: () {}),
                             ],
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox.fromSize(
-                              size: Size(56, 56), // button width and height
-                              child: ClipOval(
-                                child: Material(
-                                  color: Colors.purple, // button color
-                                  child: InkWell(
-                                    splashColor: Colors.black12,
-                                    //TODO on press for the cart button in Detailed view
-                                    onTap: () {
-                                      print('cart icon pressed');
-                                    }, // button pressed
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.shopping_cart,
-                                          color: Colors.white,
-                                        ), // icon
-                                        // text
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                         Container(
                             margin: EdgeInsets.only(top: 10, bottom: 10),
@@ -183,32 +187,53 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
             Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                elevation: 20,
-                margin: EdgeInsets.all(0),
-                child: Center(
-                  child: Card(
-                    elevation: 9,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    color: Colors.purple,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 15, bottom: 15, right: 70, left: 70),
-                      child: Text(
-                        'Add to Cart',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.white),
-                      ),
-                    ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+              ),
+              elevation: 20,
+              margin: EdgeInsets.all(0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.favorite_border,
+                          color: Color(0xFFEDA89D),
+                          size: 30,
+                        ),
+                        onPressed: () {}),
                   ),
-                ))
+                  Column(
+                    children: <Widget>[
+                      Card(
+                        elevation: 9,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        margin: EdgeInsets.only(
+                            top: 10, bottom: 10, right: 30, left: 30),
+                        color: Color(0xFFEDA89D),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15, bottom: 15, right: 120, left: 120),
+                            child: Text(
+                              'Add to Cart',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
