@@ -26,6 +26,10 @@ class _DetailsPageState extends State<DetailsPage> {
         actions: <Widget>[
           Container(
               margin: EdgeInsets.only(right: 10),
+              child: IconButton(
+                  icon: Icon(Icons.favorite_border), onPressed: () {})),
+          Container(
+              margin: EdgeInsets.only(right: 10),
               child:
                   IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}))
         ],
@@ -179,32 +183,32 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
             Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0),
-              ),
-              elevation: 20,
-              margin: EdgeInsets.all(0),
-              child: Center(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  margin: EdgeInsets.only(top: 10, bottom: 5),
-                  color: Colors.purple,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 15, bottom: 15, right: 25, left: 25),
-                    child: Text(
-                      'Add to Cart',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.white),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
+                elevation: 20,
+                margin: EdgeInsets.all(0),
+                child: Center(
+                  child: Card(
+                    elevation: 9,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    color: Colors.purple,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 15, bottom: 15, right: 70, left: 70),
+                      child: Text(
+                        'Add to Cart',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            )
+                ))
           ],
         ),
       ),
