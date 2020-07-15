@@ -26,7 +26,7 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   int numberOfItem = 1;
-  String userId = '';
+  String userId;
 
   List listData = [];
 
@@ -244,7 +244,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 size: 30,
                               ),
                               onPressed: () {
-                                _validation();
+                                _validation12();
                               }),
                         ),
                   Column(
@@ -323,36 +323,25 @@ class _DetailsPageState extends State<DetailsPage> {
         setState(() {
           widget.favorite = true;
         });
+      } else if (counter == listData.length - 1) {
+        ids = false;
       }
     }
   }
 
   _validation12() async {
     Map<String, String> headers = {};
+    String id = widget.productId;
     Response response = await get(
-      'http://multi.capcee.com/api/my_wishlist?user_id=31',
+      'http://multi.capcee.com/api/remove_wishlist?id=34',
     );
     print('Response status: ${response.statusCode}');
     print(response);
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['message'].toString();
     print(response.body);
-    print(responseJson["data"][1]['id']);
-
-    listData = responseJson['data'];
-    print(listData[0]['id']);
-    int counter = 0;
-    bool ids = true;
-    while (ids) {
-      counter++;
-      print(listData[counter]['id']);
-
-      if (listData[counter]['product_id'].toString() == widget.productId) {
-        ids = false;
-        setState(() {
-          widget.favorite = true;
-        });
-      }
-    }
+    setState(() {
+      widget.favorite = false;
+    });
   }
 }
