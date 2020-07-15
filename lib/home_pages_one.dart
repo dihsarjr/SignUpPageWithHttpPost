@@ -389,8 +389,6 @@ class _HomePageOneState extends State<HomePageOne> {
       var data = json.decode(res.body);
       weeklyList = data["data"] as List;
 
-      print(weeklyList);
-
 //      print(res.body);
       //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
     }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_pages_one.dart';
 import 'main.dart';
@@ -33,6 +34,8 @@ class _LoginState extends State<Login> {
   String _email;
 
   String _password;
+
+  Map data;
 
 //  void _submit() {
 //    setState(() {
@@ -72,6 +75,20 @@ class _LoginState extends State<Login> {
 //      _pass = (prefs.getString('password') ?? '');
 //    });
 //  }
+
+  addStringToSF(String id) async {
+    String email = emailController.text;
+    String password = passwordController.text;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('email', email);
+    prefs.setString('password', password);
+    prefs.setString('id', id);
+
+    print(email);
+    print(password);
+    print(id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -204,10 +221,12 @@ class _LoginState extends State<Login> {
     print(response.body);
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['message'].toString();
+    String id = responseJson['data']['id'].toString();
 
     print(responses);
 
     if (responses != '') {
+      addStringToSF(id);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomePageOne()));
     } else {

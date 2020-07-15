@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:registration/category_det.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../login.dart';
 
 class Drawers extends StatefulWidget {
   String emailUser;
@@ -40,6 +43,12 @@ class _DrawersState extends State<Drawers> {
     });
   }
 
+  removeValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Remove String
+    prefs.remove("email");
+  }
+
   @override
   Widget build(BuildContext context) {
     print(data);
@@ -48,7 +57,7 @@ class _DrawersState extends State<Drawers> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 200,
+            height: 300,
             width: double.infinity,
             color: Color(0xFFEDA89D),
             child: Column(
@@ -79,7 +88,14 @@ class _DrawersState extends State<Drawers> {
                 Text(
                   widget.emailUser,
                   style: TextStyle(fontSize: 20),
-                )
+                ),
+                RaisedButton(
+                    child: Text('Log Out'),
+                    onPressed: () {
+                      removeValues();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
+                    })
               ],
             ),
           ),
@@ -96,7 +112,7 @@ class _DrawersState extends State<Drawers> {
           listViewData == null
               ? Text('loading')
               : Container(
-                  height: 600,
+                  height: 550,
                   child: ListView.builder(
                     itemBuilder: (context, index) {
                       return ListTile(
