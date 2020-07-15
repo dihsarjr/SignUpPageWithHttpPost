@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
+import 'package:http/http.dart' as http;
 import 'package:registration/widgets/drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -81,8 +85,73 @@ class _HomePageOneState extends State<HomePageOne> {
             ),
             drawer: Drawers(_emails, _passs),
             body: Column(
-              children: <Widget>[imageCarousel],
+              children: <Widget>[
+                imageCarousel,
+                Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 10),
+                          child: Text(
+                            'Trending Now',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, right: 10),
+                          child: Text(
+                            'View All',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        )
+                      ],
+                    ),
+                    Container(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 195,
+                              width: 200,
+                              color: Colors.green,
+                            ),
+                          );
+                        },
+                        itemCount: 5,
+                      ),
+                    ),
+                  ],
+                )
+              ],
             )));
+  }
+
+  Future getCategoryList() async {
+    List<dynamic> categoryList;
+    var v = categoryList;
+    String url = "${GlobalConfiguration().getString("base_uri")}/trending_now";
+    print(url);
+    var res = await http
+        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+//    print(res.body);
+    print(res.statusCode.toString());
+    if (res.statusCode == 200) {
+      var data = json.decode(res.body);
+      categoryList = data["data"] as List;
+
+      print(categoryList[1]['brand']);
+
+//      print(res.body);
+      //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
+    }
+    return categoryList;
   }
 }
 
