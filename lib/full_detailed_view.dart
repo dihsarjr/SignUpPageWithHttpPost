@@ -34,7 +34,6 @@ class _DetailsPageState extends State<DetailsPage> {
   void initState() {
     super.initState();
     _loadCounter();
-    _validation1();
   }
 
   _loadCounter() async {
@@ -42,6 +41,7 @@ class _DetailsPageState extends State<DetailsPage> {
     setState(() {
       userId = (prefs.getString('id') ?? '');
       print(userId);
+      _validation1(userId);
     });
   }
 
@@ -244,7 +244,10 @@ class _DetailsPageState extends State<DetailsPage> {
                                 size: 30,
                               ),
                               onPressed: () {
-                                _validation12();
+                                setState(() {
+                                  _validation12(widget.idOne);
+                                  print(widget.idOne);
+                                });
                               }),
                         ),
                   Column(
@@ -298,10 +301,10 @@ class _DetailsPageState extends State<DetailsPage> {
     print(responses);
   }
 
-  _validation1() async {
+  _validation1(String id) async {
     Map<String, String> headers = {};
     Response response = await get(
-      'http://multi.capcee.com/api/my_wishlist?user_id=31',
+      'http://multi.capcee.com/api/my_wishlist?user_id=$id',
     );
     print('Response status: ${response.statusCode}');
     print(response);
@@ -329,11 +332,12 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
-  _validation12() async {
+  _validation12(String id1) async {
     Map<String, String> headers = {};
-    String id = widget.productId;
+
     Response response = await get(
-      'http://multi.capcee.com/api/remove_wishlist?id=34',
+      'http://multi.capcee.com/api/remove_wishlist?id=$id1',
+      headers: headers,
     );
     print('Response status: ${response.statusCode}');
     print(response);

@@ -12,7 +12,7 @@ class TrendingNow extends StatelessWidget {
   String condition;
   String idOne;
   String productId;
-  TrendingNow(this.image, this.title, this.price, this.brand);
+  TrendingNow(this.image, this.title, this.price, this.brand, this.idOne);
 
   @override
   Widget build(BuildContext context) {

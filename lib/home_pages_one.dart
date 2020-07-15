@@ -200,6 +200,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                           listViewData[index]['title'],
                                           listViewData[index]['sale_price'],
                                           listViewData[index]['brand'],
+                                          listViewData[index]['id'].toString(),
                                         )),
                                   );
                                 },
@@ -338,6 +339,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                   ),
                                 ),
                                 onPressed: () {
+                                  print(listViewDataWeekly);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
