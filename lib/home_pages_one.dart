@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
@@ -127,36 +128,34 @@ class _HomePageOneState extends State<HomePageOne> {
                   imageCarousel,
                   Column(
                     children: <Widget>[
-                      Divider(
-                        color: Colors.pink,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 10, left: 20, bottom: 10),
+                                top: 5, left: 20, bottom: 5),
                             child: Text(
                               'Trending Now',
                               style: TextStyle(
-                                fontSize: 20,
-                              ),
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 20),
-                            child: Text(
-                              'View All',
-                              style: TextStyle(fontSize: 20),
+                            padding: const EdgeInsets.only(top: 5, right: 20),
+                            child: FlatButton(
+                              padding: EdgeInsets.all(0),
+                              child: Text(
+                                'View All',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black54),
+                              ),
+                              onPressed: () {},
                             ),
                           )
                         ],
                       ),
-                      Divider(
-                        color: Colors.pink,
-                      ),
                       Container(
-                        height: 200,
+                        height: 230,
                         child: listViewData == null
                             ? ListView.builder(
                                 scrollDirection: Axis.horizontal,
@@ -185,125 +184,164 @@ class _HomePageOneState extends State<HomePageOne> {
                             : ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
-                                  return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TrendingNow(
-                                        listViewData[index]['image'],
-                                        listViewData[index]['title'],
-                                        listViewData[index]['sale_price'],
-                                        listViewData[index]['brand'],
-                                      ));
+                                  return Container(
+                                    color: Color(0xFFEDA89D),
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TrendingNow(
+                                          listViewData[index]['image'],
+                                          listViewData[index]['title'],
+                                          listViewData[index]['sale_price'],
+                                          listViewData[index]['brand'],
+                                        )),
+                                  );
                                 },
-                                itemCount: listViewData.length,
+                                itemCount: 6,
                               ),
                       ),
                     ],
                   ),
-                  Divider(
-                    color: Colors.pink,
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(
                       left: 20,
-                      top: 10,
-                      bottom: 10,
+                      top: 5,
+                      bottom: 5,
                     ),
                     child: Text(
                       'Weekly popular',
-                      style: TextStyle(fontSize: 20),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Divider(
-                    color: Colors.pink,
-                  ),
-                  GridView.builder(
-                    physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: (1 / 1.04),
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                    ),
-                    itemBuilder: (ctx, index) {
-                      String title = listViewDataWeekly[index]['title'];
-                      String image = listViewDataWeekly[index]['image'];
-                      String brand = listViewDataWeekly[index]['brand'];
-                      String condition = listViewDataWeekly[index]['condition'];
-                      String conditionNote;
-                      String description =
-                          listViewDataWeekly[index]['description'];
-                      String price =
-                          'price :${listViewDataWeekly[index]['sale_price']}';
-                      String stockQuantity;
-                      return FlatButton(
-                        padding: EdgeInsets.all(0),
-                        child: Card(
-                          elevation: 6,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
+                  listViewDataWeekly == null
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GridView.builder(
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: (1 / 1.08),
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                            ),
+                            itemBuilder: (ctx, index) {
+                              return FlatButton(
+                                padding: EdgeInsets.all(0),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  color: Colors.white,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Center(
+                                        child: Text('Loading'),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                onPressed: () {},
+                              );
+                            },
+                            itemCount: 5,
                           ),
-                          color: Colors.pink,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ClipRRect(
-                                  child: Image.network(
-                                    image,
-                                    height: 150,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GridView.builder(
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: (1 / 1.08),
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                            ),
+                            itemBuilder: (ctx, index) {
+                              String title = listViewDataWeekly[index]['title'];
+                              String image = listViewDataWeekly[index]['image'];
+                              String brand = listViewDataWeekly[index]['brand'];
+                              String condition =
+                                  listViewDataWeekly[index]['condition'];
+                              String conditionNote;
+                              String description =
+                                  listViewDataWeekly[index]['description'];
+                              String price =
+                                  'price :${listViewDataWeekly[index]['sale_price']}';
+                              String stockQuantity;
+                              return FlatButton(
+                                padding: EdgeInsets.all(0),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
                                   ),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15)),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: FittedBox(
-                                  child: Text(
-                                    title,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
+                                  color: Colors.white,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ClipRRect(
+                                          child: Image.network(
+                                            image,
+                                            height: 150,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(15),
+                                              topRight: Radius.circular(15)),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: FittedBox(
+                                          child: Text(
+                                            brand,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: FittedBox(
+                                          child: Text(
+                                            price,
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: FittedBox(
-                                  child: Text(
-                                    brand,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10),
-                                  ),
-                                ),
-                              ),
-                            ],
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DetailsPage(
+                                              title,
+                                              image,
+                                              price,
+                                              brand,
+                                              description,
+                                              condition)));
+                                },
+                              );
+                            },
+                            itemCount: listViewDataWeekly.length,
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailsPage(
-                                      title,
-                                      image,
-                                      price,
-                                      brand,
-                                      description,
-                                      condition)));
-                        },
-                      );
-                    },
-                    itemCount: listViewDataWeekly.length,
-                  ),
                 ],
               ),
             )));

@@ -14,9 +14,9 @@ class TrendingNow extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      color: Color(0xFFEDA89D),
+      color: Colors.white,
       child: Container(
-        height: 200,
+        height: 250,
         width: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,9 +43,21 @@ class TrendingNow extends StatelessWidget {
                 child: Text(
                   brand,
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FittedBox(
+                child: Text(
+                  '\$ : ${price}',
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15),
                 ),
               ),
             ),
