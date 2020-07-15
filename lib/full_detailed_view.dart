@@ -15,6 +15,7 @@ class DetailsPage extends StatefulWidget {
   String condition;
   String idOne;
   String productId;
+  bool favorite = false;
 
   DetailsPage(this.title, this.image, this.price, this.brand, this.description,
       this.condition, this.idOne, this.productId);
@@ -27,10 +28,13 @@ class _DetailsPageState extends State<DetailsPage> {
   int numberOfItem = 1;
   String userId = '';
 
+  List listData = [];
+
   @override
   void initState() {
     super.initState();
     _loadCounter();
+    _validation1();
   }
 
   _loadCounter() async {
@@ -215,18 +219,34 @@ class _DetailsPageState extends State<DetailsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.favorite_border,
-                          color: Color(0xFFEDA89D),
-                          size: 30,
+                  widget.favorite == false
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.favorite_border,
+                                color: Color(0xFFEDA89D),
+                                size: 30,
+                              ),
+                              onPressed: () {
+                                _validation();
+                                setState(() {
+                                  widget.favorite = true;
+                                });
+                              }),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.favorite,
+                                color: Color(0xFFEDA89D),
+                                size: 30,
+                              ),
+                              onPressed: () {
+                                _validation();
+                              }),
                         ),
-                        onPressed: () {
-                          _validation();
-                        }),
-                  ),
                   Column(
                     children: <Widget>[
                       Card(
@@ -276,5 +296,63 @@ class _DetailsPageState extends State<DetailsPage> {
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['message'].toString();
     print(responses);
+  }
+
+  _validation1() async {
+    Map<String, String> headers = {};
+    Response response = await get(
+      'http://multi.capcee.com/api/my_wishlist?user_id=31',
+    );
+    print('Response status: ${response.statusCode}');
+    print(response);
+    Map<String, dynamic> responseJson = jsonDecode(response.body);
+    String responses = responseJson['message'].toString();
+    print(response.body);
+    print(responseJson["data"][1]['id']);
+
+    listData = responseJson['data'];
+    print(listData[0]['id']);
+    int counter = 0;
+    bool ids = true;
+    while (ids) {
+      counter++;
+      print(listData[counter]['id']);
+
+      if (listData[counter]['product_id'].toString() == widget.productId) {
+        ids = false;
+        setState(() {
+          widget.favorite = true;
+        });
+      }
+    }
+  }
+
+  _validation12() async {
+    Map<String, String> headers = {};
+    Response response = await get(
+      'http://multi.capcee.com/api/my_wishlist?user_id=31',
+    );
+    print('Response status: ${response.statusCode}');
+    print(response);
+    Map<String, dynamic> responseJson = jsonDecode(response.body);
+    String responses = responseJson['message'].toString();
+    print(response.body);
+    print(responseJson["data"][1]['id']);
+
+    listData = responseJson['data'];
+    print(listData[0]['id']);
+    int counter = 0;
+    bool ids = true;
+    while (ids) {
+      counter++;
+      print(listData[counter]['id']);
+
+      if (listData[counter]['product_id'].toString() == widget.productId) {
+        ids = false;
+        setState(() {
+          widget.favorite = true;
+        });
+      }
+    }
   }
 }
