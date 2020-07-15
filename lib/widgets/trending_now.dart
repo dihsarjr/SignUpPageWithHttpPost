@@ -30,7 +30,7 @@ class TrendingNow extends StatelessWidget {
         color: Colors.white,
         child: Container(
           height: 250,
-          width: 200,
+          width: 250,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
