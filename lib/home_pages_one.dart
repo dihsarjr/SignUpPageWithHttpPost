@@ -14,6 +14,7 @@ class HomePageOne extends StatefulWidget {
 }
 
 class _HomePageOneState extends State<HomePageOne> {
+  List listViewData;
   final List<NewArrivalsModels> newArrivals = [
     NewArrivalsModels(
       'https://images.unsplash.com/photo-1591375372509-68d11e1390df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
@@ -41,6 +42,8 @@ class _HomePageOneState extends State<HomePageOne> {
   void initState() {
     super.initState();
     _loadCounter();
+    getCategoryList();
+    getData();
   }
 
   _loadCounter() async {
@@ -55,6 +58,20 @@ class _HomePageOneState extends State<HomePageOne> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Remove String
     prefs.remove("email");
+  }
+
+  //GET DATA FROM FUTURE FUNCTION
+  getData() async {
+    await getCategoryList().then((v) {
+      v != null
+          ? setState(() {
+              listViewData = v;
+              print(listViewData);
+            })
+          : setState(() {
+              listViewData = null;
+            });
+    });
   }
 
   @override
@@ -94,7 +111,7 @@ class _HomePageOneState extends State<HomePageOne> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 10, left: 10),
+                          padding: const EdgeInsets.only(top: 10, left: 20),
                           child: Text(
                             'Trending Now',
                             style: TextStyle(
@@ -103,7 +120,7 @@ class _HomePageOneState extends State<HomePageOne> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10, right: 10),
+                          padding: const EdgeInsets.only(top: 10, right: 20),
                           child: Text(
                             'View All',
                             style: TextStyle(fontSize: 20),
@@ -113,15 +130,44 @@ class _HomePageOneState extends State<HomePageOne> {
                     ),
                     Container(
                       height: 260,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TrendingNow());
-                        },
-                        itemCount: 5,
-                      ),
+                      child: listViewData == null
+                          ? ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    color: Color(0xFFEDA89D),
+                                    child: Container(
+                                      height: 250,
+                                      width: 200,
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child:
+                                              Center(child: Text('Loading'))),
+                                    ),
+                                  ),
+                                );
+                              },
+                              itemCount: 5,
+                            )
+                          : ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TrendingNow(
+                                      listViewData[index]['image'],
+                                      listViewData[index]['title'],
+                                      listViewData[index]['sale_price'],
+                                      listViewData[index]['brand'],
+                                    ));
+                              },
+                              itemCount: listViewData.length,
+                            ),
                     ),
                   ],
                 )
