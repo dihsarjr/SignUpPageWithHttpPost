@@ -8,6 +8,8 @@ import 'package:registration/widgets/drawer.dart';
 import 'package:registration/widgets/trending_now.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'full_detailed_view.dart';
+
 class HomePageOne extends StatefulWidget {
   @override
   _HomePageOneState createState() => _HomePageOneState();
@@ -15,6 +17,7 @@ class HomePageOne extends StatefulWidget {
 
 class _HomePageOneState extends State<HomePageOne> {
   List listViewData;
+  List listViewDataWeekly;
   final List<NewArrivalsModels> newArrivals = [
     NewArrivalsModels(
       'https://images.unsplash.com/photo-1591375372509-68d11e1390df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
@@ -44,6 +47,8 @@ class _HomePageOneState extends State<HomePageOne> {
     _loadCounter();
     getCategoryList();
     getData();
+    getWeeklyList();
+    getDataWeekly();
   }
 
   _loadCounter() async {
@@ -58,6 +63,19 @@ class _HomePageOneState extends State<HomePageOne> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Remove String
     prefs.remove("email");
+  }
+
+  getDataWeekly() async {
+    await getWeeklyList().then((v) {
+      v != null
+          ? setState(() {
+              listViewDataWeekly = v;
+              print(listViewDataWeekly);
+            })
+          : setState(() {
+              listViewDataWeekly = null;
+            });
+    });
   }
 
   //GET DATA FROM FUTURE FUNCTION
@@ -77,7 +95,7 @@ class _HomePageOneState extends State<HomePageOne> {
   @override
   Widget build(BuildContext context) {
     Widget imageCarousel = Container(
-      height: 250,
+      height: 200,
       child: Carousel(
         boxFit: BoxFit.cover,
         images: [
@@ -102,76 +120,192 @@ class _HomePageOneState extends State<HomePageOne> {
               title: Text('welcome'),
             ),
             drawer: Drawers(_emails, _passs),
-            body: Column(
-              children: <Widget>[
-                imageCarousel,
-                Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, left: 20),
-                          child: Text(
-                            'Trending Now',
-                            style: TextStyle(
-                              fontSize: 20,
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  imageCarousel,
+                  Column(
+                    children: <Widget>[
+                      Divider(
+                        color: Colors.pink,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 20, bottom: 10),
+                            child: Text(
+                              'Trending Now',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, right: 20),
+                            child: Text(
+                              'View All',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          )
+                        ],
+                      ),
+                      Divider(
+                        color: Colors.pink,
+                      ),
+                      Container(
+                        height: 200,
+                        child: listViewData == null
+                            ? ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      color: Color(0xFFEDA89D),
+                                      child: Container(
+                                        height: 250,
+                                        width: 200,
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child:
+                                                Center(child: Text('Loading'))),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                itemCount: 5,
+                              )
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: TrendingNow(
+                                        listViewData[index]['image'],
+                                        listViewData[index]['title'],
+                                        listViewData[index]['sale_price'],
+                                        listViewData[index]['brand'],
+                                      ));
+                                },
+                                itemCount: listViewData.length,
+                              ),
+                      ),
+                    ],
+                  ),
+                  Divider(
+                    color: Colors.pink,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      top: 10,
+                      bottom: 10,
+                    ),
+                    child: Text(
+                      'Weekly popular',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.pink,
+                  ),
+                  GridView.builder(
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: (1 / 1.04),
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                    ),
+                    itemBuilder: (ctx, index) {
+                      String title = listViewDataWeekly[index]['title'];
+                      String image = listViewDataWeekly[index]['image'];
+                      String brand = listViewDataWeekly[index]['brand'];
+                      String condition = listViewDataWeekly[index]['condition'];
+                      String conditionNote;
+                      String description =
+                          listViewDataWeekly[index]['description'];
+                      String price =
+                          'price :${listViewDataWeekly[index]['sale_price']}';
+                      String stockQuantity;
+                      return FlatButton(
+                        padding: EdgeInsets.all(0),
+                        child: Card(
+                          elevation: 6,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          color: Colors.pink,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  child: Image.network(
+                                    image,
+                                    height: 150,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15)),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: FittedBox(
+                                  child: Text(
+                                    title,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: FittedBox(
+                                  child: Text(
+                                    brand,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 10),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, right: 20),
-                          child: Text(
-                            'View All',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        )
-                      ],
-                    ),
-                    Container(
-                      height: 260,
-                      child: listViewData == null
-                          ? ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    color: Color(0xFFEDA89D),
-                                    child: Container(
-                                      height: 250,
-                                      width: 200,
-                                      child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:
-                                              Center(child: Text('Loading'))),
-                                    ),
-                                  ),
-                                );
-                              },
-                              itemCount: 5,
-                            )
-                          : ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TrendingNow(
-                                      listViewData[index]['image'],
-                                      listViewData[index]['title'],
-                                      listViewData[index]['sale_price'],
-                                      listViewData[index]['brand'],
-                                    ));
-                              },
-                              itemCount: listViewData.length,
-                            ),
-                    ),
-                  ],
-                )
-              ],
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailsPage(
+                                      title,
+                                      image,
+                                      price,
+                                      brand,
+                                      description,
+                                      condition)));
+                        },
+                      );
+                    },
+                    itemCount: listViewDataWeekly.length,
+                  ),
+                ],
+              ),
             )));
   }
 
@@ -194,6 +328,28 @@ class _HomePageOneState extends State<HomePageOne> {
       //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
     }
     return categoryList;
+  }
+
+  Future getWeeklyList() async {
+    List<dynamic> weeklyList;
+    var v = weeklyList;
+    String url =
+        "${GlobalConfiguration().getString("base_uri")}/weekly_popular";
+    print(url);
+    var res = await http
+        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+//    print(res.body);
+    print(res.statusCode.toString());
+    if (res.statusCode == 200) {
+      var data = json.decode(res.body);
+      weeklyList = data["data"] as List;
+
+      print(weeklyList);
+
+//      print(res.body);
+      //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
+    }
+    return weeklyList;
   }
 }
 
