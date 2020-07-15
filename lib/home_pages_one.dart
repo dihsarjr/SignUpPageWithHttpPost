@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:registration/widgets/drawer.dart';
+import 'package:registration/widgets/trending_now.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageOne extends StatefulWidget {
@@ -111,18 +112,13 @@ class _HomePageOneState extends State<HomePageOne> {
                       ],
                     ),
                     Container(
-                      height: 200,
+                      height: 260,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 195,
-                              width: 200,
-                              color: Colors.green,
-                            ),
-                          );
+                              padding: const EdgeInsets.all(8.0),
+                              child: TrendingNow());
                         },
                         itemCount: 5,
                       ),
