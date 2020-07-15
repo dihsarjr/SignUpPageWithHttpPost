@@ -279,6 +279,11 @@ class _HomePageOneState extends State<HomePageOne> {
                                   listViewDataWeekly[index]['description'];
                               String price =
                                   'price :${listViewDataWeekly[index]['sale_price']}';
+                              String idOne =
+                                  listViewDataWeekly[index]['id'].toString();
+                              String productId = listViewDataWeekly[index]
+                                      ['product_id']
+                                  .toString();
                               String stockQuantity;
                               return FlatButton(
                                 padding: EdgeInsets.all(0),
@@ -342,7 +347,9 @@ class _HomePageOneState extends State<HomePageOne> {
                                               price,
                                               brand,
                                               description,
-                                              condition)));
+                                              condition,
+                                              idOne,
+                                              productId)));
                                 },
                               );
                             },

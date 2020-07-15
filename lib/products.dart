@@ -69,6 +69,9 @@ class _ProductsPageState extends State<ProductsPage> {
                     String image = productsList['data'][index]['image'];
                     String brand = productsList['data'][index]['brand'];
                     String condition = productsList['data'][index]['condition'];
+                    String idOne = productsList['data'][index]['id'].toString();
+                    String productId =
+                        productsList['data'][index]['product_id'].toString();
                     String conditionNote;
                     String description =
                         productsList['data'][index]['description'];
@@ -128,8 +131,15 @@ class _ProductsPageState extends State<ProductsPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DetailsPage(title, image,
-                                    price, brand, description, condition)));
+                                builder: (context) => DetailsPage(
+                                    title,
+                                    image,
+                                    price,
+                                    brand,
+                                    description,
+                                    condition,
+                                    idOne,
+                                    productId)));
                       },
                     );
                   },

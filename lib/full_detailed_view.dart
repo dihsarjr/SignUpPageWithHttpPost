@@ -1,15 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailsPage extends StatefulWidget {
   String title;
   String image;
   String price;
   String brand;
+
   String description;
   String condition;
+  String idOne;
+  String productId;
+
   DetailsPage(this.title, this.image, this.price, this.brand, this.description,
-      this.condition);
+      this.condition, this.idOne, this.productId);
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -17,6 +25,21 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   int numberOfItem = 1;
+  String userId = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounter();
+  }
+
+  _loadCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = (prefs.getString('id') ?? '');
+      print(userId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +223,9 @@ class _DetailsPageState extends State<DetailsPage> {
                           color: Color(0xFFEDA89D),
                           size: 30,
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          _validation();
+                        }),
                   ),
                   Column(
                     children: <Widget>[
@@ -235,5 +260,21 @@ class _DetailsPageState extends State<DetailsPage> {
         ),
       ),
     );
+  }
+
+  _validation() async {
+    Map<String, String> headers = {};
+    Response response = await post('http://multi.capcee.com/api/add_wishlist',
+        headers: headers,
+        body: {
+          'id': widget.idOne,
+          'product_id': widget.productId,
+          'user_id': userId
+        });
+    print('Response status: ${response.statusCode}');
+    print(response.body);
+    Map<String, dynamic> responseJson = jsonDecode(response.body);
+    String responses = responseJson['message'].toString();
+    print(responses);
   }
 }
