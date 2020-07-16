@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:registration/wish_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -59,8 +60,12 @@ class _DetailsPageState extends State<DetailsPage> {
                   icon: Icon(Icons.favorite_border), onPressed: () {})),
           Container(
               margin: EdgeInsets.only(right: 10),
-              child:
-                  IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}))
+              child: IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => WishList()));
+                  }))
         ],
       ),
       body: Container(
