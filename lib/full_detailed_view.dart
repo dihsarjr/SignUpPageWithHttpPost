@@ -51,13 +51,22 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.brand),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            }),
         backgroundColor: Color(0xFFEDA89D),
         elevation: 0,
         actions: <Widget>[
           Container(
               margin: EdgeInsets.only(right: 10),
               child: IconButton(
-                  icon: Icon(Icons.favorite_border), onPressed: () {})),
+                  icon: Icon(Icons.favorite_border),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => WishList()));
+                  })),
           Container(
               margin: EdgeInsets.only(right: 10),
               child: IconButton(
@@ -317,8 +326,10 @@ class _DetailsPageState extends State<DetailsPage> {
     String responses = responseJson['message'].toString();
     print(response.body);
     print(responseJson["data"][1]['id']);
+    setState(() {
+      listData = responseJson['data'];
+    });
 
-    listData = responseJson['data'];
     print(listData[0]['id']);
     int counter = 0;
     bool ids = true;
@@ -326,7 +337,7 @@ class _DetailsPageState extends State<DetailsPage> {
       counter++;
       print(listData[counter]['id']);
 
-      if (listData[counter]['product_id'].toString() == widget.productId) {
+      if (listData[counter]['id'].toString() == widget.idOne) {
         ids = false;
         setState(() {
           widget.favorite = true;

@@ -7,6 +7,7 @@ import 'package:registration/category_det.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../login.dart';
+import '../wish_list.dart';
 
 class Drawers extends StatefulWidget {
   String emailUser;
@@ -57,7 +58,7 @@ class _DrawersState extends State<Drawers> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 300,
+            height: 269,
             width: double.infinity,
             color: Color(0xFFEDA89D),
             child: Column(
@@ -108,6 +109,19 @@ class _DrawersState extends State<Drawers> {
               size: 30,
             ),
             title: Text('Home'),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.favorite,
+              size: 30,
+            ),
+            title: Text('Wishlist'),
+            onTap: () {
+              setState(() {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WishList()));
+              });
+            },
           ),
           listViewData == null
               ? Text('loading')
