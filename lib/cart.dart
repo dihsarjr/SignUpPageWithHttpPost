@@ -25,7 +25,7 @@ class _CartState extends State<Cart> {
     setState(() {
       userId = (prefs.getString('id') ?? '');
       print(userId);
-      _validation1(userId);
+      _validation(userId);
     });
   }
 
@@ -40,14 +40,14 @@ class _CartState extends State<Cart> {
         child: listData == null
             ? Center(
                 child: Text(
-                  'Loading',
+                  'Empty',
                   style: TextStyle(fontSize: 25),
                 ),
               )
             : GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: (1 / 1.04),
+                  childAspectRatio: (1 / 1.5),
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
@@ -61,21 +61,21 @@ class _CartState extends State<Cart> {
     );
   }
 
-  _validation1(String id) async {
+  _validation(
+    String name,
+  ) async {
     Map<String, String> headers = {};
-    Response response = await get(
-      'http://multi.capcee.com/api/my_wishlist?user_id=$id',
-    );
+    Response response = await post('http://multi.capcee.com/api/carts',
+        headers: headers,
+        body: {
+          'user_id': name,
+        });
     print('Response status: ${response.statusCode}');
-    print(response);
-    Map<String, dynamic> responseJson = jsonDecode(response.body);
-    String responses = responseJson['message'].toString();
     print(response.body);
-    print(responseJson["data"][1]['id']);
-    setState(() {
-      listData = responseJson['data'];
-    });
+    Map<String, dynamic> responseJson = jsonDecode(response.body);
+    String responses = responseJson['data'].toString();
+    listData = responseJson['data'];
 
-    print(listData[0]['id']);
+    print(responses);
   }
 }

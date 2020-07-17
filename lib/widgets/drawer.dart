@@ -58,7 +58,7 @@ class _DrawersState extends State<Drawers> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 269,
+            height: MediaQuery.of(context).size.height * 0.26,
             width: double.infinity,
             color: Color(0xFFEDA89D),
             child: Column(
@@ -71,19 +71,6 @@ class _DrawersState extends State<Drawers> {
                     radius: 50,
                     backgroundImage: NetworkImage(
                         'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      widget.nameUser,
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
                   ),
                 ),
                 Text(
@@ -99,9 +86,6 @@ class _DrawersState extends State<Drawers> {
                     })
               ],
             ),
-          ),
-          SizedBox(
-            height: 20,
           ),
           ListTile(
             leading: Icon(
@@ -126,7 +110,7 @@ class _DrawersState extends State<Drawers> {
           listViewData == null
               ? Text('loading')
               : Container(
-                  height: 550,
+                  height: MediaQuery.of(context).size.height * 0.50,
                   child: ListView.builder(
                     itemBuilder: (context, index) {
                       return ListTile(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart';
 import 'package:registration/home_pages_one.dart';
@@ -8,6 +9,8 @@ import 'package:registration/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalConfiguration().loadFromAsset("configurations");
   runApp(MyApp());
@@ -37,6 +40,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -128,12 +135,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Scaffold(
           key: _globalKey,
           body: Padding(
-            padding: const EdgeInsets.all(20),
+            padding:
+                const EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 40),
+                  padding: const EdgeInsets.only(top: 10, bottom: 20),
                   child: Text(
                     'Register',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -213,9 +221,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(0),
-                      child: Text(
-                        'Already have an account?',
-                        style: TextStyle(fontSize: 20),
+                      child: FittedBox(
+                        child: Text(
+                          'Already have an account?',
+                          style: TextStyle(fontSize: 15),
+                        ),
                       ),
                     ),
                     Padding(

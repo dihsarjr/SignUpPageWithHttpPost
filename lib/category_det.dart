@@ -18,7 +18,7 @@ class CategoryDet extends StatelessWidget {
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: (1 / 1),
+              childAspectRatio: (1 / 1.2),
               crossAxisSpacing: 6,
               mainAxisSpacing: 6,
             ),
@@ -34,16 +34,17 @@ class CategoryDet extends StatelessWidget {
                   color: Color(0xFFEDA89D),
                   child: Column(
                     children: <Widget>[
-                      ClipRRect(
-                        child: Image.network(
-                          listViews[index]['img'],
-                          height: 150,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
+                      Expanded(
+                        child: ClipRRect(
+                          child: Image.network(
+                            listViews[index]['img'],
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15)),
                         ),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15)),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -57,13 +58,16 @@ class CategoryDet extends StatelessWidget {
                           ),
                         ),
                       ),
-                      FittedBox(
-                        child: Text(
-                          listViews[index]['description'],
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FittedBox(
+                          child: Text(
+                            listViews[index]['description'],
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10),
+                          ),
                         ),
                       ),
                     ],

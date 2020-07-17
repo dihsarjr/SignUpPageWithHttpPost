@@ -60,7 +60,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: (1 / 1.04),
+                    childAspectRatio: (1 / 1.1),
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
                   ),
@@ -89,16 +89,17 @@ class _ProductsPageState extends State<ProductsPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            ClipRRect(
-                              child: Image.network(
-                                image,
-                                height: 150,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
+                            Expanded(
+                              child: ClipRRect(
+                                child: Image.network(
+                                  image,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15)),
                               ),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15)),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),

@@ -96,109 +96,112 @@ class _LoginState extends State<Login> {
       key: formKey,
       child: SafeArea(
         child: Scaffold(
-          body: Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Container(
-                  height: 150,
-                ),
-                Text(
-                  'Welcome,',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    'Sign In to continue',
-                    style: TextStyle(
-                      fontSize: 20,
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                  ),
+                  Text(
+                    'Welcome,',
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Text(
+                      'Sign In to continue',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: "Email"),
-                  validator: (String val) =>
-                      !val.contains('@') && !val.contains('.')
-                          ? 'Invalid Email'
-                          : null,
-                  onSaved: (String val) => _email = val,
-                  controller: emailController,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: "Password"),
-                  validator: (val) =>
-                      val.length < 6 ? 'Password too short' : null,
-                  onSaved: (val) => _password = val,
-                  controller: passwordController,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25, bottom: 25),
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                    onPressed: () {
-                      _validation(
-                          emailController.text, passwordController.text);
-                    },
-                    child: Card(
+                  SizedBox(
+                    height: 40,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: "Email"),
+                    validator: (String val) =>
+                        !val.contains('@') && !val.contains('.')
+                            ? 'Invalid Email'
+                            : null,
+                    onSaved: (String val) => _email = val,
+                    controller: emailController,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: "Password"),
+                    validator: (val) =>
+                        val.length < 6 ? 'Password too short' : null,
+                    onSaved: (val) => _password = val,
+                    controller: passwordController,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25, bottom: 25),
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40.0),
                       ),
-                      color: Colors.black87,
-                      child: Center(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          'Login',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
+                      onPressed: () {
+                        _validation(
+                            emailController.text, passwordController.text);
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
                         ),
-                      )),
+                        color: Colors.black87,
+                        child: Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          ),
+                        )),
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Don\'t have an account?',
-                      style: TextStyle(
-                        fontSize: 15,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Don\'t have an account?',
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
                       ),
-                    ),
-                    FlatButton(
-                      padding: EdgeInsets.all(0),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyHomePage()));
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(fontSize: 15, color: Colors.blue),
+                      FlatButton(
+                        padding: EdgeInsets.all(0),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyHomePage()));
+                        },
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(fontSize: 15, color: Colors.blue),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Center(
-                  child: Container(
-                      child: emailCont != _mail &&
-                              passCont != _pass &&
-                              _email == null
-                          ? Text(
-                              passError,
-                              style: TextStyle(color: Colors.red, fontSize: 15),
-                            )
-                          : Container()),
-                )
-              ],
+                    ],
+                  ),
+                  Center(
+                    child: Container(
+                        child: emailCont != _mail &&
+                                passCont != _pass &&
+                                _email == null
+                            ? Text(
+                                passError,
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 15),
+                              )
+                            : Container()),
+                  )
+                ],
+              ),
             ),
           ),
         ),

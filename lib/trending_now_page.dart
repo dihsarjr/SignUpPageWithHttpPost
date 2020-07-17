@@ -15,7 +15,7 @@ class TrendingNowPage extends StatelessWidget {
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: (1.02 / 1),
+            childAspectRatio: (1.02 / 1.3),
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
           ),

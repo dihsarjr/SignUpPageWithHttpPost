@@ -162,7 +162,7 @@ class _HomePageOneState extends State<HomePageOne> {
                         ],
                       ),
                       Container(
-                        height: 230,
+                        height: 250,
                         child: listViewData == null
                             ? ListView.builder(
                                 scrollDirection: Axis.horizontal,
@@ -177,7 +177,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                       color: Color(0xFFEDA89D),
                                       child: Container(
                                         height: 250,
-                                        width: 200,
+                                        width: 220,
                                         child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child:
@@ -230,7 +230,7 @@ class _HomePageOneState extends State<HomePageOne> {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: (1 / 1.08),
+                              childAspectRatio: (1 / 1.2),
                               mainAxisSpacing: 10,
                               crossAxisSpacing: 10,
                             ),
@@ -265,7 +265,7 @@ class _HomePageOneState extends State<HomePageOne> {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              childAspectRatio: (1 / 1.08),
+                              childAspectRatio: (1 / 1.2),
                               mainAxisSpacing: 10,
                               crossAxisSpacing: 10,
                             ),
@@ -297,22 +297,28 @@ class _HomePageOneState extends State<HomePageOne> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ClipRRect(
-                                          child: Image.network(
-                                            image,
-                                            height: 150,
-                                            width: double.infinity,
-                                            fit: BoxFit.cover,
+                                      Expanded(
+                                        child: Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              child: Container(
+                                                child: Image.network(
+                                                  image,
+                                                  width: double.infinity,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  topRight:
+                                                      Radius.circular(15)),
+                                            ),
                                           ),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15)),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(10),
                                         child: FittedBox(
                                           child: Text(
                                             brand,
@@ -324,7 +330,8 @@ class _HomePageOneState extends State<HomePageOne> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 8, bottom: 15),
                                         child: FittedBox(
                                           child: Text(
                                             price,
@@ -374,8 +381,10 @@ class _HomePageOneState extends State<HomePageOne> {
     print(res.statusCode.toString());
     if (res.statusCode == 200) {
       var data = json.decode(res.body);
-      categoryList = data["data"] as List;
 
+      setState(() {
+        categoryList = data["data"] as List;
+      });
       print(categoryList[1]['brand']);
 
 //      print(res.body);
