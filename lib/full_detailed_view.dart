@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:registration/cart.dart';
 import 'package:registration/wish_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -73,7 +74,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   icon: Icon(Icons.shopping_cart),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => WishList()));
+                        MaterialPageRoute(builder: (context) => Cart()));
                   }))
         ],
       ),
