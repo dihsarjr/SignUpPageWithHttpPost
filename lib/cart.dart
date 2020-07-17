@@ -30,7 +30,32 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cart'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: (1 / 1.04),
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+          ),
+          itemBuilder: (ctx, index) {
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              color: Colors.white,
+              child: Container(),
+            );
+          },
+          itemCount: listData.length,
+        ),
+      ),
+    );
   }
 
   _validation1(String id) async {
