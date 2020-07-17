@@ -81,7 +81,7 @@ class _DrawersState extends State<Drawers> {
                     child: Text('Log Out'),
                     onPressed: () {
                       removeValues();
-                      Navigator.push(context,
+                      Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => Login()));
                     })
               ],

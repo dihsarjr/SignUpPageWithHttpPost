@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: _emails != '' ? HomePageOne() : MyHomePage(),
+      home: _emails != '' ? HomePageOne() : Login(),
     );
   }
 }
@@ -232,7 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(0),
                       child: FlatButton(
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Login()));
@@ -276,9 +276,11 @@ class _MyHomePageState extends State<MyHomePage> {
     if (responses == 'true') {
       _showSnackBar(responses);
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login()));
     } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login()));
     }
   }
 

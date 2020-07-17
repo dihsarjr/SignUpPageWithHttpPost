@@ -37,30 +37,28 @@ class _LoginState extends State<Login> {
 
   Map data;
 
-//  void _submit() {
-//    setState(() {
-//      if (formKey.currentState.validate()) {
-//        formKey.currentState.save();
-//        emailCont = emailController.text;
-//        passCont = passwordController.text;
-//
-//        _loadCounter();
-//
-//        print(emailCont);
-//        print(passCont);
-//        print(_mail);
-//        print(_pass);
-//        if (emailCont == _mail && passCont == _pass) {
-//          Navigator.push(
-//              context, MaterialPageRoute(builder: (context) => HomePageOne()));
-//        } else {
-//          passError = 'invalid email and password';
-//        }
-//      } else {
-//        passError = 'invalid email and password';
-//      }
-//    });
-//  }
+  void _submit() {
+    setState(() {
+      if (formKey.currentState.validate()) {
+        formKey.currentState.save();
+        emailCont = emailController.text;
+        passCont = passwordController.text;
+
+        print(emailCont);
+        print(passCont);
+        print(_mail);
+        print(_pass);
+        if (emailCont == _mail && passCont == _pass) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePageOne()));
+        } else {
+          passError = 'invalid email and password';
+        }
+      } else {
+        passError = 'invalid email and password';
+      }
+    });
+  }
 //
 //  @override
 //  void initState() {
@@ -90,6 +88,8 @@ class _LoginState extends State<Login> {
     print(id);
   }
 
+  bool loginStatus = false;
+  bool progress = false;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -145,6 +145,8 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(40.0),
                       ),
                       onPressed: () {
+                        progress = true;
+                        _submit();
                         _validation(
                             emailController.text, passwordController.text);
                       },
@@ -156,10 +158,19 @@ class _LoginState extends State<Login> {
                         child: Center(
                             child: Padding(
                           padding: const EdgeInsets.all(8),
-                          child: Text(
-                            'Login',
-                            style: TextStyle(fontSize: 25, color: Colors.white),
-                          ),
+                          child: progress != false
+                              ? CircularProgressIndicator(
+                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                        fontSize: 25, color: Colors.white),
+                                  ),
+                                ),
                         )),
                       ),
                     ),
@@ -176,7 +187,7 @@ class _LoginState extends State<Login> {
                       FlatButton(
                         padding: EdgeInsets.all(0),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MyHomePage()));
@@ -199,7 +210,15 @@ class _LoginState extends State<Login> {
                                     TextStyle(color: Colors.red, fontSize: 15),
                               )
                             : Container()),
-                  )
+                  ),
+                  loginStatus == false
+                      ? Container()
+                      : Center(
+                          child: Text(
+                            'Invalid Password or Email',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
                 ],
               ),
             ),
@@ -220,20 +239,24 @@ class _LoginState extends State<Login> {
           'email': email,
           'password': password,
         });
+
     print('Response status: ${response.statusCode}');
     print(response.body);
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['message'].toString();
-    String id = responseJson['data']['id'].toString();
 
     print(responses);
 
-    if (responses != '') {
+    if (responseJson['response'] == 'true') {
+      String id = responseJson['data']['id'].toString();
       addStringToSF(id);
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomePageOne()));
     } else {
-      print(responses);
+      setState(() {
+        progress = false;
+        loginStatus = true;
+      });
     }
   }
 }
