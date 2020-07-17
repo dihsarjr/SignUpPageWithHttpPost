@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:registration/widgets/grid_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart extends StatefulWidget {
@@ -36,24 +37,26 @@ class _CartState extends State<Cart> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: (1 / 1.04),
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-          ),
-          itemBuilder: (ctx, index) {
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
+        child: listData == null
+            ? Center(
+                child: Text(
+                  'Loading',
+                  style: TextStyle(fontSize: 25),
+                ),
+              )
+            : GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: (1 / 1.04),
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                ),
+                itemBuilder: (ctx, index) {
+                  return GridProducts(listData[index]['id'].toString(),
+                      listData[index]['brand'], listData[index]['image']);
+                },
+                itemCount: listData.length,
               ),
-              color: Colors.white,
-              child: Container(),
-            );
-          },
-          itemCount: listData.length,
-        ),
       ),
     );
   }
