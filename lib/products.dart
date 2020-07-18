@@ -77,6 +77,7 @@ class _ProductsPageState extends State<ProductsPage> {
                         productsList['data'][index]['description'];
                     String price =
                         'price :${productsList['data'][index]['sale_price']}';
+                    String slug = productsList['data'][index]['slug'];
                     String stockQuantity;
                     return FlatButton(
                       padding: EdgeInsets.all(0),
@@ -140,7 +141,8 @@ class _ProductsPageState extends State<ProductsPage> {
                                     description,
                                     condition,
                                     idOne,
-                                    productId)));
+                                    productId,
+                                    slug)));
                       },
                     );
                   },

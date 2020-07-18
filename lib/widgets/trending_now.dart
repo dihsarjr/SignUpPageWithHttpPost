@@ -12,7 +12,9 @@ class TrendingNow extends StatelessWidget {
   String condition;
   String idOne;
   String productId;
-  TrendingNow(this.image, this.title, this.price, this.brand, this.idOne);
+  String slug;
+  TrendingNow(
+      this.image, this.title, this.price, this.brand, this.idOne, this.slug);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class TrendingNow extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DetailsPage(title, image, price, brand,
-                    description, condition, idOne, productId)));
+                    description, condition, idOne, productId, slug)));
       },
       padding: EdgeInsets.all(0),
       child: Card(

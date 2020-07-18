@@ -21,12 +21,12 @@ class TrendingNowPage extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             return TrendingNow(
-              listViewData[index]['image'],
-              listViewData[index]['title'],
-              listViewData[index]['sale_price'],
-              listViewData[index]['brand'],
-              listViewData[index]['id'].toString(),
-            );
+                listViewData[index]['image'],
+                listViewData[index]['title'],
+                listViewData[index]['sale_price'],
+                listViewData[index]['brand'],
+                listViewData[index]['id'].toString(),
+                listViewData[index]['slug']);
           },
           itemCount: listViewData.length,
         ),

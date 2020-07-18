@@ -52,8 +52,11 @@ class _CartState extends State<Cart> {
                   crossAxisSpacing: 10,
                 ),
                 itemBuilder: (ctx, index) {
-                  return GridProducts(listData[index]['id'].toString(),
-                      listData[index]['brand'], listData[index]['image']);
+                  return GridProducts(
+                      listData[index]['id'].toString(),
+                      listData[index]['brand'],
+                      listData[index]['image'],
+                      listData[index]['slug']);
                 },
                 itemCount: listData.length,
               ),

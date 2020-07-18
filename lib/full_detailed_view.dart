@@ -17,10 +17,11 @@ class DetailsPage extends StatefulWidget {
   String condition;
   String idOne;
   String productId;
+  String slug;
   bool favorite = false;
 
   DetailsPage(this.title, this.image, this.price, this.brand, this.description,
-      this.condition, this.idOne, this.productId);
+      this.condition, this.idOne, this.productId, this.slug);
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -288,14 +289,19 @@ class _DetailsPageState extends State<DetailsPage> {
                         color: Color(0xFFEDA89D),
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 15, bottom: 15, right: 52, left: 52),
-                            child: Text(
-                              'Add to Cart',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Colors.white),
+                            padding: const EdgeInsets.only(right: 52, left: 52),
+                            child: FlatButton(
+                              padding: EdgeInsets.all(0),
+                              onPressed: () {
+                                _validation2();
+                              },
+                              child: Text(
+                                'Add to Cart',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
@@ -319,6 +325,25 @@ class _DetailsPageState extends State<DetailsPage> {
           'id': widget.idOne,
           'product_id': widget.productId,
           'user_id': userId
+        });
+    print('Response status: ${response.statusCode}');
+    print(response.body);
+    Map<String, dynamic> responseJson = jsonDecode(response.body);
+    String responses = responseJson['message'].toString();
+    print(responses);
+  }
+
+  _validation2() async {
+    Map<String, String> headers = {};
+    Response response = await post('http://multi.capcee.com/api/addToCart',
+        headers: headers,
+        body: {
+          'shipTo': '356',
+          'shippingZoneId': '',
+          'shippingRateId': '',
+          'quantity': '1',
+          'slug': widget.slug,
+          'user_id': '31',
         });
     print('Response status: ${response.statusCode}');
     print(response.body);
