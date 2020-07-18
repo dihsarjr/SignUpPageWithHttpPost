@@ -17,11 +17,11 @@ class DetailsPage extends StatefulWidget {
   String condition;
   String idOne;
   String productId;
-  String slug;
+  String inventory;
   bool favorite = false;
 
   DetailsPage(this.title, this.image, this.price, this.brand, this.description,
-      this.condition, this.idOne, this.productId, this.slug);
+      this.condition, this.idOne, this.productId, this.inventory);
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -294,6 +294,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               padding: EdgeInsets.all(0),
                               onPressed: () {
                                 _validation2();
+                                print('123');
                               },
                               child: Text(
                                 'Add to Cart',
@@ -342,11 +343,13 @@ class _DetailsPageState extends State<DetailsPage> {
           'shippingZoneId': '',
           'shippingRateId': '',
           'quantity': '1',
-          'slug': widget.slug,
+          'inventory_id': widget.inventory,
           'user_id': '31',
         });
     print('Response status: ${response.statusCode}');
+
     print(response.body);
+
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['message'].toString();
     print(responses);

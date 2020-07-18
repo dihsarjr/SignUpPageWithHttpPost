@@ -17,8 +17,12 @@ class GridProducts extends StatelessWidget {
   String idOne;
 
   String price;
-  String slug;
-  GridProducts(this.id, this.title, this.image, this.slug);
+  String inventory;
+  GridProducts(
+    this.id,
+    this.title,
+    this.image,
+  );
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +37,7 @@ class GridProducts extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (ctx) => DetailsPage(title, image, price, brand,
-                      description, condition, idOne, productId, slug)));
+                      description, condition, idOne, productId, inventory)));
             },
             child: Image.network(
               image,

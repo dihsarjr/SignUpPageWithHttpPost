@@ -26,7 +26,7 @@ class TrendingNowPage extends StatelessWidget {
                 listViewData[index]['sale_price'],
                 listViewData[index]['brand'],
                 listViewData[index]['id'].toString(),
-                listViewData[index]['slug']);
+                listViewData[index]['inventory_id']);
           },
           itemCount: listViewData.length,
         ),

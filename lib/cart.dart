@@ -53,10 +53,10 @@ class _CartState extends State<Cart> {
                 ),
                 itemBuilder: (ctx, index) {
                   return GridProducts(
-                      listData[index]['id'].toString(),
-                      listData[index]['brand'],
-                      listData[index]['image'],
-                      listData[index]['slug']);
+                    listData[index]['items'][0]['brand'],
+                    listData[index]['items'][0]['brand'],
+                    listData[index]['items'][0]['image'],
+                  );
                 },
                 itemCount: listData.length,
               ),
@@ -77,8 +77,14 @@ class _CartState extends State<Cart> {
     print(response.body);
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['data'].toString();
-    listData = responseJson['data'];
-
-    print(responses);
+    setState(() {
+      listData = responseJson['data'];
+      print(listData);
+    });
+//
+//    print(responses);
+//    print(
+//      listData[0]['items'][0]['brand'],
+//    );
   }
 }

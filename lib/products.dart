@@ -77,7 +77,7 @@ class _ProductsPageState extends State<ProductsPage> {
                         productsList['data'][index]['description'];
                     String price =
                         'price :${productsList['data'][index]['sale_price']}';
-                    String slug = productsList['data'][index]['slug'];
+                    String slug = productsList['data'][index]['inventory_id'];
                     String stockQuantity;
                     return FlatButton(
                       padding: EdgeInsets.all(0),
@@ -168,7 +168,7 @@ class _ProductsPageState extends State<ProductsPage> {
       setState(() {
         productsList = responseJson;
 //        print(productsList);
-        print(productsList['data'][0]['title']);
+        print(productsList['data'][0]['inventory_id'].toString());
       });
     } else {}
   }

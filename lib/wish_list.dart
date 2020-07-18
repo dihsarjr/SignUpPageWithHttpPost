@@ -64,7 +64,7 @@ class _WishListState extends State<WishList> {
                     String price = listData[index]['sale_price'];
                     String brand = listData[index]['brand'];
                     String idsl = listData[index]['id'].toString();
-                    String slug = listData[index]['slug'];
+                    String slug = listData[index]['inventory_id'].toString();
                     return FlatButton(
                       onPressed: () {
                         Navigator.push(
