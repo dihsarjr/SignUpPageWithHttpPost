@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:registration/address_page.dart';
 import 'package:registration/widgets/grid_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,6 +35,7 @@ class _CartState extends State<Cart> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
+        backgroundColor: Color(0xFFEDA89D),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -73,7 +75,12 @@ class _CartState extends State<Cart> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddressPage()));
+                        },
                         color: Color(0xFFEDA89D),
                         textColor: Colors.white,
                         child: Text("Check Out".toUpperCase(),
