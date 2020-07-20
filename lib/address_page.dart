@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:registration/add_address.dart';
+import 'package:registration/payment_page.datr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddressPage extends StatefulWidget {
@@ -54,7 +55,12 @@ class _AddressPageState extends State<AddressPage> {
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentPage()));
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: Container(
