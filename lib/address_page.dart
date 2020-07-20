@@ -1,14 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:registration/add_address.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddressPage extends StatefulWidget {
-  String name;
-  String address;
+  String name = '';
+  String house;
+  String city;
+  String state;
+
+  bool page = false;
+
+//
+//  prefs.setString('name', name);
+//  prefs.setString('address', address);
+//  prefs.setString('city', city);
+//  prefs.setString('state', state);
+
   @override
   _AddressPageState createState() => _AddressPageState();
 }
 
 class _AddressPageState extends State<AddressPage> {
+  @override
+  void initState() {
+    super.initState();
+    _loadCounter();
+  }
+
+  _loadCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      widget.name = (prefs.getString('name') ?? '');
+      widget.house = (prefs.getString('address') ?? '');
+      widget.city = (prefs.getString('city') ?? '');
+      widget.state = (prefs.getString('state') ?? '');
+      print(widget.name);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,54 +45,91 @@ class _AddressPageState extends State<AddressPage> {
         title: Text('Address'),
         backgroundColor: Color(0xFFEDA89D),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Container(
-                height: 200,
-                child: Card(
-                  color: Color(0xFFEDA89D),
-                  child: Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        FittedBox(
-                          child: Text(
-                            'Name : ${widget.name}',
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+      body: widget.name == ''
+          ? Center(
+              child: Text('Add Your Address'),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Container(
+                        height: 200,
+                        child: Card(
+                          color: Colors.purple,
+                          child: Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                FittedBox(
+                                  child: Text(
+                                    'Name : ${widget.name}',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                FittedBox(
+                                  child: Text(
+                                    'House name : ${widget.house}',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                FittedBox(
+                                  child: Text(
+                                    'City : ${widget.city}',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                FittedBox(
+                                  child: Text(
+                                    'State : ${widget.state}',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        FittedBox(
-                          child: Text(
-                            'Address : ${widget.address}',
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
+                itemCount: 1,
               ),
-            );
-          },
-          itemCount: 2,
-        ),
-      ),
+            ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFFEDA89D),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddAddress()));
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddAddress()))
+              .then((value) {
+            setState(() {
+              widget.page = value;
+            });
+
+            if (widget.page == true) {
+              setState(() {
+                _loadCounter();
+              });
+            }
+          });
         },
         child: Icon(Icons.add),
       ),

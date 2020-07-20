@@ -115,6 +115,7 @@ class AddAddress extends StatelessWidget {
                       ),
                       onPressed: () {
                         addStringToSF();
+                        Navigator.of(context).pop(true);
                       },
                       color: Color(0xFFEDA89D),
                       textColor: Colors.white,
