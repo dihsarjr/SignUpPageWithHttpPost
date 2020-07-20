@@ -44,21 +44,42 @@ class _CartState extends State<Cart> {
                   style: TextStyle(fontSize: 25),
                 ),
               )
-            : GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: (1 / 1.5),
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                ),
-                itemBuilder: (ctx, index) {
-                  return GridProducts(
-                    listData[index]['items'][0]['brand'],
-                    listData[index]['items'][0]['brand'],
-                    listData[index]['items'][0]['image'],
-                  );
-                },
-                itemCount: listData.length,
+            : Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: (1 / 1.5),
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                        ),
+                        itemBuilder: (ctx, index) {
+                          return GridProducts(
+                            listData[index]['items'][0]['brand'],
+                            listData[index]['items'][0]['brand'],
+                            listData[index]['items'][0]['image'],
+                          );
+                        },
+                        itemCount: listData.length,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      width: 300,
+                      height: 50,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        onPressed: () {},
+                        color: Color(0xFFEDA89D),
+                        textColor: Colors.white,
+                        child: Text("Check Out".toUpperCase(),
+                            style: TextStyle(fontSize: 14)),
+                      )),
+                ],
               ),
       ),
     );
