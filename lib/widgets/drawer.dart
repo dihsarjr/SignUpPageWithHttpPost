@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
+import 'package:registration/add_address.dart';
 import 'package:registration/category_det.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -104,6 +105,19 @@ class _DrawersState extends State<Drawers> {
               setState(() {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => WishList()));
+              });
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.add_circle,
+              size: 30,
+            ),
+            title: Text('Add Address'),
+            onTap: () {
+              setState(() {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddAddress()));
               });
             },
           ),
