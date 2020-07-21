@@ -349,6 +349,13 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                new AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: RaisedButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
