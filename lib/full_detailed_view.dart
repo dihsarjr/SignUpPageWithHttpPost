@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -30,12 +31,15 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   int numberOfItem = 1;
   String userId;
+  bool connection;
 
   List listData = [];
 
   @override
   void initState() {
+    _checkInternetConnectivity();
     super.initState();
+
     _loadCounter();
   }
 
@@ -46,6 +50,18 @@ class _DetailsPageState extends State<DetailsPage> {
       print(userId);
       _validation1(userId);
     });
+  }
+
+  _checkInternetConnectivity() async {
+    var result = await Connectivity().checkConnectivity();
+    if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      setState(() {
+        connection = true;
+      });
+    } else {
+      connection = false;
+    }
   }
 
   @override
@@ -80,241 +96,272 @@ class _DetailsPageState extends State<DetailsPage> {
         ],
       ),
       body: Container(
-        color: Color(0xFFEDA89D),
-        padding: EdgeInsets.all(0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              margin: EdgeInsets.all(20),
-              child: Center(
-                child: ClipRRect(
-                  child: Image.network(
-                    widget.image,
-                    height: 400,
-                    width: 400,
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15)),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.all(0),
-                    margin: EdgeInsets.all(0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
+          color: Color(0xFFEDA89D),
+          padding: EdgeInsets.all(0),
+          child: connection == true
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      margin: EdgeInsets.all(20),
+                      child: Center(
+                        child: ClipRRect(
+                          child: Image.network(
+                            widget.image,
+                            height: 400,
+                            width: 400,
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                              bottomRight: Radius.circular(15),
+                              bottomLeft: Radius.circular(15)),
+                        ),
                       ),
                     ),
-                    child: Container(
-                      margin: EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            alignment: Alignment.topLeft,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(
-                                      Icons.remove_circle,
-                                      color: Color(0xFFEDA89D),
-                                    ),
-                                    //todo on press for the remove item
-                                    onPressed: () {
-                                      setState(() {
-                                        numberOfItem--;
-                                        print(numberOfItem);
-                                      });
-                                    }),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEDA89D),
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(10),
-                                      topLeft: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30),
+                          ),
+                        ),
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: SingleChildScrollView(
+                          child: Container(
+                            padding: EdgeInsets.all(0),
+                            margin: EdgeInsets.all(0),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.all(20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    alignment: Alignment.topLeft,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        IconButton(
+                                            icon: Icon(
+                                              Icons.remove_circle,
+                                              color: Color(0xFFEDA89D),
+                                            ),
+                                            //todo on press for the remove item
+                                            onPressed: () {
+                                              setState(() {
+                                                numberOfItem--;
+                                                print(numberOfItem);
+                                              });
+                                            }),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFEDA89D),
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(10),
+                                              topLeft: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(10),
+                                            ),
+                                          ),
+                                          width: 30,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(
+                                              numberOfItem.toString(),
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 30),
+                                            ),
+                                          ),
+                                        ),
+                                        IconButton(
+                                            icon: Icon(
+                                              Icons.add_circle,
+                                              color: Color(0xFFEDA89D),
+                                            ),
+                                            //todo on press for the add item
+                                            onPressed: () {
+                                              setState(() {
+                                                numberOfItem++;
+                                              });
+                                            }),
+                                      ],
                                     ),
                                   ),
-                                  width: 30,
-                                  height: 30,
-                                  child: Center(
+                                  Container(
+                                    margin: EdgeInsets.all(5),
                                     child: Text(
-                                      numberOfItem.toString(),
+                                      widget.title,
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          fontFamily: 'Muli',
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Text(
+                                      widget.brand,
+                                      style: TextStyle(fontFamily: 'Muli'),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Text(
+                                      '${widget.price}',
+                                      style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 30),
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: SizedBox(
+                                      width: 400,
+                                      child: Divider(
+                                        color: Color(0xFFEDA89D),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                      margin:
+                                          EdgeInsets.only(top: 4, bottom: 5),
+                                      child: Text(
+                                        'Condition: ${widget.condition}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      )),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 5),
+                                    child: Text(
+                                      'Description:\n'
+                                      '\n${widget.description}',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                      elevation: 20,
+                      margin: EdgeInsets.all(0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          widget.favorite == false
+                              ? Padding(
+                                  padding: const EdgeInsets.only(left: 30),
+                                  child: IconButton(
+                                      icon: Icon(
+                                        Icons.favorite_border,
+                                        color: Color(0xFFEDA89D),
+                                        size: 30,
+                                      ),
+                                      onPressed: () {
+                                        _validation();
+                                        setState(() {
+                                          widget.favorite = true;
+                                        });
+                                      }),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(left: 30),
+                                  child: IconButton(
+                                      icon: Icon(
+                                        Icons.favorite,
+                                        color: Color(0xFFEDA89D),
+                                        size: 30,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _validation12(widget.idOne);
+                                          print(widget.idOne);
+                                        });
+                                      }),
+                                ),
+                          Column(
+                            children: <Widget>[
+                              Card(
+                                elevation: 9,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                margin: EdgeInsets.only(
+                                    top: 10, bottom: 10, right: 20, left: 20),
+                                color: Color(0xFFEDA89D),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 52, left: 52),
+                                    child: FlatButton(
+                                      padding: EdgeInsets.all(0),
+                                      onPressed: () {
+                                        _validation2();
+                                        print('123');
+                                      },
+                                      child: Text(
+                                        'Add to Cart',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                            color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),
-                                IconButton(
-                                    icon: Icon(
-                                      Icons.add_circle,
-                                      color: Color(0xFFEDA89D),
-                                    ),
-                                    //todo on press for the add item
-                                    onPressed: () {
-                                      setState(() {
-                                        numberOfItem++;
-                                      });
-                                    }),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            child: Text(
-                              widget.title,
-                              style: TextStyle(
-                                  fontFamily: 'Muli',
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            child: Text(
-                              widget.brand,
-                              style: TextStyle(fontFamily: 'Muli'),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            child: Text(
-                              '${widget.price}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                          Center(
-                            child: SizedBox(
-                              width: 400,
-                              child: Divider(
-                                color: Color(0xFFEDA89D),
                               ),
-                            ),
-                          ),
-                          Container(
-                              margin: EdgeInsets.only(top: 4, bottom: 5),
-                              child: Text(
-                                'Condition: ${widget.condition}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
-                              )),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: Text(
-                              'Description:\n'
-                              '\n${widget.description}',
-                            ),
+                            ],
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0),
-              ),
-              elevation: 20,
-              margin: EdgeInsets.all(0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  widget.favorite == false
-                      ? Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: IconButton(
-                              icon: Icon(
-                                Icons.favorite_border,
-                                color: Color(0xFFEDA89D),
-                                size: 30,
+                    )
+                  ],
+                )
+              : Container(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'No Internet Connection',
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
                               ),
+                              child: Icon(Icons.refresh),
                               onPressed: () {
-                                _validation();
-                                setState(() {
-                                  widget.favorite = true;
-                                });
+                                _checkInternetConnectivity();
                               }),
                         )
-                      : Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: IconButton(
-                              icon: Icon(
-                                Icons.favorite,
-                                color: Color(0xFFEDA89D),
-                                size: 30,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _validation12(widget.idOne);
-                                  print(widget.idOne);
-                                });
-                              }),
-                        ),
-                  Column(
-                    children: <Widget>[
-                      Card(
-                        elevation: 9,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        margin: EdgeInsets.only(
-                            top: 10, bottom: 10, right: 20, left: 20),
-                        color: Color(0xFFEDA89D),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 52, left: 52),
-                            child: FlatButton(
-                              padding: EdgeInsets.all(0),
-                              onPressed: () {
-                                _validation2();
-                                print('123');
-                              },
-                              child: Text(
-                                'Add to Cart',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                )),
     );
   }
 
