@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:registration/trending_now_page.dart';
@@ -122,256 +123,325 @@ class _HomePageOneState extends State<HomePageOne> {
               title: Text('welcome'),
             ),
             drawer: Drawers(_emails, _passs),
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  imageCarousel,
-                  Column(
+            body: Builder(builder: (BuildContext context) {
+              return OfflineBuilder(
+                connectivityBuilder: (BuildContext context,
+                    ConnectivityResult connectivity, Widget child) {
+                  final bool connected =
+                      connectivity != ConnectivityResult.none;
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      child,
+                      Positioned(
+                        left: 0.0,
+                        right: 0.0,
+                        height: 32.0,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          color: connected
+                              ? Colors.transparent
+                              : Color(0xFFEE4400),
+                          child: connected
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[],
+                                )
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "OFFLINE",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      width: 8.0,
+                                    ),
+                                    SizedBox(
+                                      width: 12.0,
+                                      height: 12.0,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2.0,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      imageCarousel,
+                      Column(
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 5, left: 20, bottom: 5),
-                            child: Text(
-                              'Trending Now',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5, right: 20),
-                            child: FlatButton(
-                              padding: EdgeInsets.all(0),
-                              child: Text(
-                                'View All',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black54),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 5, left: 20, bottom: 5),
+                                child: Text(
+                                  'Trending Now',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            TrendingNowPage(listViewData)));
-                              },
-                            ),
-                          )
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, right: 20),
+                                child: FlatButton(
+                                  padding: EdgeInsets.all(0),
+                                  child: Text(
+                                    'View All',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.black54),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TrendingNowPage(listViewData)));
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            height: 250,
+                            child: listViewData == null
+                                ? ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          color: Color(0xFFEDA89D),
+                                          child: Container(
+                                            height: 250,
+                                            width: 220,
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Center(
+                                                    child: Text('Loading'))),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    itemCount: 5,
+                                  )
+                                : ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        color: Color(0xFFEDA89D),
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: TrendingNow(
+                                              listViewData[index]['image'],
+                                              listViewData[index]['title'],
+                                              listViewData[index]['sale_price'],
+                                              listViewData[index]['brand'],
+                                              listViewData[index]['id']
+                                                  .toString(),
+                                              listViewData[index]
+                                                  ['inventory_id'],
+                                            )),
+                                      );
+                                    },
+                                    itemCount: 6,
+                                  ),
+                          ),
                         ],
                       ),
-                      Container(
-                        height: 250,
-                        child: listViewData == null
-                            ? ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          top: 5,
+                          bottom: 5,
+                        ),
+                        child: Text(
+                          'Weekly popular',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      listViewDataWeekly == null
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GridView.builder(
+                                physics: ClampingScrollPhysics(),
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: (1 / 1.2),
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                ),
+                                itemBuilder: (ctx, index) {
+                                  return FlatButton(
+                                    padding: EdgeInsets.all(0),
                                     child: Card(
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(20.0),
                                       ),
-                                      color: Color(0xFFEDA89D),
-                                      child: Container(
-                                        height: 250,
-                                        width: 220,
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child:
-                                                Center(child: Text('Loading'))),
+                                      color: Colors.white,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Center(
+                                            child: Text('Loading'),
+                                          )
+                                        ],
                                       ),
                                     ),
+                                    onPressed: () {},
                                   );
                                 },
                                 itemCount: 5,
-                              )
-                            : ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    color: Color(0xFFEDA89D),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TrendingNow(
-                                          listViewData[index]['image'],
-                                          listViewData[index]['title'],
-                                          listViewData[index]['sale_price'],
-                                          listViewData[index]['brand'],
-                                          listViewData[index]['id'].toString(),
-                                          listViewData[index]['inventory_id'],
-                                        )),
-                                  );
-                                },
-                                itemCount: 6,
                               ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      top: 5,
-                      bottom: 5,
-                    ),
-                    child: Text(
-                      'Weekly popular',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  listViewDataWeekly == null
-                      ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GridView.builder(
-                            physics: ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: (1 / 1.2),
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                            ),
-                            itemBuilder: (ctx, index) {
-                              return FlatButton(
-                                padding: EdgeInsets.all(0),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  color: Colors.white,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Center(
-                                        child: Text('Loading'),
-                                      )
-                                    ],
-                                  ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GridView.builder(
+                                physics: ClampingScrollPhysics(),
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: (1 / 1.2),
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
                                 ),
-                                onPressed: () {},
-                              );
-                            },
-                            itemCount: 5,
-                          ),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GridView.builder(
-                            physics: ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: (1 / 1.2),
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                            ),
-                            itemBuilder: (ctx, index) {
-                              String title = listViewDataWeekly[index]['title'];
-                              String image = listViewDataWeekly[index]['image'];
-                              String brand = listViewDataWeekly[index]['brand'];
-                              String condition =
-                                  listViewDataWeekly[index]['condition'];
-                              String conditionNote;
-                              String description =
-                                  listViewDataWeekly[index]['description'];
-                              String price =
-                                  'price :${listViewDataWeekly[index]['sale_price']}';
-                              String idOne =
-                                  listViewDataWeekly[index]['id'].toString();
-                              String productId = listViewDataWeekly[index]
-                                      ['product_id']
-                                  .toString();
-                              String slug =
-                                  listViewDataWeekly[index]['inventory_id'];
-                              String stockQuantity;
-                              return FlatButton(
-                                padding: EdgeInsets.all(0),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  color: Colors.white,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Container(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: ClipRRect(
-                                              child: Container(
-                                                child: Image.network(
-                                                  image,
-                                                  width: double.infinity,
-                                                  fit: BoxFit.cover,
+                                itemBuilder: (ctx, index) {
+                                  String title =
+                                      listViewDataWeekly[index]['title'];
+                                  String image =
+                                      listViewDataWeekly[index]['image'];
+                                  String brand =
+                                      listViewDataWeekly[index]['brand'];
+                                  String condition =
+                                      listViewDataWeekly[index]['condition'];
+                                  String conditionNote;
+                                  String description =
+                                      listViewDataWeekly[index]['description'];
+                                  String price =
+                                      'price :${listViewDataWeekly[index]['sale_price']}';
+                                  String idOne = listViewDataWeekly[index]['id']
+                                      .toString();
+                                  String productId = listViewDataWeekly[index]
+                                          ['product_id']
+                                      .toString();
+                                  String slug =
+                                      listViewDataWeekly[index]['inventory_id'];
+                                  String stockQuantity;
+                                  return FlatButton(
+                                    padding: EdgeInsets.all(0),
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: ClipRRect(
+                                                  child: Container(
+                                                    child: Image.network(
+                                                      image,
+                                                      width: double.infinity,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  15),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  15)),
                                                 ),
                                               ),
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(15),
-                                                  topRight:
-                                                      Radius.circular(15)),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: FittedBox(
-                                          child: Text(
-                                            brand,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: FittedBox(
+                                              child: Text(
+                                                brand,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 8, bottom: 15),
-                                        child: FittedBox(
-                                          child: Text(
-                                            price,
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10, right: 8, bottom: 15),
+                                            child: FittedBox(
+                                              child: Text(
+                                                price,
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 10),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                onPressed: () {
-                                  print(listViewDataWeekly);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DetailsPage(
-                                              title,
-                                              image,
-                                              price,
-                                              brand,
-                                              description,
-                                              condition,
-                                              idOne,
-                                              productId,
-                                              slug)));
+                                    ),
+                                    onPressed: () {
+                                      print(listViewDataWeekly);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => DetailsPage(
+                                                  title,
+                                                  image,
+                                                  price,
+                                                  brand,
+                                                  description,
+                                                  condition,
+                                                  idOne,
+                                                  productId,
+                                                  slug)));
+                                    },
+                                  );
                                 },
-                              );
-                            },
-                            itemCount: listViewDataWeekly.length,
-                          ),
-                        ),
-                ],
-              ),
-            )));
+                                itemCount: listViewDataWeekly.length,
+                              ),
+                            ),
+                    ],
+                  ),
+                ),
+              );
+            })));
   }
 
   Future getCategoryList() async {
