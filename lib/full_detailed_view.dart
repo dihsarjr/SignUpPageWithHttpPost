@@ -21,6 +21,8 @@ class DetailsPage extends StatefulWidget {
   String inventory;
   bool favorite = false;
 
+  bool button = true;
+
   DetailsPage(this.title, this.image, this.price, this.brand, this.description,
       this.condition, this.idOne, this.productId, this.inventory);
 
@@ -316,9 +318,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                       onPressed: () {
                                         _validation2();
                                         print('123');
+                                        setState(() {
+                                          widget.button = false;
+                                        });
                                       },
                                       child: Text(
-                                        'Add to Cart',
+                                        widget.button == true
+                                            ? 'Add to Cart'
+                                            : 'Added',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 15,

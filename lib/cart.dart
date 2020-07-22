@@ -47,11 +47,9 @@ class _CartState extends State<Cart> {
         padding: const EdgeInsets.all(8.0),
         child: listData == null
             ? Center(
-                child: Text(
-                  'Empty',
-                  style: TextStyle(fontSize: 25),
-                ),
-              )
+                child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
+              ))
             : Column(
                 children: <Widget>[
                   Expanded(
