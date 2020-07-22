@@ -16,6 +16,7 @@ class _CartState extends State<Cart> {
   String emails;
 
   String cartId;
+  String inventoryId;
   String shopId;
   String shipTo;
 
@@ -62,24 +63,26 @@ class _CartState extends State<Cart> {
                           crossAxisSpacing: 10,
                         ),
                         itemBuilder: (ctx, index) {
-                          cartId = listData[index]['items'][0]['pivot']
-                                  ['cart_id']
+                          cartId =
+                              listData[index]['pivot']['cart_id'].toString();
+                          inventoryId = listData[index]['pivot']['inventory_id']
                               .toString();
                           shipTo = listData[index]['ship_to'].toString();
-                          shopId =
-                              listData[index]['items'][0]['shop_id'].toString();
+                          shopId = listData[index]['shop_id'].toString();
                           print(cartId);
                           print('ship to $shipTo');
                           print(shopId);
                           return GridProducts(
-                              listData[index]['items'][0]['brand'],
-                              listData[index]['items'][0]['brand'],
-                              listData[index]['items'][0]['image'],
+                              listData[index]['brand'],
+                              listData[index]['brand'],
+                              listData[index]['image'],
                               shopId,
                               shipTo,
                               cartId,
                               userId,
-                              emails);
+                              emails,
+                              inventoryId,
+                              _validation(userId));
                         },
                         itemCount: listData.length,
                       ),
@@ -129,9 +132,9 @@ class _CartState extends State<Cart> {
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['data'].toString();
     setState(() {
-      listData = responseJson['data'];
+      listData = responseJson['data'][0]['items'];
 
-//      print(responseJson['data'][1]['items'][0]['shop_id']);
+      print(responseJson['data'][0]['items']);
 //      print(responseJson['data'][1]['items'][0]['pivot']['cart_id']);
 //      print(responseJson['data'][1]['ship_to']);
     });
