@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:registration/address_page.dart';
 import 'package:registration/widgets/grid_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +13,11 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   List listData;
   String userId;
+  String emails;
+
+  String cartId;
+  String shopId;
+  String shipTo;
 
   @override
   void initState() {
@@ -25,7 +29,9 @@ class _CartState extends State<Cart> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       userId = (prefs.getString('id') ?? '');
+      emails = (prefs.getString('email') ?? '');
       print(userId);
+      print(emails);
       _validation(userId);
     });
   }
@@ -58,34 +64,53 @@ class _CartState extends State<Cart> {
                           crossAxisSpacing: 10,
                         ),
                         itemBuilder: (ctx, index) {
+                          cartId = listData[index]['items'][0]['pivot']
+                                  ['cart_id']
+                              .toString();
+                          shipTo = listData[index]['ship_to'].toString();
+                          shopId =
+                              listData[index]['items'][0]['shop_id'].toString();
+                          print(cartId);
+                          print('ship to $shipTo');
+                          print(shopId);
                           return GridProducts(
-                            listData[index]['items'][0]['brand'],
-                            listData[index]['items'][0]['brand'],
-                            listData[index]['items'][0]['image'],
-                          );
+                              listData[index]['items'][0]['brand'],
+                              listData[index]['items'][0]['brand'],
+                              listData[index]['items'][0]['image'],
+                              shopId,
+                              shipTo,
+                              cartId,
+                              userId,
+                              emails);
                         },
                         itemCount: listData.length,
                       ),
                     ),
                   ),
-                  Container(
-                      width: 300,
-                      height: 50,
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddressPage()));
-                        },
-                        color: Color(0xFFEDA89D),
-                        textColor: Colors.white,
-                        child: Text("Check Out".toUpperCase(),
-                            style: TextStyle(fontSize: 14)),
-                      )),
+//                  Container(
+//                      width: 300,
+//                      height: 50,
+//                      child: RaisedButton(
+//                        shape: RoundedRectangleBorder(
+//                          borderRadius: BorderRadius.circular(30.0),
+//                        ),
+//                        onPressed: () {
+//                          Navigator.push(
+//                              context,
+//                              MaterialPageRoute(
+//                                  builder: (context) => AddressPage(
+//                                        email: emails,
+//                                        userId: userId,
+//                                        shopId: shopId,
+//                                        cartId: cartId,
+//                                        shipTo: shipTo,
+//                                      )));
+//                        },
+//                        color: Color(0xFFEDA89D),
+//                        textColor: Colors.white,
+//                        child: Text("Check Out".toUpperCase(),
+//                            style: TextStyle(fontSize: 14)),
+//                      )),
                 ],
               ),
       ),
@@ -107,7 +132,10 @@ class _CartState extends State<Cart> {
     String responses = responseJson['data'].toString();
     setState(() {
       listData = responseJson['data'];
-      print(listData);
+
+//      print(responseJson['data'][1]['items'][0]['shop_id']);
+//      print(responseJson['data'][1]['items'][0]['pivot']['cart_id']);
+//      print(responseJson['data'][1]['ship_to']);
     });
 //
 //    print(responses);

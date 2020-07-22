@@ -5,6 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class PaymentPage extends StatefulWidget {
+  String cartId;
+  String shopId;
+  String userId;
+  String email;
+  String shipTo;
+
+  PaymentPage({this.email, this.userId, this.cartId, this.shipTo, this.shopId});
+
   @override
   _PaymentPageState createState() => _PaymentPageState();
 }
@@ -118,19 +126,19 @@ class _PaymentPageState extends State<PaymentPage> {
     Response response = await post('http://multi.capcee.com/api/cart/checkout',
         headers: headers,
         body: {
-          'cart_id': '24',
-          'user_id': '31',
+          'cart_id': widget.cartId,
+          'user_id': widget.userId.toString(),
           'shippingRateId': '',
           'packing_id': '1',
           'payment_method_id': '6',
           'shipping_option_id': '',
           'discount_id': '',
-          'shop_id': '1',
+          'shop_id': widget.shopId,
           'zone_id': '',
           'coupon': '',
-          'ship_to': '356',
+          'ship_to': widget.shipTo,
           'shipping_address': 'house (h), place P, malappuram (dt)',
-          'email': 'rashidvv@gmail.com',
+          'email': widget.email,
           'buyer_note': '',
         });
 
@@ -140,7 +148,7 @@ class _PaymentPageState extends State<PaymentPage> {
     String responses = responseJson['message'].toString();
 
     print(responses);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       print('200');
       setState(() {
         status = true;

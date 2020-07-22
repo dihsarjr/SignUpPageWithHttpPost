@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:registration/full_detailed_view.dart';
+
+import '../address_page.dart';
 
 class GridProducts extends StatelessWidget {
   String id;
@@ -18,11 +19,15 @@ class GridProducts extends StatelessWidget {
 
   String price;
   String inventory;
-  GridProducts(
-    this.id,
-    this.title,
-    this.image,
-  );
+
+  String userId;
+  String emails;
+
+  String cartId;
+  String shopId;
+  String shipTo;
+  GridProducts(this.id, this.title, this.image, this.shopId, this.shipTo,
+      this.cartId, this.userId, this.emails);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -35,9 +40,16 @@ class GridProducts extends StatelessWidget {
         child: GridTile(
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (ctx) => DetailsPage(title, image, price, brand,
-                      description, condition, idOne, productId, inventory)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddressPage(
+                            shipTo: shipTo,
+                            cartId: cartId,
+                            shopId: shopId,
+                            userId: userId,
+                            email: emails,
+                          )));
             },
             child: Image.network(
               image,

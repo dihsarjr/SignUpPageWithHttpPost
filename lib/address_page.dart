@@ -11,6 +11,14 @@ class AddressPage extends StatefulWidget {
 
   bool page = false;
 
+  String cartId;
+  String shopId;
+  String userId;
+  String email;
+  String shipTo;
+
+  AddressPage({this.email, this.userId, this.cartId, this.shipTo, this.shopId});
+
 //
 //  prefs.setString('name', name);
 //  prefs.setString('address', address);
@@ -59,7 +67,13 @@ class _AddressPageState extends State<AddressPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PaymentPage()));
+                              builder: (context) => PaymentPage(
+                                    cartId: widget.cartId,
+                                    email: widget.email,
+                                    shipTo: widget.shipTo,
+                                    shopId: widget.shopId,
+                                    userId: widget.userId,
+                                  )));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),
