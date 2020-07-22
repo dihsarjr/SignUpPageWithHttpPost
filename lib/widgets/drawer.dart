@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
-import 'package:http/http.dart' as http;
-import 'package:registration/add_address.dart';
 import 'package:registration/category_det.dart';
+import 'package:registration/my_orders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../login.dart';
@@ -13,37 +9,37 @@ import '../wish_list.dart';
 class Drawers extends StatefulWidget {
   String emailUser;
   String nameUser;
-  Drawers(this.emailUser, this.nameUser);
+  String userIds;
+  List listViewData;
+  Drawers(this.emailUser, this.nameUser, this.userIds, this.listViewData);
 
   @override
   _DrawersState createState() => _DrawersState();
 }
 
 class _DrawersState extends State<Drawers> {
-  List listViewData;
-
   List data;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getCategoryList();
-    getData();
-  }
-
-//GET DATA FROM FUTURE FUNCTION
-  getData() async {
-    await getCategoryList().then((v) {
-      v != null
-          ? setState(() {
-              listViewData = v;
-            })
-          : setState(() {
-              listViewData = null;
-            });
-    });
-  }
+//  @override
+//  void initState() {
+//    // TODO: implement initState
+//    super.initState();
+//    getCategoryList();
+//    getData();
+//  }
+//
+////GET DATA FROM FUTURE FUNCTION
+//  getData() async {
+//    await getCategoryList().then((v) {
+//      v != null
+//          ? setState(() {
+//              listViewData = v;
+//            })
+//          : setState(() {
+//              listViewData = null;
+//            });
+//    });
+//  }
 
   removeValues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -54,7 +50,7 @@ class _DrawersState extends State<Drawers> {
   @override
   Widget build(BuildContext context) {
     print(data);
-    print(listViewData);
+    print(widget.listViewData);
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -110,18 +106,20 @@ class _DrawersState extends State<Drawers> {
           ),
           ListTile(
             leading: Icon(
-              Icons.add_circle,
+              Icons.shopping_basket,
               size: 30,
             ),
-            title: Text('Add Address'),
+            title: Text('My Orders'),
             onTap: () {
               setState(() {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddAddress()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyOrders(widget.userIds)));
               });
             },
           ),
-          listViewData == null
+          widget.listViewData == null
               ? Text('loading')
               : Container(
                   height: MediaQuery.of(context).size.height * 0.50,
@@ -129,19 +127,19 @@ class _DrawersState extends State<Drawers> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading: Icon(Icons.shop),
-                        title:
-                            Text(listViewData[index]["categorygroup"]["name"]),
+                        title: Text(widget.listViewData[index]["categorygroup"]
+                            ["name"]),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CategoryDet(
-                                      listViewData[index]["categorygroup"]
-                                          ["category_sub_group"])));
+                                  builder: (context) => CategoryDet(widget
+                                          .listViewData[index]["categorygroup"]
+                                      ["category_sub_group"])));
                         },
                       );
                     },
-                    itemCount: listViewData.length,
+                    itemCount: widget.listViewData.length,
                   ),
                 ),
         ],
@@ -149,24 +147,24 @@ class _DrawersState extends State<Drawers> {
     );
   }
 
-  Future getCategoryList() async {
-    List<dynamic> categoryList;
-    var v = categoryList;
-    String url = "${GlobalConfiguration().getString("base_uri")}/categories";
-    print(url);
-    var res = await http
-        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
-//    print(res.body);
-    print(res.statusCode.toString());
-    if (res.statusCode == 200) {
-      var data = json.decode(res.body);
-      categoryList = data["data"] as List;
-
-      print(categoryList[0]["categorygroup"]["category_sub_group"][0]["name"]);
-
-//      print(res.body);
-      //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
-    }
-    return categoryList;
-  }
+//  Future getCategoryList() async {
+//    List<dynamic> categoryList;
+//    var v = categoryList;
+//    String url = "${GlobalConfiguration().getString("base_uri")}/categories";
+//    print(url);
+//    var res = await http
+//        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+////    print(res.body);
+//    print(res.statusCode.toString());
+//    if (res.statusCode == 200) {
+//      var data = json.decode(res.body);
+//      categoryList = data["data"] as List;
+//
+//      print(categoryList[0]["categorygroup"]["category_sub_group"][0]["name"]);
+//
+////      print(res.body);
+//      //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
+//    }
+//    return categoryList;
+//  }
 }

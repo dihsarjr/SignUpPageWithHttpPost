@@ -20,6 +20,7 @@ class HomePageOne extends StatefulWidget {
 
 class _HomePageOneState extends State<HomePageOne> {
   List listViewData;
+  List listViewDataA;
   List listViewDataWeekly;
   final List<NewArrivalsModels> newArrivals = [
     NewArrivalsModels(
@@ -43,6 +44,7 @@ class _HomePageOneState extends State<HomePageOne> {
   String _emails = '';
 
   String _passs = '';
+  String _userId = '';
 
   @override
   void initState() {
@@ -52,6 +54,8 @@ class _HomePageOneState extends State<HomePageOne> {
     getData();
     getWeeklyList();
     getDataWeekly();
+    _getCategoryList();
+    _getData();
   }
 
   _loadCounter() async {
@@ -59,6 +63,7 @@ class _HomePageOneState extends State<HomePageOne> {
     setState(() {
       _emails = (prefs.getString('email') ?? '');
       _passs = (prefs.getString('name') ?? '');
+      _userId = (prefs.getString('id') ?? '');
     });
   }
 
@@ -95,6 +100,18 @@ class _HomePageOneState extends State<HomePageOne> {
     });
   }
 
+  _getData() async {
+    await _getCategoryList().then((v) {
+      v != null
+          ? setState(() {
+              listViewDataA = v;
+            })
+          : setState(() {
+              listViewDataA = null;
+            });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget imageCarousel = Container(
@@ -122,7 +139,7 @@ class _HomePageOneState extends State<HomePageOne> {
               backgroundColor: Color(0xFFEDA89D),
               title: Text('welcome'),
             ),
-            drawer: Drawers(_emails, _passs),
+            drawer: Drawers(_emails, _passs, _userId, listViewDataA),
             body: Builder(builder: (BuildContext context) {
               return OfflineBuilder(
                 connectivityBuilder: (BuildContext context,
@@ -485,6 +502,27 @@ class _HomePageOneState extends State<HomePageOne> {
       //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
     }
     return weeklyList;
+  }
+
+  Future _getCategoryList() async {
+    List<dynamic> categoryList;
+    var v = categoryList;
+    String url = "${GlobalConfiguration().getString("base_uri")}/categories";
+    print(url);
+    var res = await http
+        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+//    print(res.body);
+    print(res.statusCode.toString());
+    if (res.statusCode == 200) {
+      var data = json.decode(res.body);
+      categoryList = data["data"] as List;
+
+      print(categoryList[0]["categorygroup"]["category_sub_group"][0]["name"]);
+
+//      print(res.body);
+      //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();
+    }
+    return categoryList;
   }
 }
 
