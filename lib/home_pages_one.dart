@@ -135,6 +135,7 @@ class _HomePageOneState extends State<HomePageOne> {
     );
     return SafeArea(
         child: Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.white,
@@ -209,42 +210,46 @@ class _HomePageOneState extends State<HomePageOne> {
                       imageCarousel,
                       Column(
                         children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 5, left: 20, bottom: 5),
-                                child: Text(
-                                  'Trending Now',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, right: 20),
-                                child: FlatButton(
-                                  padding: EdgeInsets.all(0),
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 5, left: 20, bottom: 5),
                                   child: Text(
-                                    'View All',
+                                    'Trending Now',
                                     style: TextStyle(
-                                        fontSize: 15, color: Colors.black54),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                TrendingNowPage(listViewData)));
-                                  },
                                 ),
-                              )
-                            ],
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, right: 20),
+                                  child: FlatButton(
+                                    padding: EdgeInsets.all(0),
+                                    child: Text(
+                                      'View All',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.black54),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TrendingNowPage(
+                                                      listViewData)));
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           Container(
                             height: 210,
+                            color: Colors.white,
                             child: listViewData == null
                                 ? ListView.builder(
                                     scrollDirection: Axis.horizontal,
@@ -297,7 +302,7 @@ class _HomePageOneState extends State<HomePageOne> {
                       Padding(
                         padding: const EdgeInsets.only(
                           left: 20,
-                          top: 5,
+                          top: 15,
                           bottom: 5,
                         ),
                         child: Text(
