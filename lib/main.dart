@@ -215,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             borderRadius: BorderRadius.circular(40.0)),
                         child: Center(
                             child: Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(15),
                           child: Text(
                             'Register',
                             style: TextStyle(fontSize: 25, color: Colors.white),

@@ -23,8 +23,14 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment'),
-        backgroundColor: Color(0xFFEDA89D),
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Payment',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
       ),
       body: Padding(
           padding: const EdgeInsets.only(top: 30),
@@ -59,7 +65,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                             onPressed: () {},
-                            color: Color(0xFFEDA89D),
+                            color: Color(0xFF7550ff),
                             textColor: Colors.white,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +100,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             onPressed: () {
                               _validation();
                             },
-                            color: Color(0xFFEDA89D),
+                            color: Color(0xFF7550ff),
                             textColor: Colors.white,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

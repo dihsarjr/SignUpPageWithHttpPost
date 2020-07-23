@@ -43,7 +43,14 @@ class _WishListState extends State<WishList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('WishList'),
+          elevation: 0,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            'Wishlist',
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
         ),
         body: listData.length < 0
             ? Container(

@@ -8,16 +8,23 @@ class TrendingNowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Trending Now'),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Trending Now',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: (1.02 / 1.3),
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
+            childAspectRatio: (1 / 1),
+            mainAxisSpacing: 1,
+            crossAxisSpacing: 1,
           ),
           itemBuilder: (context, index) {
             return TrendingNow(

@@ -86,7 +86,7 @@ class _AddressPageState extends State<AddressPage> {
                       child: Container(
                         height: 200,
                         child: Card(
-                          color: Colors.purple,
+                          color: Color(0xFF7550ff),
                           child: Padding(
                             padding: const EdgeInsets.all(14.0),
                             child: Column(
