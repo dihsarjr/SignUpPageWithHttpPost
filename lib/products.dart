@@ -45,8 +45,13 @@ class _ProductsPageState extends State<ProductsPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Color(0xFFEDA89D),
-          title: Text('Products'),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            'Products',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         body: productsList['data'] == null
             ? Center(
@@ -82,11 +87,11 @@ class _ProductsPageState extends State<ProductsPage> {
                     return FlatButton(
                       padding: EdgeInsets.all(0),
                       child: Card(
-                        elevation: 6,
+                        elevation: 1,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        color: Color(0xFFEDA89D),
+                        color: Colors.white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -104,23 +109,23 @@ class _ProductsPageState extends State<ProductsPage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: FittedBox(
-                                child: Text(
-                                  title,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
+                              child: Text(
+                                title,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(
+                                  bottom: 10, right: 8, left: 8),
                               child: FittedBox(
                                 child: Text(
                                   brand,
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.grey,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 10),
                                 ),

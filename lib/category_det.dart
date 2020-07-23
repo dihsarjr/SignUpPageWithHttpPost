@@ -4,21 +4,28 @@ import 'package:registration/products.dart';
 
 class CategoryDet extends StatelessWidget {
   List<dynamic> listViews;
+  String titles;
 
-  CategoryDet(this.listViews);
+  CategoryDet(this.listViews, this.titles);
   @override
   Widget build(BuildContext context) {
     print(listViews[0]['id']);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFEDA89D),
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          centerTitle: true,
+          title: Text(
+            titles,
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: (1 / 1.2),
+              childAspectRatio: (1 / 1),
               crossAxisSpacing: 6,
               mainAxisSpacing: 6,
             ),
@@ -27,11 +34,10 @@ class CategoryDet extends StatelessWidget {
               return FlatButton(
                 padding: EdgeInsets.all(0),
                 child: Card(
-                  elevation: 6,
+                  elevation: 1,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
-                  color: Color(0xFFEDA89D),
                   child: Column(
                     children: <Widget>[
                       Expanded(
@@ -52,19 +58,19 @@ class CategoryDet extends StatelessWidget {
                           child: Text(
                             listViews[index]['name'],
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontSize: 15),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: FittedBox(
                           child: Text(
                             listViews[index]['description'],
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.grey,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10),
                           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:registration/category_det.dart';
+import 'package:registration/categorys.dart';
 import 'package:registration/my_orders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,8 +57,8 @@ class _DrawersState extends State<Drawers> {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(130),
-                bottomLeft: Radius.circular(130)),
+                bottomRight: Radius.circular(150),
+                bottomLeft: Radius.circular(150)),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.26,
               width: double.infinity,
@@ -90,27 +90,6 @@ class _DrawersState extends State<Drawers> {
                     widget.emailUser,
                     style: TextStyle(fontSize: 15, color: Colors.grey),
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(200),
-                        bottomLeft: Radius.circular(200),
-                        topRight: Radius.circular(200),
-                        topLeft: Radius.circular(200)),
-                    child: FlatButton(
-                        padding: EdgeInsets.all(0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: Text('Log Out',
-                              style: TextStyle(
-                                color: Colors.white,
-                              )),
-                        ),
-                        onPressed: () {
-                          removeValues();
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Login()));
-                        }),
-                  )
                 ],
               ),
             ),
@@ -118,14 +97,14 @@ class _DrawersState extends State<Drawers> {
           ListTile(
             leading: Icon(
               Icons.home,
-              size: 30,
+              size: 20,
             ),
             title: Text('Home'),
           ),
           ListTile(
             leading: Icon(
               Icons.favorite,
-              size: 30,
+              size: 20,
             ),
             title: Text('Wishlist'),
             onTap: () {
@@ -138,7 +117,7 @@ class _DrawersState extends State<Drawers> {
           ListTile(
             leading: Icon(
               Icons.shopping_basket,
-              size: 30,
+              size: 20,
             ),
             title: Text('My Orders'),
             onTap: () {
@@ -150,29 +129,57 @@ class _DrawersState extends State<Drawers> {
               });
             },
           ),
-          widget.listViewData == null
-              ? Text('loading')
-              : Container(
-                  height: MediaQuery.of(context).size.height * 0.50,
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Icon(Icons.shop),
-                        title: Text(widget.listViewData[index]["categorygroup"]
-                            ["name"]),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CategoryDet(widget
-                                          .listViewData[index]["categorygroup"]
-                                      ["category_sub_group"])));
-                        },
-                      );
-                    },
-                    itemCount: widget.listViewData.length,
-                  ),
-                ),
+          ListTile(
+            leading: Icon(
+              Icons.category,
+              size: 20,
+            ),
+            title: Text('Categories'),
+            onTap: () {
+              setState(() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            CategoryList(widget.listViewData)));
+              });
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.exit_to_app,
+              size: 20,
+            ),
+            title: Text('Log Out'),
+            onTap: () {
+              removeValues();
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Login()));
+            },
+          ),
+//          widget.listViewData == null
+//              ? Text('loading')
+//              : Container(
+//                  height: MediaQuery.of(context).size.height * 0.50,
+//                  child: ListView.builder(
+//                    itemBuilder: (context, index) {
+//                      return ListTile(
+//                        leading: Icon(Icons.shop),
+//                        title: Text(widget.listViewData[index]["categorygroup"]
+//                            ["name"]),
+//                        onTap: () {
+//                          Navigator.push(
+//                              context,
+//                              MaterialPageRoute(
+//                                  builder: (context) => CategoryDet(widget
+//                                          .listViewData[index]["categorygroup"]
+//                                      ["category_sub_group"])));
+//                        },
+//                      );
+//                    },
+//                    itemCount: widget.listViewData.length,
+//                  ),
+//                ),
         ],
       ),
     );

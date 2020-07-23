@@ -70,13 +70,18 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.brand),
+        centerTitle: true,
+        iconTheme: new IconThemeData(color: Colors.black),
+        title: Text(
+          widget.brand,
+          style: TextStyle(color: Colors.black),
+        ),
         leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.of(context).pop(true);
             }),
-        backgroundColor: Color(0xFFEDA89D),
+        backgroundColor: Colors.white,
         elevation: 0,
         actions: <Widget>[
           Container(
@@ -98,7 +103,7 @@ class _DetailsPageState extends State<DetailsPage> {
         ],
       ),
       body: Container(
-          color: Color(0xFFEDA89D),
+          color: Colors.white,
           padding: EdgeInsets.all(0),
           child: connection == true
               ? Column(
@@ -106,7 +111,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   children: <Widget>[
                     Container(
                       height: MediaQuery.of(context).size.height * 0.3,
-                      margin: EdgeInsets.all(20),
+                      margin: EdgeInsets.all(10),
                       child: Center(
                         child: ClipRRect(
                           child: Image.network(
@@ -157,7 +162,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                         IconButton(
                                             icon: Icon(
                                               Icons.remove_circle,
-                                              color: Color(0xFFEDA89D),
+                                              color: Colors.black26,
                                             ),
                                             //todo on press for the remove item
                                             onPressed: () {
@@ -168,7 +173,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                             }),
                                         Container(
                                           decoration: BoxDecoration(
-                                            color: Color(0xFFEDA89D),
+                                            color: Colors.black26,
                                             borderRadius: BorderRadius.only(
                                               topRight: Radius.circular(10),
                                               topLeft: Radius.circular(10),
@@ -191,7 +196,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                         IconButton(
                                             icon: Icon(
                                               Icons.add_circle,
-                                              color: Color(0xFFEDA89D),
+                                              color: Colors.black26,
                                             ),
                                             //todo on press for the add item
                                             onPressed: () {
@@ -208,7 +213,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       widget.title,
                                       style: TextStyle(
                                           fontFamily: 'Muli',
-                                          fontSize: 30,
+                                          fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -225,6 +230,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       '${widget.price}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
                                           fontSize: 20),
                                     ),
                                   ),
@@ -232,7 +238,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                     child: SizedBox(
                                       width: 400,
                                       child: Divider(
-                                        color: Color(0xFFEDA89D),
+                                        color: Color(0xFF7550ff),
                                       ),
                                     ),
                                   ),
@@ -243,13 +249,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                         'Condition: ${widget.condition}',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 20),
+                                            fontSize: 15),
                                       )),
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 5),
                                     child: Text(
                                       'Description:\n'
                                       '\n${widget.description}',
+                                      style: TextStyle(color: Colors.black38),
                                     ),
                                   ),
                                 ],
@@ -274,7 +281,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   child: IconButton(
                                       icon: Icon(
                                         Icons.favorite_border,
-                                        color: Color(0xFFEDA89D),
+                                        color: Color(0xFF7550ff),
                                         size: 30,
                                       ),
                                       onPressed: () {
@@ -289,7 +296,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   child: IconButton(
                                       icon: Icon(
                                         Icons.favorite,
-                                        color: Color(0xFFEDA89D),
+                                        color: Color(0xFF7550ff),
                                         size: 30,
                                       ),
                                       onPressed: () {
@@ -309,27 +316,40 @@ class _DetailsPageState extends State<DetailsPage> {
                                 margin: EdgeInsets.only(
                                     top: 10, bottom: 10, right: 20, left: 20),
                                 color: Color(0xFFEDA89D),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 52, left: 52),
-                                    child: FlatButton(
-                                      padding: EdgeInsets.all(0),
-                                      onPressed: () {
-                                        _validation2();
-                                        print('123');
-                                        setState(() {
-                                          widget.button = false;
-                                        });
-                                      },
-                                      child: Text(
-                                        widget.button == true
-                                            ? 'Add to Cart'
-                                            : 'Added',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                            color: Colors.white),
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xFF3d60ff),
+                                          Color(0xFF7550ff)
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(40.0)),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 52, left: 52),
+                                      child: FlatButton(
+                                        padding: EdgeInsets.all(0),
+                                        onPressed: () {
+                                          _validation2();
+                                          print('123');
+                                          setState(() {
+                                            widget.button = false;
+                                          });
+                                        },
+                                        child: Text(
+                                          widget.button == true
+                                              ? 'Add to Cart'
+                                              : 'Added',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -106,7 +106,7 @@ class _LoginState extends State<Login> {
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
                   Text(
-                    'Welcome,',
+                    'Welcome',
                     style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                   ),
                   Padding(
@@ -142,7 +142,7 @@ class _LoginState extends State<Login> {
                     child: FlatButton(
                       padding: EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                       onPressed: () {
                         progress = true;
@@ -152,26 +152,36 @@ class _LoginState extends State<Login> {
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
+                          borderRadius: BorderRadius.circular(50.0),
                         ),
                         color: Colors.black87,
-                        child: Center(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: progress != false
-                              ? CircularProgressIndicator(
-                                  valueColor: new AlwaysStoppedAnimation<Color>(
-                                      Colors.white),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Text(
-                                    'Login',
-                                    style: TextStyle(
-                                        fontSize: 25, color: Colors.white),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0xFF3d60ff), Color(0xFF7550ff)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(40.0)),
+                          child: Center(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: progress != false
+                                ? CircularProgressIndicator(
+                                    valueColor:
+                                        new AlwaysStoppedAnimation<Color>(
+                                            Colors.white),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: Text(
+                                      'Login',
+                                      style: TextStyle(
+                                          fontSize: 25, color: Colors.white),
+                                    ),
                                   ),
-                                ),
-                        )),
+                          )),
+                        ),
                       ),
                     ),
                   ),

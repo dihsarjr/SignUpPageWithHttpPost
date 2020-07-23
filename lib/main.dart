@@ -205,14 +205,23 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(40.0),
                       ),
                       color: Colors.black87,
-                      child: Center(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          'Register',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
-                        ),
-                      )),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Color(0xFF3d60ff), Color(0xFF7550ff)],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(40.0)),
+                        child: Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text(
+                            'Register',
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          ),
+                        )),
+                      ),
                     ),
                   ),
                 ),
