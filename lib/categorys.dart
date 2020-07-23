@@ -9,6 +9,7 @@ class CategoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     print(listv);
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,

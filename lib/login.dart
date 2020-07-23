@@ -96,6 +96,7 @@ class _LoginState extends State<Login> {
       key: formKey,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(20),

@@ -115,7 +115,7 @@ class _HomePageOneState extends State<HomePageOne> {
   @override
   Widget build(BuildContext context) {
     Widget imageCarousel = Container(
-      height: 200,
+      height: 250,
       child: Carousel(
         boxFit: BoxFit.cover,
         images: [
@@ -220,7 +220,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                   child: Text(
                                     'Trending Now',
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -232,7 +232,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                     child: Text(
                                       'View All',
                                       style: TextStyle(
-                                          fontSize: 15, color: Colors.black54),
+                                          fontSize: 20, color: Colors.black54),
                                     ),
                                     onPressed: () {
                                       Navigator.push(
@@ -308,7 +308,7 @@ class _HomePageOneState extends State<HomePageOne> {
                         child: Text(
                           'Weekly popular',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
                       listViewDataWeekly == null
@@ -320,7 +320,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
-                                  childAspectRatio: (1 / 1.2),
+                                  childAspectRatio: (1 / 1),
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                 ),
@@ -357,7 +357,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
-                                  childAspectRatio: (1 / 1.2),
+                                  childAspectRatio: (1 / 1),
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                 ),

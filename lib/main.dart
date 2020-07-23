@@ -47,6 +47,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+          fontFamily: 'Lato',
           primarySwatch: Colors.purple,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           iconTheme: IconThemeData(color: Colors.black)),
@@ -133,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
       key: formKeySignUp,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
           key: _globalKey,
           body: Padding(
             padding:

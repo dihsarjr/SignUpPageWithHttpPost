@@ -69,6 +69,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         iconTheme: new IconThemeData(color: Colors.black),
@@ -165,11 +166,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                               color: Colors.black26,
                                             ),
                                             //todo on press for the remove item
+
                                             onPressed: () {
-                                              setState(() {
-                                                numberOfItem--;
-                                                print(numberOfItem);
-                                              });
+                                              numberOfItem == 0
+                                                  ? print('object')
+                                                  : setState(() {
+                                                      numberOfItem--;
+                                                      print(numberOfItem);
+                                                    });
                                             }),
                                         Container(
                                           decoration: BoxDecoration(

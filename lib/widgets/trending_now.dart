@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../full_detailed_view.dart';
 
@@ -30,7 +29,7 @@ class TrendingNow extends StatelessWidget {
       padding: EdgeInsets.all(0),
       child: Container(
         height: 200,
-        width: 200,
+        width: 180,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -47,12 +46,13 @@ class TrendingNow extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(15.0),
         ),
-        child: Stack(
-          alignment: Alignment.bottomLeft,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              child: ClipRRect(
-                child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: ClipRRect(
                   child: Image.network(
                     image == null
                         ? 'https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
@@ -60,56 +60,39 @@ class TrendingNow extends StatelessWidget {
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15)),
                 ),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15)),
               ),
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15)),
-              child: Container(
-                color: Colors.black45,
-                height: 46,
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, left: 10),
-                        child: FittedBox(
-                          child: Text(
-                            brand,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, bottom: 15),
-                        child: FittedBox(
-                          child: Text(
-                            '\$ : ${price}',
-                            style: TextStyle(
-                                color: Colors.white54,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10),
-                          ),
-                        ),
-                      ),
-                    ],
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: FittedBox(
+                    child: Text(
+                      brand,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, bottom: 15, top: 6),
+                  child: FittedBox(
+                    child: Text(
+                      '\$ : ${price}',
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10),
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:registration/cart.dart';
 import 'package:registration/categorys.dart';
 import 'package:registration/my_orders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -111,6 +112,19 @@ class _DrawersState extends State<Drawers> {
               setState(() {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => WishList()));
+              });
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.shopping_cart,
+              size: 20,
+            ),
+            title: Text('Cart'),
+            onTap: () {
+              setState(() {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Cart()));
               });
             },
           ),

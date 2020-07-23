@@ -11,7 +11,9 @@ class CategoryDet extends StatelessWidget {
   Widget build(BuildContext context) {
     print(listViews[0]['id']);
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
           centerTitle: true,
