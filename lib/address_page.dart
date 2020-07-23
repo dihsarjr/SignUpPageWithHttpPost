@@ -51,8 +51,14 @@ class _AddressPageState extends State<AddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Address'),
-        backgroundColor: Color(0xFFEDA89D),
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Address',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
       ),
       body: widget.name == ''
           ? Center(
@@ -135,7 +141,7 @@ class _AddressPageState extends State<AddressPage> {
               ),
             ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFEDA89D),
+        backgroundColor: Color(0xFF7550ff),
         onPressed: () {
           Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AddAddress()))

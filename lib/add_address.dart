@@ -15,8 +15,14 @@ class AddAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Address'),
-        backgroundColor: Color(0xFFEDA89D),
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Add Address',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -63,7 +69,7 @@ class AddAddress extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 170,
+                        width: 160,
                         child: TextFormField(
                           decoration: InputDecoration(labelText: 'City'),
                           controller: cityController,
@@ -73,7 +79,7 @@ class AddAddress extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 215,
+                        width: 150,
                         child: TextFormField(
                           decoration: InputDecoration(labelText: 'State'),
                           controller: stateController,
@@ -105,7 +111,7 @@ class AddAddress extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 50),
+                padding: const EdgeInsets.only(top: 50, bottom: 20),
                 child: Container(
                     width: 300,
                     height: 50,
@@ -117,7 +123,7 @@ class AddAddress extends StatelessWidget {
                         addStringToSF();
                         Navigator.of(context).pop(true);
                       },
-                      color: Color(0xFFEDA89D),
+                      color: Color(0xFF7550ff),
                       textColor: Colors.white,
                       child: Text("Save".toUpperCase(),
                           style: TextStyle(fontSize: 14)),
