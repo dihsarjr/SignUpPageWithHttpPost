@@ -28,13 +28,14 @@ class TrendingNow extends StatelessWidget {
       },
       padding: EdgeInsets.all(0),
       child: Card(
+        elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
         color: Colors.white,
         child: Container(
-          height: 250,
-          width: 220,
+          height: 200,
+          width: 180,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

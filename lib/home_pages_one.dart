@@ -128,7 +128,7 @@ class _HomePageOneState extends State<HomePageOne> {
         ],
         autoplay: true,
         indicatorBgPadding: 1,
-        dotColor: Color(0xFFee9ca7),
+        dotColor: Colors.grey,
         dotBgColor: Colors.transparent,
         dotPosition: DotPosition.bottomCenter,
       ),
@@ -136,10 +136,21 @@ class _HomePageOneState extends State<HomePageOne> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Color(0xFFEDA89D),
-              title: Text('welcome'),
+              elevation: 0,
+              backgroundColor: Colors.white,
+              title: Text(
+                'Shop',
+                style: TextStyle(color: Colors.black),
+              ),
+              centerTitle: true,
+              iconTheme: new IconThemeData(color: Colors.black),
             ),
-            drawer: Drawers(_emails, _passs, _userId, listViewDataA),
+            drawer: Drawers(
+              _emails,
+              _passs,
+              _userId,
+              listViewDataA,
+            ),
             body: Builder(builder: (BuildContext context) {
               return OfflineBuilder(
                 connectivityBuilder: (BuildContext context,
@@ -207,7 +218,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                 child: Text(
                                   'Trending Now',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -219,7 +230,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                   child: Text(
                                     'View All',
                                     style: TextStyle(
-                                        fontSize: 20, color: Colors.black54),
+                                        fontSize: 15, color: Colors.black54),
                                   ),
                                   onPressed: () {
                                     Navigator.push(
@@ -233,7 +244,7 @@ class _HomePageOneState extends State<HomePageOne> {
                             ],
                           ),
                           Container(
-                            height: 250,
+                            height: 210,
                             child: listViewData == null
                                 ? ListView.builder(
                                     scrollDirection: Axis.horizontal,
@@ -241,14 +252,14 @@ class _HomePageOneState extends State<HomePageOne> {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Card(
+                                          elevation: 1,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(20.0),
                                           ),
-                                          color: Color(0xFFEDA89D),
                                           child: Container(
-                                            height: 250,
-                                            width: 220,
+                                            height: 200,
+                                            width: 180,
                                             child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
@@ -264,7 +275,6 @@ class _HomePageOneState extends State<HomePageOne> {
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
                                       return Container(
-                                        color: Color(0xFFEDA89D),
                                         child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: TrendingNow(
@@ -293,7 +303,7 @@ class _HomePageOneState extends State<HomePageOne> {
                         child: Text(
                           'Weekly popular',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                       ),
                       listViewDataWeekly == null
@@ -370,12 +380,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                   String stockQuantity;
                                   return FlatButton(
                                     padding: EdgeInsets.all(0),
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
-                                      color: Colors.white,
+                                    child: Container(
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -395,10 +400,15 @@ class _HomePageOneState extends State<HomePageOne> {
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.only(
-                                                          topLeft:
+                                                          topLeft: Radius
+                                                              .circular(15),
+                                                          topRight:
                                                               Radius.circular(
                                                                   15),
-                                                          topRight:
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  15),
+                                                          bottomRight:
                                                               Radius.circular(
                                                                   15)),
                                                 ),

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-
-import '../address_page.dart';
+import 'package:registration/address_page.dart';
 
 class GridProducts extends StatefulWidget {
   String id;
@@ -16,10 +16,21 @@ class GridProducts extends StatefulWidget {
   String cartId;
   String shopId;
   String shipTo;
+  String titl;
   Future<dynamic> validation;
 
-  GridProducts(this.id, this.title, this.image, this.shopId, this.shipTo,
-      this.cartId, this.userId, this.emails, this.inventoryId, this.validation);
+  GridProducts(
+      this.id,
+      this.title,
+      this.image,
+      this.shopId,
+      this.shipTo,
+      this.cartId,
+      this.userId,
+      this.emails,
+      this.inventoryId,
+      this.validation,
+      this.titl);
 
   @override
   _GridProductsState createState() => _GridProductsState();
@@ -36,7 +47,7 @@ class _GridProductsState extends State<GridProducts> {
 
   String idOne;
 
-  String price;
+  String price = '\$${100}';
 
   String inventory;
 
@@ -45,47 +56,112 @@ class _GridProductsState extends State<GridProducts> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 6,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: GridTile(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AddressPage(
-                            shipTo: widget.shipTo,
-                            cartId: widget.cartId,
-                            shopId: widget.shopId,
-                            userId: widget.userId,
-                            email: widget.emails,
-                          )));
-            },
-            child: Image.network(
-              widget.image,
-              fit: BoxFit.cover,
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+              child: Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15)),
+                  child: Image.network(
+                    widget.image,
+                    fit: BoxFit.cover,
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+              ),
             ),
-          ),
-          footer: GridTileBar(
-            title: Text(
-              widget.title,
-              textAlign: TextAlign.center,
-            ),
-            trailing: IconButton(
-                icon: Icon(Icons.delete),
+            Expanded(
+              child: FlatButton(
                 onPressed: () {
-                  _validation1(widget.cartId, widget.inventoryId);
-                  setState(() {
-                    // ignore: unnecessary_statements
-                    widget.validation;
-                  });
-                }),
-            backgroundColor: Colors.black54,
-          ),
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddressPage(
+                                email: widget.emails,
+                                userId: widget.userId,
+                                shopId: widget.shopId,
+                                cartId: widget.cartId,
+                                shipTo: widget.shipTo,
+                              )));
+                },
+                child: Container(
+                  height: 120,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            widget.title,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text(
+                            widget.titl,
+                            style: TextStyle(color: Colors.grey),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                      Text(
+                        price,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: 120,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.black12,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _validation1(widget.cartId, widget.inventoryId);
+                        });
+                      }),
+                  Row(
+                    children: <Widget>[
+                      IconButton(
+                          icon: Icon(
+                            Icons.remove_circle,
+                            color: Colors.black12,
+                          ),
+                          onPressed: () {}),
+                      Text('1'),
+                      IconButton(
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: Colors.black12,
+                          ),
+                          onPressed: () {}),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

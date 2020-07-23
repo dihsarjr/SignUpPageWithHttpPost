@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:registration/category_det.dart';
 import 'package:registration/my_orders.dart';
@@ -54,34 +55,64 @@ class _DrawersState extends State<Drawers> {
     return Drawer(
       child: Column(
         children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height * 0.26,
-            width: double.infinity,
-            color: Color(0xFFEDA89D),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  radius: 55,
-                  backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(130),
+                bottomLeft: Radius.circular(130)),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.26,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: new LinearGradient(
+                    colors: [Color(0xFF3d60ff), Color(0xFF7550ff)]),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 55,
+                    backgroundColor: Colors.white,
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: NetworkImage(
+                          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+                    ),
                   ),
-                ),
-                Text(
-                  widget.emailUser,
-                  style: TextStyle(fontSize: 20),
-                ),
-                RaisedButton(
-                    child: Text('Log Out'),
-                    onPressed: () {
-                      removeValues();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Login()));
-                    })
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.nameUser,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ),
+                  Text(
+                    widget.emailUser,
+                    style: TextStyle(fontSize: 15, color: Colors.grey),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(200),
+                        bottomLeft: Radius.circular(200),
+                        topRight: Radius.circular(200),
+                        topLeft: Radius.circular(200)),
+                    child: FlatButton(
+                        padding: EdgeInsets.all(0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: Text('Log Out',
+                              style: TextStyle(
+                                color: Colors.white,
+                              )),
+                        ),
+                        onPressed: () {
+                          removeValues();
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => Login()));
+                        }),
+                  )
+                ],
+              ),
             ),
           ),
           ListTile(

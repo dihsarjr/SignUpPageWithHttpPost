@@ -12,6 +12,7 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   List listData;
+  String shipto;
   String userId;
   String emails;
 
@@ -41,8 +42,21 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
-        backgroundColor: Color(0xFFEDA89D),
+        title: Text(
+          'Cart',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            }),
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -55,34 +69,30 @@ class _CartState extends State<Cart> {
                 children: <Widget>[
                   Expanded(
                     child: Container(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: (1 / 1.5),
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                        ),
+                      child: ListView.builder(
                         itemBuilder: (ctx, index) {
                           cartId =
                               listData[index]['pivot']['cart_id'].toString();
                           inventoryId = listData[index]['pivot']['inventory_id']
                               .toString();
-                          shipTo = listData[index]['ship_to'].toString();
+                          shipTo = shipto;
                           shopId = listData[index]['shop_id'].toString();
                           print(cartId);
                           print('ship to $shipTo');
                           print(shopId);
                           return GridProducts(
-                              listData[index]['brand'],
-                              listData[index]['brand'],
-                              listData[index]['image'],
-                              shopId,
-                              shipTo,
-                              cartId,
-                              userId,
-                              emails,
-                              inventoryId,
-                              _validation(userId));
+                            listData[index]['brand'],
+                            listData[index]['brand'],
+                            listData[index]['image'],
+                            shopId,
+                            shipTo,
+                            cartId,
+                            userId,
+                            emails,
+                            inventoryId,
+                            _validation(userId),
+                            listData[index]['title'],
+                          );
                         },
                         itemCount: listData.length,
                       ),
@@ -133,8 +143,8 @@ class _CartState extends State<Cart> {
     String responses = responseJson['data'].toString();
     setState(() {
       listData = responseJson['data'][0]['items'];
-
-      print(responseJson['data'][0]['items']);
+      shipto = responseJson['data'][0]['ship_to'].toString();
+      print(responseJson['data'][0]['ship_to']);
 //      print(responseJson['data'][1]['items'][0]['pivot']['cart_id']);
 //      print(responseJson['data'][1]['ship_to']);
     });
