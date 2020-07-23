@@ -61,116 +61,134 @@ class _DrawersState extends State<Drawers> {
                 bottomRight: Radius.circular(150),
                 bottomLeft: Radius.circular(150)),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.26,
+              height: MediaQuery.of(context).size.height * 0.35,
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [Color(0xFF3d60ff), Color(0xFF7550ff)]),
               ),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 45,
+                      backgroundColor: Colors.white,
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.white,
+                        backgroundImage: NetworkImage(
+                            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.nameUser,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                    ),
+                    Text(
+                      widget.emailUser,
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          Container(
+            height: MediaQuery.of(context).size.height * 0.60,
+            child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: 55,
-                    backgroundColor: Colors.white,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+                  ListTile(
+                    leading: Icon(
+                      Icons.home,
+                      size: 20,
                     ),
+                    title: Text('Home'),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      widget.nameUser,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
+                  ListTile(
+                    leading: Icon(
+                      Icons.favorite,
+                      size: 20,
                     ),
+                    title: Text('Wishlist'),
+                    onTap: () {
+                      setState(() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WishList()));
+                      });
+                    },
                   ),
-                  Text(
-                    widget.emailUser,
-                    style: TextStyle(fontSize: 15, color: Colors.grey),
+                  ListTile(
+                    leading: Icon(
+                      Icons.shopping_cart,
+                      size: 20,
+                    ),
+                    title: Text('Cart'),
+                    onTap: () {
+                      setState(() {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Cart()));
+                      });
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.shopping_basket,
+                      size: 20,
+                    ),
+                    title: Text('My Orders'),
+                    onTap: () {
+                      setState(() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    MyOrders(widget.userIds)));
+                      });
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.category,
+                      size: 20,
+                    ),
+                    title: Text('Categories'),
+                    onTap: () {
+                      setState(() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CategoryList(widget.listViewData)));
+                      });
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.exit_to_app,
+                      size: 20,
+                    ),
+                    title: Text('Log Out'),
+                    onTap: () {
+                      removeValues();
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Login()));
+                    },
                   ),
                 ],
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(
-              Icons.home,
-              size: 20,
-            ),
-            title: Text('Home'),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.favorite,
-              size: 20,
-            ),
-            title: Text('Wishlist'),
-            onTap: () {
-              setState(() {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => WishList()));
-              });
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.shopping_cart,
-              size: 20,
-            ),
-            title: Text('Cart'),
-            onTap: () {
-              setState(() {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Cart()));
-              });
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.shopping_basket,
-              size: 20,
-            ),
-            title: Text('My Orders'),
-            onTap: () {
-              setState(() {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MyOrders(widget.userIds)));
-              });
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.category,
-              size: 20,
-            ),
-            title: Text('Categories'),
-            onTap: () {
-              setState(() {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            CategoryList(widget.listViewData)));
-              });
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.exit_to_app,
-              size: 20,
-            ),
-            title: Text('Log Out'),
-            onTap: () {
-              removeValues();
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Login()));
-            },
-          ),
+
 //          widget.listViewData == null
 //              ? Text('loading')
 //              : Container(

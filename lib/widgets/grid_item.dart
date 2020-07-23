@@ -63,21 +63,21 @@ class _GridProductsState extends State<GridProducts> {
         borderRadius: BorderRadius.circular(10),
         child: Row(
           children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-              child: Container(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15)),
-                  child: Image.network(
-                    widget.image,
-                    fit: BoxFit.cover,
-                    height: 100,
-                    width: 100,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 5, bottom: 5, left: 10, right: 10),
+                child: Container(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                        bottomLeft: Radius.circular(15)),
+                    child: Image.network(
+                      widget.image,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

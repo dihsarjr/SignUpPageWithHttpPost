@@ -136,127 +136,133 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Scaffold(
           backgroundColor: Colors.white,
           key: _globalKey,
-          body: Padding(
-            padding:
-                const EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 20),
-                  child: Text(
-                    'Register',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: "First Name"),
-                    validator: (val) =>
-                        val.length < 2 ? 'Need Minimum 2 Characters' : null,
-                    onSaved: (val) => _firstName = val,
-                    controller: nameController,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: "Last Name"),
-                    validator: (val) =>
-                        val.length < 2 ? 'Need Minimum 2 Characters' : null,
-                    onSaved: (val) => _lastName = val,
-                    controller: lastNameController,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: "Email"),
-                    validator: (val) => !val.contains('@') && !val.contains('.')
-                        ? 'Invalid Email'
-                        : null,
-                    onSaved: (val) => _mail = val,
-                    controller: emailController,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: "Password"),
-                    validator: (val) =>
-                        val.length < 6 ? 'Password too short' : null,
-                    onSaved: (val) => _password = val,
-                    controller: passwordController,
-                    obscureText: true,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 30),
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40.0),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 10, right: 20, left: 20, bottom: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 20),
+                    child: Text(
+                      'Register',
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () {
-                      _showSnackBar('Register Successfully');
-                      _submit();
-                    },
-                    child: Card(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "First Name"),
+                      validator: (val) =>
+                          val.length < 2 ? 'Need Minimum 2 Characters' : null,
+                      onSaved: (val) => _firstName = val,
+                      controller: nameController,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "Last Name"),
+                      validator: (val) =>
+                          val.length < 2 ? 'Need Minimum 2 Characters' : null,
+                      onSaved: (val) => _lastName = val,
+                      controller: lastNameController,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "Email"),
+                      validator: (val) =>
+                          !val.contains('@') && !val.contains('.')
+                              ? 'Invalid Email'
+                              : null,
+                      onSaved: (val) => _mail = val,
+                      controller: emailController,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "Password"),
+                      validator: (val) =>
+                          val.length < 6 ? 'Password too short' : null,
+                      onSaved: (val) => _password = val,
+                      controller: passwordController,
+                      obscureText: true,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30, bottom: 30),
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40.0),
                       ),
-                      color: Colors.black87,
-                      child: Ink(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Color(0xFF3d60ff), Color(0xFF7550ff)],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
+                      onPressed: () {
+                        _showSnackBar('Register Successfully');
+                        _submit();
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                        color: Colors.black87,
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0xFF3d60ff), Color(0xFF7550ff)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(40.0)),
+                          child: Center(
+                              child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              'Register',
+                              style:
+                                  TextStyle(fontSize: 25, color: Colors.white),
                             ),
-                            borderRadius: BorderRadius.circular(40.0)),
-                        child: Center(
-                            child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Text(
-                            'Register',
-                            style: TextStyle(fontSize: 25, color: Colors.white),
-                          ),
-                        )),
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: FittedBox(
-                        child: Text(
-                          'Already have an account?',
-                          style: TextStyle(fontSize: 15),
+                          )),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: FlatButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Login()));
-                          },
-                          padding: EdgeInsets.all(0),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: FittedBox(
                           child: Text(
-                            'Login',
-                            style: TextStyle(fontSize: 20, color: Colors.blue),
-                          )),
-                    ),
-                  ],
-                ),
-              ],
+                            'Already have an account?',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: FlatButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Login()));
+                            },
+                            padding: EdgeInsets.all(0),
+                            child: Text(
+                              'Login',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.blue),
+                            )),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

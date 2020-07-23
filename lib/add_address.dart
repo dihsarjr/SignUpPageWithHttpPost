@@ -70,7 +70,7 @@ class AddAddress extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 160,
+                        width: 120,
                         child: TextFormField(
                           decoration: InputDecoration(labelText: 'City'),
                           controller: cityController,
@@ -80,7 +80,7 @@ class AddAddress extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 150,
+                        width: 100,
                         child: TextFormField(
                           decoration: InputDecoration(labelText: 'State'),
                           controller: stateController,

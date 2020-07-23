@@ -20,6 +20,7 @@ class _CartState extends State<Cart> {
   String inventoryId;
   String shopId;
   String shipTo;
+  bool check = false;
 
   @override
   void initState() {
@@ -41,6 +42,7 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     print(listData);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -62,44 +64,49 @@ class _CartState extends State<Cart> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: listData == null
+        child: check == false
             ? Center(
                 child: CircularProgressIndicator(
                 valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
               ))
-            : Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: ListView.builder(
-                        itemBuilder: (ctx, index) {
-                          cartId =
-                              listData[index]['pivot']['cart_id'].toString();
-                          inventoryId = listData[index]['pivot']['inventory_id']
-                              .toString();
-                          shipTo = shipto;
-                          shopId = listData[index]['shop_id'].toString();
-                          print(cartId);
-                          print('ship to $shipTo');
-                          print(shopId);
-                          return GridProducts(
-                            listData[index]['brand'],
-                            listData[index]['brand'],
-                            listData[index]['image'],
-                            shopId,
-                            shipTo,
-                            cartId,
-                            userId,
-                            emails,
-                            inventoryId,
-                            _validation(userId),
-                            listData[index]['title'],
-                          );
-                        },
-                        itemCount: listData.length,
+            : listData == null
+                ? Center(
+                    child: Text('empty'),
+                  )
+                : Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          child: ListView.builder(
+                            itemBuilder: (ctx, index) {
+                              cartId = listData[index]['pivot']['cart_id']
+                                  .toString();
+                              inventoryId = listData[index]['pivot']
+                                      ['inventory_id']
+                                  .toString();
+                              shipTo = shipto;
+                              shopId = listData[index]['shop_id'].toString();
+                              print(cartId);
+                              print('ship to $shipTo');
+                              print(shopId);
+                              return GridProducts(
+                                listData[index]['brand'],
+                                listData[index]['brand'],
+                                listData[index]['image'],
+                                shopId,
+                                shipTo,
+                                cartId,
+                                userId,
+                                emails,
+                                inventoryId,
+                                _validation(userId),
+                                listData[index]['title'],
+                              );
+                            },
+                            itemCount: listData.length,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
 //                  Container(
 //                      width: 300,
 //                      height: 50,
@@ -124,8 +131,8 @@ class _CartState extends State<Cart> {
 //                        child: Text("Check Out".toUpperCase(),
 //                            style: TextStyle(fontSize: 14)),
 //                      )),
-                ],
-              ),
+                    ],
+                  ),
       ),
     );
   }
@@ -140,6 +147,11 @@ class _CartState extends State<Cart> {
           'user_id': name,
         });
     print('Response status: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      setState(() {
+        check = true;
+      });
+    } else {}
     print(response.body);
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['data'].toString();
