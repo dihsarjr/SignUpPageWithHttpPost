@@ -155,60 +155,97 @@ class _DetailsPageState extends State<DetailsPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.topLeft,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: <Widget>[
-                                        IconButton(
-                                            icon: Icon(
-                                              Icons.remove_circle,
-                                              color: Colors.black26,
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 15, left: 15, right: 15),
+                                    child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.white
+                                                      .withOpacity(0.8),
+                                                  offset: Offset(-6.0, -6.0),
+                                                  blurRadius: 16.0,
+                                                ),
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  offset: Offset(6.0, 6.0),
+                                                  blurRadius: 16.0,
+                                                ),
+                                              ],
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
                                             ),
-                                            //todo on press for the remove item
+                                            child: IconButton(
+                                                icon: Icon(
+                                                  Icons.remove,
+                                                  color: Colors.black,
+                                                ),
+                                                //todo on press for the remove item
 
-                                            onPressed: () {
-                                              numberOfItem == 0
-                                                  ? print('object')
-                                                  : setState(() {
-                                                      numberOfItem--;
-                                                      print(numberOfItem);
-                                                    });
-                                            }),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.black26,
-                                            borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(10),
-                                              topLeft: Radius.circular(10),
-                                              bottomLeft: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
+                                                onPressed: () {
+                                                  numberOfItem == 0
+                                                      ? print('object')
+                                                      : setState(() {
+                                                          numberOfItem--;
+                                                          print(numberOfItem);
+                                                        });
+                                                }),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Center(
+                                              child: Text(
+                                                numberOfItem.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 30),
+                                              ),
                                             ),
                                           ),
-                                          width: 30,
-                                          height: 30,
-                                          child: Center(
-                                            child: Text(
-                                              numberOfItem.toString(),
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 30),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.white
+                                                      .withOpacity(0.8),
+                                                  offset: Offset(-6.0, -6.0),
+                                                  blurRadius: 16.0,
+                                                ),
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  offset: Offset(6.0, 6.0),
+                                                  blurRadius: 16.0,
+                                                ),
+                                              ],
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
                                             ),
+                                            child: IconButton(
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  color: Colors.black,
+                                                ),
+                                                //todo on press for the add item
+                                                onPressed: () {
+                                                  setState(() {
+                                                    numberOfItem++;
+                                                  });
+                                                }),
                                           ),
-                                        ),
-                                        IconButton(
-                                            icon: Icon(
-                                              Icons.add_circle,
-                                              color: Colors.black26,
-                                            ),
-                                            //todo on press for the add item
-                                            onPressed: () {
-                                              setState(() {
-                                                numberOfItem++;
-                                              });
-                                            }),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   Container(

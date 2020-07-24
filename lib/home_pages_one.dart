@@ -257,20 +257,40 @@ class _HomePageOneState extends State<HomePageOne> {
                                     itemBuilder: (context, index) {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Card(
-                                          elevation: 1,
-                                          shape: RoundedRectangleBorder(
+                                        child: Container(
+                                          height: 200,
+                                          width: 180,
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.white
+                                                    .withOpacity(0.8),
+                                                offset: Offset(-6.0, -6.0),
+                                                blurRadius: 16.0,
+                                              ),
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.1),
+                                                offset: Offset(6.0, 6.0),
+                                                blurRadius: 16.0,
+                                              ),
+                                            ],
+                                            color: Colors.white,
                                             borderRadius:
-                                                BorderRadius.circular(20.0),
+                                                BorderRadius.circular(15.0),
                                           ),
-                                          child: Container(
-                                            height: 200,
-                                            width: 180,
-                                            child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Center(
-                                                    child: Text('Loading'))),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              CircularProgressIndicator(
+                                                valueColor:
+                                                    new AlwaysStoppedAnimation<
+                                                        Color>(Colors.black),
+                                              )
+                                            ],
                                           ),
                                         ),
                                       );
@@ -328,19 +348,18 @@ class _HomePageOneState extends State<HomePageOne> {
                                 itemBuilder: (ctx, index) {
                                   return FlatButton(
                                     padding: EdgeInsets.all(0),
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
+                                    child: Container(
                                       color: Colors.white,
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           Center(
-                                            child: Text('Loading'),
-                                          )
+                                              child: CircularProgressIndicator(
+                                            valueColor:
+                                                new AlwaysStoppedAnimation<
+                                                    Color>(Colors.black),
+                                          ))
                                         ],
                                       ),
                                     ),
