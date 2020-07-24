@@ -61,7 +61,7 @@ class _DrawersState extends State<Drawers> {
                 bottomRight: Radius.circular(150),
                 bottomLeft: Radius.circular(150)),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.35,
+              height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: new LinearGradient(
@@ -100,91 +100,92 @@ class _DrawersState extends State<Drawers> {
             ),
           ),
 
-          Container(
-            height: MediaQuery.of(context).size.height * 0.60,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    leading: Icon(
-                      Icons.home,
-                      size: 20,
+          Expanded(
+            child: Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(
+                        Icons.home,
+                        size: 20,
+                      ),
+                      title: Text('Home'),
                     ),
-                    title: Text('Home'),
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.favorite,
-                      size: 20,
+                    ListTile(
+                      leading: Icon(
+                        Icons.favorite,
+                        size: 20,
+                      ),
+                      title: Text('Wishlist'),
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WishList()));
+                        });
+                      },
                     ),
-                    title: Text('Wishlist'),
-                    onTap: () {
-                      setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WishList()));
-                      });
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.shopping_cart,
-                      size: 20,
+                    ListTile(
+                      leading: Icon(
+                        Icons.shopping_cart,
+                        size: 20,
+                      ),
+                      title: Text('Cart'),
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Cart()));
+                        });
+                      },
                     ),
-                    title: Text('Cart'),
-                    onTap: () {
-                      setState(() {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Cart()));
-                      });
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.shopping_basket,
-                      size: 20,
+                    ListTile(
+                      leading: Icon(
+                        Icons.shopping_basket,
+                        size: 20,
+                      ),
+                      title: Text('My Orders'),
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MyOrders(widget.userIds)));
+                        });
+                      },
                     ),
-                    title: Text('My Orders'),
-                    onTap: () {
-                      setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    MyOrders(widget.userIds)));
-                      });
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.category,
-                      size: 20,
+                    ListTile(
+                      leading: Icon(
+                        Icons.category,
+                        size: 20,
+                      ),
+                      title: Text('Categories'),
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CategoryList(widget.listViewData)));
+                        });
+                      },
                     ),
-                    title: Text('Categories'),
-                    onTap: () {
-                      setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    CategoryList(widget.listViewData)));
-                      });
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.exit_to_app,
-                      size: 20,
+                    ListTile(
+                      leading: Icon(
+                        Icons.exit_to_app,
+                        size: 20,
+                      ),
+                      title: Text('Log Out'),
+                      onTap: () {
+                        removeValues();
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => Login()));
+                      },
                     ),
-                    title: Text('Log Out'),
-                    onTap: () {
-                      removeValues();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Login()));
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

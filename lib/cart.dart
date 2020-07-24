@@ -5,6 +5,8 @@ import 'package:http/http.dart';
 import 'package:registration/widgets/grid_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'address_page.dart';
+
 class Cart extends StatefulWidget {
   @override
   _CartState createState() => _CartState();
@@ -42,7 +44,7 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     print(listData);
-
+    int price = 120;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -74,7 +76,15 @@ class _CartState extends State<Cart> {
                     child: Text('empty'),
                   )
                 : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '${listData.length} Item available',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
                       Expanded(
                         child: Container(
                           child: ListView.builder(
@@ -89,24 +99,111 @@ class _CartState extends State<Cart> {
                               print(cartId);
                               print('ship to $shipTo');
                               print(shopId);
+
                               return GridProducts(
-                                listData[index]['brand'],
-                                listData[index]['brand'],
-                                listData[index]['image'],
-                                shopId,
-                                shipTo,
-                                cartId,
-                                userId,
-                                emails,
-                                inventoryId,
-                                _validation(userId),
-                                listData[index]['title'],
-                              );
+                                  listData[index]['brand'],
+                                  listData[index]['brand'],
+                                  listData[index]['image'],
+                                  shopId,
+                                  shipTo,
+                                  cartId,
+                                  userId,
+                                  emails,
+                                  inventoryId,
+                                  _validation(userId),
+                                  listData[index]['title'],
+                                  price.toString());
                             },
                             itemCount: listData.length,
                           ),
                         ),
                       ),
+                      Container(
+                        height: 150,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 5, top: 10, left: 20, right: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Total :',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    '\$${price * listData.length}',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              child: Divider(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20, bottom: 5, right: 20, top: 10),
+                              child: FlatButton(
+                                padding: EdgeInsets.all(0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40.0),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddressPage(
+                                                email: emails,
+                                                userId: userId,
+                                                shopId: shopId,
+                                                cartId: cartId,
+                                                shipTo: shipTo,
+                                              )));
+                                },
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                  ),
+                                  color: Colors.black87,
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFF3d60ff),
+                                            Color(0xFF7550ff)
+                                          ],
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(40.0)),
+                                    child: Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        'Checkout',
+                                        style: TextStyle(
+                                            fontSize: 25, color: Colors.white),
+                                      ),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
 //                  Container(
 //                      width: 300,
 //                      height: 50,

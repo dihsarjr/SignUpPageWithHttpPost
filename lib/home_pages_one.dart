@@ -115,7 +115,7 @@ class _HomePageOneState extends State<HomePageOne> {
   @override
   Widget build(BuildContext context) {
     Widget imageCarousel = Container(
-      height: 250,
+      height: MediaQuery.of(context).size.height * 0.28,
       child: Carousel(
         boxFit: BoxFit.cover,
         images: [
@@ -127,8 +127,9 @@ class _HomePageOneState extends State<HomePageOne> {
           NetworkImage(newArrivals[5].image),
         ],
         autoplay: true,
-        indicatorBgPadding: 1,
+        indicatorBgPadding: 5,
         dotColor: Colors.grey,
+        dotSize: 4,
         dotBgColor: Colors.transparent,
         dotPosition: DotPosition.bottomCenter,
       ),
@@ -216,7 +217,7 @@ class _HomePageOneState extends State<HomePageOne> {
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 5, left: 20, bottom: 5),
+                                      top: 8, left: 20, bottom: 8),
                                   child: Text(
                                     'Trending Now',
                                     style: TextStyle(
@@ -226,7 +227,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.only(top: 5, right: 20),
+                                      const EdgeInsets.only(top: 8, right: 20),
                                   child: FlatButton(
                                     padding: EdgeInsets.all(0),
                                     child: Text(
@@ -303,7 +304,7 @@ class _HomePageOneState extends State<HomePageOne> {
                         padding: const EdgeInsets.only(
                           left: 20,
                           top: 15,
-                          bottom: 5,
+                          bottom: 10,
                         ),
                         child: Text(
                           'Weekly popular',

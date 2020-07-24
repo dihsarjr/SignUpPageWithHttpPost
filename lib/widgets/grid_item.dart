@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:registration/address_page.dart';
 
 class GridProducts extends StatefulWidget {
   String id;
@@ -17,6 +16,7 @@ class GridProducts extends StatefulWidget {
   String shopId;
   String shipTo;
   String titl;
+  String price;
   Future<dynamic> validation;
 
   GridProducts(
@@ -30,7 +30,8 @@ class GridProducts extends StatefulWidget {
       this.emails,
       this.inventoryId,
       this.validation,
-      this.titl);
+      this.titl,
+      this.price);
 
   @override
   _GridProductsState createState() => _GridProductsState();
@@ -46,8 +47,6 @@ class _GridProductsState extends State<GridProducts> {
   String description;
 
   String idOne;
-
-  String price = '\$${100}';
 
   String inventory;
 
@@ -85,16 +84,16 @@ class _GridProductsState extends State<GridProducts> {
             Expanded(
               child: FlatButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddressPage(
-                                email: widget.emails,
-                                userId: widget.userId,
-                                shopId: widget.shopId,
-                                cartId: widget.cartId,
-                                shipTo: widget.shipTo,
-                              )));
+//                  Navigator.push(
+//                      context,
+//                      MaterialPageRoute(
+//                          builder: (context) => AddressPage(
+//                                email: widget.emails,
+//                                userId: widget.userId,
+//                                shopId: widget.shopId,
+//                                cartId: widget.cartId,
+//                                shipTo: widget.shipTo,
+//                              )));
                 },
                 child: Container(
                   height: 120,
@@ -117,7 +116,7 @@ class _GridProductsState extends State<GridProducts> {
                         ],
                       ),
                       Text(
-                        price,
+                        '\$ : ${widget.price}',
                         style: TextStyle(fontSize: 20),
                       ),
                     ],
