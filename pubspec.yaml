@@ -34,6 +34,7 @@ dependencies:
   carousel_pro: ^1.0.0
   flutter_offline: ^0.2.1
   connectivity: ^0.4.8+2
+  progress_dialog: ^1.2.4
 
 dev_dependencies:
   flutter_test:

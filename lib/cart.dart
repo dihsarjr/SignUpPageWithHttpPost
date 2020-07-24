@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:registration/widgets/grid_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,10 +42,17 @@ class _CartState extends State<Cart> {
     });
   }
 
+  ProgressDialog progressDialog;
   @override
   Widget build(BuildContext context) {
+    progressDialog = ProgressDialog(
+      context,
+      type: ProgressDialogType.Normal,
+    );
+
     print(listData);
     int price = 120;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -99,20 +107,30 @@ class _CartState extends State<Cart> {
                               print(cartId);
                               print('ship to $shipTo');
                               print(shopId);
+                              void showProgress() {
+                                progressDialog.show();
+                              }
+
+                              void hideProgress() {
+                                progressDialog.hide();
+                              }
 
                               return GridProducts(
-                                  listData[index]['brand'],
-                                  listData[index]['brand'],
-                                  listData[index]['image'],
-                                  shopId,
-                                  shipTo,
-                                  cartId,
-                                  userId,
-                                  emails,
-                                  inventoryId,
-                                  _validation(userId),
-                                  listData[index]['title'],
-                                  price.toString());
+                                listData[index]['brand'],
+                                listData[index]['brand'],
+                                listData[index]['image'],
+                                shopId,
+                                shipTo,
+                                cartId,
+                                userId,
+                                emails,
+                                inventoryId,
+                                _validation(userId),
+                                listData[index]['title'],
+                                price.toString(),
+                                showProgress,
+                                hideProgress,
+                              );
                             },
                             itemCount: listData.length,
                           ),
@@ -250,15 +268,24 @@ class _CartState extends State<Cart> {
       });
     } else {}
     print(response.body);
+
     Map<String, dynamic> responseJson = jsonDecode(response.body);
-    String responses = responseJson['data'].toString();
-    setState(() {
-      listData = responseJson['data'][0]['items'];
-      shipto = responseJson['data'][0]['ship_to'].toString();
-      print(responseJson['data'][0]['ship_to']);
+    if (response.body.toString() == '{"data":[]}') {
+      print('empty');
+      setState(() {
+        listData = null;
+      });
+    } else {
+      setState(() {
+        listData = responseJson['data'][0]['items'];
+        shipto = responseJson['data'][0]['ship_to'].toString();
+        print(responseJson['data'][0]['ship_to']);
 //      print(responseJson['data'][1]['items'][0]['pivot']['cart_id']);
 //      print(responseJson['data'][1]['ship_to']);
-    });
+      });
+    }
+    String responses = responseJson['data'].toString();
+
 //
 //    print(responses);
 //    print(

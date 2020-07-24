@@ -18,20 +18,25 @@ class GridProducts extends StatefulWidget {
   String titl;
   String price;
   Future<dynamic> validation;
+  Function shoeProgress;
+  Function hideProgress;
 
   GridProducts(
-      this.id,
-      this.title,
-      this.image,
-      this.shopId,
-      this.shipTo,
-      this.cartId,
-      this.userId,
-      this.emails,
-      this.inventoryId,
-      this.validation,
-      this.titl,
-      this.price);
+    this.id,
+    this.title,
+    this.image,
+    this.shopId,
+    this.shipTo,
+    this.cartId,
+    this.userId,
+    this.emails,
+    this.inventoryId,
+    this.validation,
+    this.titl,
+    this.price,
+    this.shoeProgress,
+    this.hideProgress,
+  );
 
   @override
   _GridProductsState createState() => _GridProductsState();
@@ -138,6 +143,7 @@ class _GridProductsState extends State<GridProducts> {
                       onPressed: () {
                         setState(() {
                           _validation1(widget.cartId, widget.inventoryId);
+                          widget.shoeProgress();
                         });
                       }),
                   Row(
@@ -175,6 +181,9 @@ class _GridProductsState extends State<GridProducts> {
     print(response);
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['message'].toString();
+    if (response != null) {
+      widget.hideProgress();
+    } else {}
     print(response.body);
     print(responseJson["data"][1]['id']);
   }
