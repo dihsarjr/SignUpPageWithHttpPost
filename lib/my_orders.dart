@@ -7,6 +7,8 @@ class MyOrders extends StatefulWidget {
   List data;
   String userIds;
   MyOrders(this.userIds);
+
+  bool page = false;
   @override
   _MyOrdersState createState() => _MyOrdersState();
 }
@@ -34,42 +36,46 @@ class _MyOrdersState extends State<MyOrders> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: widget.data == null
+        child: widget.page == false
             ? Center(
                 child: Container(
-                  child: Text('Empty'),
+                  child: CircularProgressIndicator(),
                 ),
               )
-            : GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 1 / 1),
-                itemBuilder: (context, index) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: GridTile(
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Image.network(
-                          widget.data[index]['image'],
-                          fit: BoxFit.cover,
+            : widget.data == null
+                ? Center(
+                    child: Text('Empty'),
+                  )
+                : GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 1 / 1),
+                    itemBuilder: (context, index) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: GridTile(
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Image.network(
+                              widget.data[index]['image'],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          footer: GridTileBar(
+                            title: Text(
+                              widget.data[index]['title'],
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            ),
+                            backgroundColor: Colors.black54,
+                          ),
                         ),
-                      ),
-                      footer: GridTileBar(
-                        title: Text(
-                          widget.data[index]['title'],
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                        ),
-                        backgroundColor: Colors.black54,
-                      ),
-                    ),
-                  );
-                },
-                itemCount: widget.data.length,
-              ),
+                      );
+                    },
+                    itemCount: widget.data.length,
+                  ),
       ),
     );
   }
@@ -89,9 +95,10 @@ class _MyOrdersState extends State<MyOrders> {
 
     print(responseJson['data'][0]['inventories']);
     setState(() {
+      widget.page = true;
       widget.data = responseJson['data'][0]['inventories'];
     });
-
-    print(responseJson['data'][0]['inventories'][1]);
+//
+//    print(responseJson['data'][0]['inventories'][1]);
   }
 }

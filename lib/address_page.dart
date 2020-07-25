@@ -71,7 +71,7 @@ class _AddressPageState extends State<AddressPage> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => PaymentPage(
@@ -85,7 +85,6 @@ class _AddressPageState extends State<AddressPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: Container(
-                        height: 200,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -103,45 +102,33 @@ class _AddressPageState extends State<AddressPage> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(25.0),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              FittedBox(
-                                child: Text(
-                                  'Name : ${widget.name}',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: FittedBox(
+                                  child: Text(
+                                    'Name : ${widget.name}',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
                                 ),
                               ),
-                              FittedBox(
-                                child: Text(
-                                  'House name : ${widget.house}',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              FittedBox(
-                                child: Text(
-                                  'City : ${widget.city}',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              FittedBox(
-                                child: Text(
-                                  'State : ${widget.state}',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: FittedBox(
+                                  child: Text(
+                                    'Address : ${widget.house}, ${widget.city},  ${widget.state}',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white54),
+                                  ),
                                 ),
                               ),
                             ],
@@ -173,7 +160,6 @@ class _AddressPageState extends State<AddressPage> {
         },
         child: Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

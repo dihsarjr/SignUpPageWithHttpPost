@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:registration/my_orders.dart';
 
 class PaymentPage extends StatefulWidget {
   String cartId;
@@ -56,11 +57,30 @@ class _PaymentPageState extends State<PaymentPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 25),
+                      child: Container(
+                        child: FittedBox(
+                          child: Text(
+                            'Select payment method',
+                            style: TextStyle(
+                                fontSize: 40, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 25, left: 25, bottom: 10),
+                      child: Divider(
+                        color: Color(0xFF7550ff),
+                      ),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Center(
                         child: Container(
                           height: 45,
-                          width: 300,
+                          width: MediaQuery.of(context).size.width * .70,
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
@@ -69,11 +89,14 @@ class _PaymentPageState extends State<PaymentPage> {
                             color: Color(0xFF7550ff),
                             textColor: Colors.white,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Icon(Icons.credit_card),
+                                ),
+                                SizedBox(
+                                  width: 20,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -93,7 +116,43 @@ class _PaymentPageState extends State<PaymentPage> {
                       child: Center(
                         child: Container(
                           height: 45,
-                          width: 300,
+                          width: MediaQuery.of(context).size.width * .70,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            onPressed: () {},
+                            color: Color(0xFF7550ff),
+                            textColor: Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(Icons.payment),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Bank transfer',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Container(
+                          height: 45,
+                          width: MediaQuery.of(context).size.width * .70,
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
@@ -104,11 +163,14 @@ class _PaymentPageState extends State<PaymentPage> {
                             color: Color(0xFF7550ff),
                             textColor: Colors.white,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Icon(Icons.monetization_on),
+                                ),
+                                SizedBox(
+                                  width: 20,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -159,6 +221,8 @@ class _PaymentPageState extends State<PaymentPage> {
       print('200');
       setState(() {
         status = true;
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (c) => MyOrders(widget.userId)));
       });
     } else {}
   }

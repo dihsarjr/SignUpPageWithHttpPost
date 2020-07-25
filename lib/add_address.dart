@@ -45,6 +45,7 @@ class AddAddress extends StatelessWidget {
                 child: TextFormField(
                   decoration: InputDecoration(labelText: 'Pincode'),
                   controller: pinCodeController,
+                  keyboardType: TextInputType.number,
                 ),
               ),
               Padding(
@@ -70,7 +71,7 @@ class AddAddress extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 120,
+                        width: MediaQuery.of(context).size.width * 0.50,
                         child: TextFormField(
                           decoration: InputDecoration(labelText: 'City'),
                           controller: cityController,
@@ -80,7 +81,7 @@ class AddAddress extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 100,
+                        width: MediaQuery.of(context).size.width * 0.30,
                         child: TextFormField(
                           decoration: InputDecoration(labelText: 'State'),
                           controller: stateController,
@@ -109,6 +110,7 @@ class AddAddress extends StatelessWidget {
                 child: TextFormField(
                   decoration: InputDecoration(labelText: 'Mobile'),
                   controller: mobileController,
+                  keyboardType: TextInputType.number,
                 ),
               ),
               Padding(
