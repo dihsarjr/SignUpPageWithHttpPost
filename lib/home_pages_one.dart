@@ -24,20 +24,32 @@ class _HomePageOneState extends State<HomePageOne> {
   List listViewDataWeekly;
   final List<NewArrivalsModels> newArrivals = [
     NewArrivalsModels(
-      'https://images.unsplash.com/photo-1591375372509-68d11e1390df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/flagged/photo-1550713090-5a093719add2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
     ),
     NewArrivalsModels(
-        'https://images.unsplash.com/photo-1542406915-20eac16493d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+        'https://images.unsplash.com/photo-1535486607281-4fc90307a8bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
     NewArrivalsModels(
-        'https://images.unsplash.com/photo-1502185635613-0a5b2e78efea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+        'https://images.unsplash.com/flagged/photo-1571131336787-18df66582a3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
     NewArrivalsModels(
-        'https://images.unsplash.com/photo-1546304696-bc6099d9e346?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+        'https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
     NewArrivalsModels(
-        'https://images.unsplash.com/photo-1585565804112-f201f68c48b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+        'https://images.unsplash.com/photo-1434494817513-cc112a976e36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
     NewArrivalsModels(
-        'https://images.unsplash.com/photo-1556740714-a8395b3bf30f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+        'https://images.unsplash.com/photo-1541688672027-2c8e9a90133b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
     NewArrivalsModels(
-      'https://images.unsplash.com/photo-1591375372509-68d11e1390df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+    ),
+    NewArrivalsModels(
+      'https://images.unsplash.com/photo-1511946105735-2bf0cb256942?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+    ),
+    NewArrivalsModels(
+      'https://images.unsplash.com/photo-1570554634503-9d0f79c97dd5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+    ),
+    NewArrivalsModels(
+      'https://images.unsplash.com/photo-1530745342582-0795f23ec976?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+    ),
+    NewArrivalsModels(
+      'https://images.unsplash.com/photo-1592842124919-28110b24c8fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
     ),
   ];
 
@@ -115,7 +127,7 @@ class _HomePageOneState extends State<HomePageOne> {
   @override
   Widget build(BuildContext context) {
     Widget imageCarousel = Container(
-      height: MediaQuery.of(context).size.height * 0.28,
+      height: MediaQuery.of(context).size.height * 0.25,
       child: Carousel(
         boxFit: BoxFit.cover,
         images: [
@@ -125,6 +137,25 @@ class _HomePageOneState extends State<HomePageOne> {
           NetworkImage(newArrivals[3].image),
           NetworkImage(newArrivals[4].image),
           NetworkImage(newArrivals[5].image),
+        ],
+        autoplay: true,
+        indicatorBgPadding: 5,
+        dotColor: Colors.grey,
+        dotSize: 4,
+        dotBgColor: Colors.transparent,
+        dotPosition: DotPosition.bottomCenter,
+      ),
+    );
+    Widget imageCarousel1 = Container(
+      height: MediaQuery.of(context).size.height * 0.10,
+      child: Carousel(
+        boxFit: BoxFit.cover,
+        images: [
+          NetworkImage(newArrivals[6].image),
+          NetworkImage(newArrivals[7].image),
+          NetworkImage(newArrivals[8].image),
+          NetworkImage(newArrivals[9].image),
+          NetworkImage(newArrivals[10].image),
         ],
         autoplay: true,
         indicatorBgPadding: 5,
@@ -233,7 +264,7 @@ class _HomePageOneState extends State<HomePageOne> {
                                     child: Text(
                                       'View All',
                                       style: TextStyle(
-                                          fontSize: 20, color: Colors.black54),
+                                          fontSize: 12, color: Colors.black54),
                                     ),
                                     onPressed: () {
                                       Navigator.push(
@@ -249,7 +280,7 @@ class _HomePageOneState extends State<HomePageOne> {
                             ),
                           ),
                           Container(
-                            height: 210,
+                            height: 180,
                             color: Colors.white,
                             child: listViewData == null
                                 ? ListView.builder(
@@ -258,8 +289,8 @@ class _HomePageOneState extends State<HomePageOne> {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
-                                          height: 200,
-                                          width: 180,
+                                          height: 170,
+                                          width: 170,
                                           decoration: BoxDecoration(
                                             boxShadow: [
                                               BoxShadow(
@@ -319,6 +350,30 @@ class _HomePageOneState extends State<HomePageOne> {
                                   ),
                           ),
                         ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.white.withOpacity(0.8),
+                                  offset: Offset(-6.0, -6.0),
+                                  blurRadius: 16.0,
+                                ),
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  offset: Offset(6.0, 6.0),
+                                  blurRadius: 16.0,
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: imageCarousel1,
+                            )),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -400,8 +455,8 @@ class _HomePageOneState extends State<HomePageOne> {
                                   String productId = listViewDataWeekly[index]
                                           ['product_id']
                                       .toString();
-                                  String slug =
-                                      listViewDataWeekly[index]['inventory_id'];
+                                  String slug = listViewDataWeekly[index]['id']
+                                      .toString();
                                   String stockQuantity;
                                   return FlatButton(
                                     padding: EdgeInsets.all(0),

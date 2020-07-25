@@ -24,12 +24,12 @@ class TrendingNow extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DetailsPage(title, image, price, brand,
-                    description, condition, idOne, productId, inventory)));
+                    description, condition, idOne, productId, idOne)));
       },
       padding: EdgeInsets.all(0),
       child: Container(
-        height: 200,
-        width: 180,
+        height: 170,
+        width: 170,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(

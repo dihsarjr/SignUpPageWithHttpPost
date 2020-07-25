@@ -66,9 +66,18 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
+  _showSnackBar(String text) {
+    return _globalKey.currentState.showSnackBar(SnackBar(
+      content: Text(text),
+      duration: Duration(seconds: 3),
+    ));
+  }
+
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _globalKey,
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
@@ -268,11 +277,20 @@ class _DetailsPageState extends State<DetailsPage> {
                                   Container(
                                     margin: EdgeInsets.all(5),
                                     child: Text(
-                                      '${widget.price}',
+                                      '\$: ${widget.price}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
+                                          color: Colors.black,
                                           fontSize: 20),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Container(
+                                      child: Text(
+                                        'In Stock',
+                                        style: TextStyle(color: Colors.blue),
+                                      ),
                                     ),
                                   ),
                                   Center(
@@ -286,19 +304,44 @@ class _DetailsPageState extends State<DetailsPage> {
                                   Container(
                                       margin:
                                           EdgeInsets.only(top: 4, bottom: 5),
-                                      child: Text(
-                                        'Condition: ${widget.condition}',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
-                                      )),
+                                      child: widget.condition == null
+                                          ? Text(
+                                              'Condition: New',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            )
+                                          : Text(
+                                              'Condition: ${widget.condition}',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            )),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 10, bottom: 10),
+                                    child: Text(
+                                      'About this item',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 5),
-                                    child: Text(
-                                      'Description:\n'
-                                      '\n${widget.description}',
-                                      style: TextStyle(color: Colors.black38),
-                                    ),
+                                    child: widget.description == null
+                                        ? Text(
+                                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised  the release of Letraset sheets containing Lorem Ipsum passages and more recently  desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum'
+                                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum'
+                                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
+                                            style: TextStyle(
+                                                color: Colors.black38),
+                                          )
+                                        : Text(
+                                            'Description:\n'
+                                            '\n${widget.description}',
+                                            style: TextStyle(
+                                                color: Colors.black38),
+                                          ),
                                   ),
                                 ],
                               ),
@@ -368,7 +411,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                         end: Alignment.centerRight,
                                       ),
                                       borderRadius:
-                                          BorderRadius.circular(40.0)),
+                                          BorderRadius.circular(10.0)),
                                   child: Center(
                                     child: Padding(
                                       padding: const EdgeInsets.only(
@@ -380,12 +423,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                           print('123');
                                           setState(() {
                                             widget.button = false;
+                                            _showSnackBar('Added');
                                           });
                                         },
                                         child: Text(
-                                          widget.button == true
-                                              ? 'Add to Cart'
-                                              : 'Added',
+                                          'Add to Cart',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15,
@@ -466,7 +508,7 @@ class _DetailsPageState extends State<DetailsPage> {
           'shippingRateId': '',
           'quantity': '1',
           'inventory_id': widget.inventory,
-          'user_id': '31',
+          'user_id': userId,
         });
     print('Response status: ${response.statusCode}');
 
@@ -474,6 +516,13 @@ class _DetailsPageState extends State<DetailsPage> {
 
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     String responses = responseJson['message'].toString();
+
+    if (responses == 'item added to cart.') {
+      print('Dome');
+    } else {
+      print('no no no');
+    }
+
     print(responses);
   }
 

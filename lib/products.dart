@@ -80,8 +80,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     String conditionNote;
                     String description =
                         productsList['data'][index]['description'];
-                    String price =
-                        'price :${productsList['data'][index]['sale_price']}';
+                    String price = productsList['data'][index]['sale_price'];
                     String slug = productsList['data'][index]['inventory_id'];
                     String stockQuantity;
                     return FlatButton(

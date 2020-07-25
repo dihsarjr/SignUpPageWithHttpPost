@@ -6,6 +6,7 @@ class TrendingNowPage extends StatelessWidget {
   TrendingNowPage(this.listViewData);
   @override
   Widget build(BuildContext context) {
+    print(listViewData);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,8 +25,8 @@ class TrendingNowPage extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: (1 / 1),
-            mainAxisSpacing: 1,
-            crossAxisSpacing: 1,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
           ),
           itemBuilder: (context, index) {
             return TrendingNow(
