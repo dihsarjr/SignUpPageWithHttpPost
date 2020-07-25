@@ -84,11 +84,19 @@ class _DrawersState extends State<Drawers> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        widget.nameUser,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                      ),
+                      child: widget.nameUser == ''
+                          ? Text(
+                              'NAME',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            )
+                          : Text(
+                              widget.nameUser,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
                     ),
                     Text(
                       widget.emailUser,

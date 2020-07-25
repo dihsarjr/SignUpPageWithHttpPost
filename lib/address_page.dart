@@ -66,7 +66,7 @@ class _AddressPageState extends State<AddressPage> {
               child: Text('Add Your Address'),
             )
           : Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12.0),
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return GestureDetector(
@@ -86,52 +86,65 @@ class _AddressPageState extends State<AddressPage> {
                       padding: const EdgeInsets.all(3.0),
                       child: Container(
                         height: 200,
-                        child: Card(
-                          color: Color(0xFF7550ff),
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                FittedBox(
-                                  child: Text(
-                                    'Name : ${widget.name}',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                FittedBox(
-                                  child: Text(
-                                    'House name : ${widget.house}',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                FittedBox(
-                                  child: Text(
-                                    'City : ${widget.city}',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                FittedBox(
-                                  child: Text(
-                                    'State : ${widget.state}',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ],
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.8),
+                              offset: Offset(-6.0, -6.0),
+                              blurRadius: 16.0,
                             ),
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(6.0, 6.0),
+                              blurRadius: 16.0,
+                            ),
+                          ],
+                          color: Color(0xFF7550ff),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              FittedBox(
+                                child: Text(
+                                  'Name : ${widget.name}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              FittedBox(
+                                child: Text(
+                                  'House name : ${widget.house}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              FittedBox(
+                                child: Text(
+                                  'City : ${widget.city}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              FittedBox(
+                                child: Text(
+                                  'State : ${widget.state}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
