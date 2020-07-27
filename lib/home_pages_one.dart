@@ -124,6 +124,7 @@ class _HomePageOneState extends State<HomePageOne> {
     });
   }
 
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Widget imageCarousel = Container(
@@ -167,6 +168,7 @@ class _HomePageOneState extends State<HomePageOne> {
     );
     return SafeArea(
         child: Scaffold(
+            key: scaffoldKey,
             backgroundColor: Colors.white,
             appBar: AppBar(
               elevation: 0,

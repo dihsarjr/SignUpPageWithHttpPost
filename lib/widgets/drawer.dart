@@ -119,6 +119,9 @@ class _DrawersState extends State<Drawers> {
                         size: 20,
                       ),
                       title: Text('Home'),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                     ),
                     ListTile(
                       leading: Icon(
@@ -127,6 +130,7 @@ class _DrawersState extends State<Drawers> {
                       ),
                       title: Text('Wishlist'),
                       onTap: () {
+                        Navigator.pop(context);
                         setState(() {
                           Navigator.push(
                               context,
@@ -142,6 +146,7 @@ class _DrawersState extends State<Drawers> {
                       ),
                       title: Text('Cart'),
                       onTap: () {
+                        Navigator.pop(context);
                         setState(() {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Cart()));
@@ -155,6 +160,7 @@ class _DrawersState extends State<Drawers> {
                       ),
                       title: Text('My Orders'),
                       onTap: () {
+                        Navigator.pop(context);
                         setState(() {
                           Navigator.push(
                               context,
@@ -171,6 +177,7 @@ class _DrawersState extends State<Drawers> {
                       ),
                       title: Text('Categories'),
                       onTap: () {
+                        Navigator.pop(context);
                         setState(() {
                           Navigator.push(
                               context,
