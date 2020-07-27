@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:registration/cart.dart';
 import 'package:registration/categorys.dart';
 import 'package:registration/my_orders.dart';
+import 'package:registration/support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../login.dart';
@@ -184,6 +185,22 @@ class _DrawersState extends State<Drawers> {
                               MaterialPageRoute(
                                   builder: (context) =>
                                       CategoryList(widget.listViewData)));
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.contact_mail,
+                        size: 20,
+                      ),
+                      title: Text('Contact Us'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SupportScreen()));
                         });
                       },
                     ),

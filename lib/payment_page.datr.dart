@@ -63,7 +63,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             'Select payment method',
                             style: TextStyle(
-                                fontSize: 40, fontWeight: FontWeight.bold),
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
