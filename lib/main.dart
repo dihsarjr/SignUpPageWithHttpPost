@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:registration/home_pages_one.dart';
 import 'package:registration/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,12 +23,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+//  Permission permission;
   String _emails = '';
   String _passs = '';
   @override
   void initState() {
     super.initState();
     _loadCounter();
+//    print(permission.toString());
+    checkLocation();
+  }
+//CheckLocation Permission function
+  void checkLocation() async {
+    var status = await Permission.location.status;
+    if (!status.isGranted) {
+      Permission.location.request();
+    } else {}
   }
 
   _loadCounter() async {
