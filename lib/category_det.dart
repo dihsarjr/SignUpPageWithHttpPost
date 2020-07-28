@@ -4,12 +4,13 @@ import 'package:registration/products.dart';
 
 class CategoryDet extends StatelessWidget {
   List<dynamic> listViews;
+
   String titles;
 
   CategoryDet(this.listViews, this.titles);
   @override
   Widget build(BuildContext context) {
-    print(listViews[0]['id']);
+    print(listViews);
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

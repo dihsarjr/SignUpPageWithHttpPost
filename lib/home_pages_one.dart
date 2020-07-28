@@ -117,6 +117,7 @@ class _HomePageOneState extends State<HomePageOne> {
       v != null
           ? setState(() {
               listViewDataA = v;
+              print(listViewDataA);
             })
           : setState(() {
               listViewDataA = null;
@@ -344,7 +345,8 @@ class _HomePageOneState extends State<HomePageOne> {
                                               listViewData[index]['id']
                                                   .toString(),
                                               listViewData[index]
-                                                  ['inventory_id'],
+                                                      ['inventory_id']
+                                                  .toString(),
                                             )),
                                       );
                                     },
@@ -603,13 +605,13 @@ class _HomePageOneState extends State<HomePageOne> {
     print(url);
     var res = await http
         .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
-//    print(res.body);
+    print(res.body);
     print(res.statusCode.toString());
     if (res.statusCode == 200) {
       var data = json.decode(res.body);
       categoryList = data["data"] as List;
 
-      print(categoryList[0]["categorygroup"]["category_sub_group"][0]["name"]);
+//      print(categoryList[0]["categorygroup"]["category_sub_group"][0]["name"]);
 
 //      print(res.body);
       //categoryList = rest.map<CategoryHead>((json) => CategoryHead.fromJson(json)).toList();

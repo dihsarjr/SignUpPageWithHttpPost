@@ -23,16 +23,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-//  Permission permission;
   String _emails = '';
   String _passs = '';
   @override
   void initState() {
     super.initState();
     _loadCounter();
-//    print(permission.toString());
     checkLocation();
   }
+
 //CheckLocation Permission function
   void checkLocation() async {
     var status = await Permission.location.status;

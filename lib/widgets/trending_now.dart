@@ -84,7 +84,7 @@ class TrendingNow extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10, bottom: 15, top: 6),
                   child: FittedBox(
                     child: Text(
-                      '\$ : ${price}',
+                      '\$ : $price',
                       style: TextStyle(
                           color: Colors.black54,
                           fontWeight: FontWeight.bold,
